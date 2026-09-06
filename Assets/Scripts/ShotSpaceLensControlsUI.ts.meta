@@ -1,0 +1,104 @@
+- !<AssetImportMetadata/b36b1b9d-009c-4442-963b-2299ec4d52e9>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> ab9dd7a2-8beb-4659-90dd-dcba6c0d0428
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> ab9dd7a2-8beb-4659-90dd-dcba6c0d0428
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> c716a693-d95a-40d6-aa7d-774d28ab8678
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/c716a693-d95a-40d6-aa7d-774d28ab8678>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: e72485c2-e18d-48cc-87a0-eecd3227525f
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    accentColor: false
+    buttonGapCm: false
+    buttonHeightCm: false
+    buttonWidthCm: false
+    controlPanelHeightCm: false
+    controlsCenterXCm: false
+    controlsCenterYCm: false
+    fontSizeScale: false
+    lensController: false
+    panelPaddingCm: false
+    panelWidthCm: false
+    primaryTextColor: false
+    secondaryTextColor: false
+    statusCenterXCm: false
+    statusCenterYCm: false
+    statusPanelHeightCm: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - lensController: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      panelWidthCm: !<float> 29.000000
+      statusPanelHeightCm: !<float> 6.000000
+      controlPanelHeightCm: 5.200000
+      statusCenterXCm: !<float> 12.000000
+      statusCenterYCm: !<float> 7.000000
+      controlsCenterXCm: !<float> 0.000000
+      controlsCenterYCm: !<float> -14.000000
+      buttonWidthCm: !<float> 6.000000
+      buttonHeightCm: !<float> 3.000000
+      buttonGapCm: 0.800000
+      panelPaddingCm: !<float> 1.000000
+      fontSizeScale: !<float> 1.000000
+      primaryTextColor: !<Vec4> {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      secondaryTextColor: !<Vec4> {x: 1.000000, y: 1.000000, z: 1.000000, w: 0.700000}
+      accentColor: !<Vec4> {x: 0.350000, y: 0.800000, z: 1.000000, w: 1.000000}
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">ShotSpace Lens Controls</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"References"}'
+    - '// @input AssignableType_1 lensController {"hint":"Authored LensController component that owns ShotCamera focal-length presets."}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Panel Placement"}'
+    - '// @input float panelWidthCm = 29 {"hint":"Width shared by the status and control backplates, in centimeters.", "widget":"slider", "min":26, "max":36, "step":0.2}'
+    - '// @input float statusPanelHeightCm = 6 {"hint":"Height of the status/header backplate above PreviewScreen, in centimeters.", "widget":"slider", "min":4, "max":9, "step":0.2}'
+    - '// @input float controlPanelHeightCm = 5.2 {"hint":"Height of the compact focal-length control backplate, in centimeters.", "widget":"slider", "min":4, "max":8, "step":0.2}'
+    - '// @input float statusCenterXCm = 5 {"hint":"Local X center of the status group so it remains aligned above PreviewScreen.", "widget":"slider", "min":-15, "max":15, "step":0.5}'
+    - '// @input float statusCenterYCm = 7 {"hint":"Local Y center of the status/header group above the 16x9 PreviewScreen.", "widget":"slider", "min":4, "max":11, "step":0.2}'
+    - '// @input float controlsCenterXCm {"hint":"Local X center of the compact button panel.", "widget":"slider", "min":-15, "max":15, "step":0.5}'
+    - '// @input float controlsCenterYCm = -14 {"hint":"Local Y center of the button panel directly below PreviewPanel.", "widget":"slider", "min":-20, "max":-10, "step":0.2}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Control Spacing"}'
+    - '// @input float buttonWidthCm = 6 {"hint":"Width of each native UIKit focal-length button, in centimeters.", "widget":"slider", "min":5.5, "max":7, "step":0.1}'
+    - '// @input float buttonHeightCm = 3 {"hint":"Height of each native UIKit focal-length button, in centimeters.", "widget":"slider", "min":2.4, "max":4, "step":0.1}'
+    - '// @input float buttonGapCm = 0.8 {"hint":"Horizontal gap between neighboring focal-length buttons, in centimeters.", "widget":"slider", "min":0.4, "max":1.5, "step":0.1}'
+    - '// @input float panelPaddingCm = 1 {"hint":"Inset between panel edges and their content, in centimeters.", "widget":"slider", "min":0.5, "max":2, "step":0.1}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Typography and Color"}'
+    - '// @input float fontSizeScale = 1 {"hint":"Global multiplier for the Specs type-scale roles used by this panel.", "widget":"slider", "min":0.8, "max":1.2, "step":0.01}'
+    - '// @input vec4 primaryTextColor = "{1,1,1,1}" {"hint":"Primary color for current-lens text and unselected button labels.", "widget":"color"}'
+    - '// @input vec4 secondaryTextColor = "{1,1,1,0.7}" {"hint":"Secondary color for the educational focal-length description.", "widget":"color"}'
+    - '// @input vec4 accentColor = "{0.35,0.8,1,1}" {"hint":"Accent color applied to the selected focal-length button label.", "widget":"color"}'
+    - '// @ui {"widget":"group_end"}'

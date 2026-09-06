@@ -1,0 +1,46 @@
+- !<AssetImportMetadata/33f13fe9-3a77-4be8-9f00-e640b3bbd602>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> c711881e-e917-46d5-a57a-1a2959ba1da0
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> c711881e-e917-46d5-a57a-1a2959ba1da0
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> d94f1429-7bdd-4a4a-81cc-1ea6c0eac677
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/d94f1429-7bdd-4a4a-81cc-1ea6c0eac677>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 178532c0-b467-4490-8a41-fc8401c3bac8
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    shotCamera: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - shotCamera: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @input SceneObject shotCamera {"hint":"Authored ShotCamera SceneObject whose Camera field of view is controlled."}'

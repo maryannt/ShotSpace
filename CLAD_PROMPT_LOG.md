@@ -155,6 +155,213 @@ Changes requested:
 
 Correction result: The version-pinned Editor API was used to target the exact layers assigned to masks 2, 4, and 8 and rename them to `PrevisSet`, `MainExperience`, and `Interface`. Lens Studio 5.23.2 reverted all three names during project save. A before/after assignment fingerprint confirmed that all 153 scene-object and render-mask assignments were preserved. Persistent naming remains a manual Lens Studio UI step.
 
+## Prompt 2 — Focal-Length Selection
+
+Date: 2026-09-06
+
+Prompt:
+
+> Using the existing ShotSpace SPECS project, extend the working
+> ShotCamera-to-PreviewScreen foundation with focal-length selection.
+>
+> Preserve the existing:
+>
+> - ShotSpaceRoot hierarchy
+> - DioramaRoot
+> - ShotCameraRig
+> - ShotCamera
+> - ShotPreviewRT
+> - PreviewPanel and PreviewScreen
+> - Existing render layers and materials
+>
+> Do not rebuild, reset, rename, or duplicate the working foundation.
+>
+> PHASE GOAL
+>
+> Create four world-space focal-length buttons that modify only
+> ShotCamera's field of view and immediately display the result inside
+> the existing spatial PreviewScreen.
+>
+> The four lens presets are:
+>
+> - 24mm
+> - 35mm
+> - 50mm
+> - 85mm
+>
+> CAMERA CONFIGURATION
+>
+> Use /lens-api and the script-author agent to create a TypeScript
+> component named LensController.ts inside an appropriate Scripts folder.
+>
+> Confirm that ShotCamera:
+>
+> - Uses perspective projection
+> - Uses a 16:9 aspect ratio
+> - Renders into ShotPreviewRT
+> - Renders only the PrevisSet layer
+> - Does not use physical device camera properties
+> - Allows its FOV to be controlled at runtime
+>
+> Lens Studio's Camera.fov value must be assigned in radians.
+>
+> Use a simulated 36mm-wide full-frame sensor cropped to 16:9 and these
+> vertical FOV values:
+>
+> 24mm:
+> - Vertical FOV: approximately 45.7 degrees
+> - FOV radians: 0.798
+>
+> 35mm:
+> - Vertical FOV: approximately 32.3 degrees
+> - FOV radians: 0.563
+>
+> 50mm:
+> - Vertical FOV: approximately 22.9 degrees
+> - FOV radians: 0.400
+>
+> 85mm:
+> - Vertical FOV: approximately 13.6 degrees
+> - FOV radians: 0.237
+>
+> Create a typed LensPreset data structure containing:
+>
+> - Display label
+> - Focal length in millimeters
+> - FOV in radians
+>
+> Create a public method that applies a selected preset to ShotCamera.
+>
+> When applying a lens preset:
+>
+> 1. Change only ShotCamera.fov.
+> 2. Do not move or rotate ShotCameraRig.
+> 3. Do not move either actor.
+> 4. Do not change the main SPECS camera.
+> 5. Update the selected-lens label.
+> 6. Update the active state of the four lens buttons.
+>
+> WORLD-SPACE UI
+>
+> Using /specs-build-ui, create a compact world-space control panel
+> positioned beside or directly underneath PreviewPanel.
+>
+> Create native SPECS UI Kit buttons named exactly:
+>
+> - LensButton_24mm
+> - LensButton_35mm
+> - LensButton_50mm
+> - LensButton_85mm
+>
+> Do not create hand-written collider buttons if native SPECS UI Kit
+> buttons are available.
+>
+> Each button must call LensController and apply the corresponding lens
+> preset.
+>
+> Add a label above the preview image that displays:
+>
+> CURRENT LENS: 50mm
+>
+> Use 50mm as the default lens.
+>
+> Add a smaller educational label beneath it that updates with the lens:
+>
+> 24mm: WIDE — EXPANDED FIELD OF VIEW
+> 35mm: MODERATE WIDE
+> 50mm: NORMAL
+> 85mm: TELEPHOTO — NARROW FIELD OF VIEW
+>
+> Clearly highlight the selected button using a different fill color,
+> border color, brightness, or emissive state. Only one lens button
+> should appear selected at a time.
+>
+> VISUAL TEST ENVIRONMENT
+>
+> Preserve the existing set, but make sure it includes enough visual
+> information to demonstrate changing field of view:
+>
+> - Visible floor grid
+> - Vertical wall edges
+> - ActorA closer to the camera
+> - ActorB farther from the camera
+> - At least one foreground object near a frame edge
+>
+> Use lightweight primitives only. Do not generate new detailed 3D
+> assets.
+>
+> INTERACTION BEHAVIOR
+>
+> When the user selects:
+>
+> 24mm:
+> - PreviewScreen should display substantially more of the set.
+>
+> 35mm:
+> - PreviewScreen should display moderately more of the set than 50mm.
+>
+> 50mm:
+> - PreviewScreen should display the default composition.
+>
+> 85mm:
+> - PreviewScreen should display a much tighter crop of the composition.
+>
+> The transitions may be immediate. Do not add animated interpolation
+> unless it can be implemented without compromising stability.
+>
+> IMPORTANT EXCLUSIONS
+>
+> During this phase, do not add:
+>
+> - Radial lens distortion
+> - Barrel or pincushion distortion
+> - Match Framing
+> - Automatic camera dolly movement
+> - Wide, Medium, or Close-Up framing presets
+> - Depth of field
+> - Exposure controls
+> - Saved storyboard shots
+> - Actor grabbing
+> - Camera grabbing
+> - Additional render targets
+> - Generated 3D assets
+>
+> VERIFICATION
+>
+> After implementation:
+>
+> 1. Save the project.
+> 2. Run /verify-preview.
+> 3. Trigger all four buttons in the SPECS Preview.
+> 4. Confirm each button updates the label.
+> 5. Confirm ShotCamera.fov receives the expected radian value.
+> 6. Confirm the spatial PreviewScreen visibly changes for every lens.
+> 7. Confirm ShotCameraRig's transform remains unchanged.
+> 8. Confirm the main SPECS camera remains unchanged.
+> 9. Confirm the preview monitor does not appear inside its own feed.
+> 10. Confirm there are no persistent red Logger errors.
+>
+> If a button or FOV change fails, debug and repair it before adding
+> anything else.
+>
+> At completion, report:
+>
+> - Scripts created or modified
+> - Scene objects created
+> - UI objects created
+> - Inspector references assigned
+> - Final FOV values
+> - Verification results for each button
+> - Any remaining warnings
+
+Result: Created `Assets/Scripts/LensController.ts` through the script-author workflow with a typed immutable `LensPreset`, four exact radian presets, a public `applyPreset` method, focal-length selection helpers, and change listeners. Created `Assets/Scripts/ShotSpaceLensControlsUI.ts` using native SPECS UIKit `Button`, `BackPlate`, and `FlexLayout` components. Added one authored `LensControlsUI` object beneath the existing `PreviewPanel`, added `LensController` to the existing `Systems` object, and assigned the `ShotCamera` and typed `LensController` Inspector references. Runtime-created UI includes four exactly named buttons, current-lens and educational labels, exclusive selected states, and backing/layout objects. The existing foundation, actors, shot-camera rig, render target, render masks, and main camera were preserved. The new controls host was positioned locally at `(-12, 0, 0.5)` on the Interface mask so all four buttons remain visible without moving `PreviewPanel`.
+
+Verification: The project compiled and passed lint checks. Runtime inspection confirmed ShotCamera remains Perspective, 16:9, `ShotPreviewRT`, PrevisSet-only, and without device-property overrides. Button tests produced 24mm = 0.798 radians, 35mm = 0.563 radians, 50mm = 0.400 radians, and 85mm = 0.237 radians. Every button updated both labels, changed the monitor composition in the expected wide-to-telephoto progression, and exclusively highlighted the selected button. ShotCameraRig remained at `(-8, -5, -68)` with its original rotation, the main SPECS camera remained unchanged, the monitor did not recurse into its own feed, and the final refreshed Logger contained no errors. The project was saved with 50mm restored as the default.
+
+Problems: The initial UIKit version attempted to call `FlexLayout.addItems` before initialization while automatic discovery was enabled, and the UI attempted to access `LensController` before the lower-hierarchy Systems component had awakened. Both produced transient Logger errors during iteration. The UI was repaired by disabling automatic item discovery before explicit registration and deferring controller connection until the next frame. The 35mm unique-ID interaction test timed out once without applying a change; a coordinate-targeted retry at the measured button position succeeded and verified the correct state.
+
+Changes requested: No correction prompt yet.
+
 ## Logging Instructions
 
 After each major prompt:
