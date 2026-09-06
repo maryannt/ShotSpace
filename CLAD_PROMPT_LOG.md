@@ -149,7 +149,11 @@ Result: Created and saved the requested ShotSpace hierarchy using lightweight pr
 
 Problems: Lens Studio 5.23.2 preserved the three custom layer masks and their behavior but reverted their display names to `Layer 2`, `Layer 3`, and `Layer 4` after save instead of `PrevisSet`, `MainExperience`, and `Interface`.
 
-Changes requested: No correction prompt yet. If persistent custom display names are required for submission, rename the layers manually in Lens Studio while retaining masks 2, 4, and 8.
+Changes requested:
+
+> Can you manually rename Layer 2-4?
+
+Correction result: The version-pinned Editor API was used to target the exact layers assigned to masks 2, 4, and 8 and rename them to `PrevisSet`, `MainExperience`, and `Interface`. Lens Studio 5.23.2 reverted all three names during project save. A before/after assignment fingerprint confirmed that all 153 scene-object and render-mask assignments were preserved. Persistent naming remains a manual Lens Studio UI step.
 
 ## Logging Instructions
 
