@@ -362,6 +362,258 @@ Problems: The initial UIKit version attempted to call `FlexLayout.addItems` befo
 
 Changes requested: No correction prompt yet.
 
+## Prompt 3 — Shot-Framing Presets and Match Framing
+
+Date: 2026-09-06
+
+Prompt:
+
+> Using the existing working ShotSpace SPECS project, add shot-framing
+> presets and a Match Framing mode.
+>
+> Preserve all existing working systems, including:
+>
+> - DioramaRoot
+> - ShotCameraRig
+> - ShotCamera
+> - ShotPreviewRT
+> - PreviewPanel and PreviewScreen
+> - LensController
+> - The 24mm, 35mm, 50mm, and 85mm buttons
+> - Existing render layers and UI
+>
+> Do not rebuild, rename, reset, or duplicate the working foundation.
+>
+> PHASE GOAL
+>
+> Add Wide, Medium, and Close-Up framing presets for ActorA.
+>
+> Also add a Match Framing toggle that determines whether changing lenses
+> moves the shot camera to preserve the selected framing.
+>
+> FRAMING TARGET
+>
+> Create a child object or reference point on ActorA named exactly:
+>
+> ActorA_FramingTarget
+>
+> Position it around ActorA's upper chest or face so ShotCamera can
+> consistently aim at it.
+>
+> Use ActorA as the subject for this prototype.
+>
+> FRAMING PRESETS
+>
+> Add these framing presets:
+>
+> Wide:
+> - Button name: FramingButton_Wide
+> - Subject occupies approximately 35% of frame height
+> - Label: WIDE
+>
+> Medium:
+> - Button name: FramingButton_Medium
+> - Subject occupies approximately 60% of frame height
+> - Label: MEDIUM
+>
+> Close-Up:
+> - Button name: FramingButton_CloseUp
+> - Subject occupies approximately 85% of frame height
+> - Label: CLOSE-UP
+>
+> Use 50mm and Medium as the default state.
+>
+> FRAMING CALCULATION
+>
+> Use /lens-api and the script-author agent to extend LensController or
+> create a separate FramingController if that results in cleaner code.
+>
+> Store each framing preset as typed data containing:
+>
+> - Display label
+> - Desired frame-fill percentage
+>
+> Calculate camera distance using the active vertical FOV:
+>
+> distance =
+> subjectHeight /
+> (2 * frameFill * tan(verticalFOV / 2))
+>
+> Use a configurable subjectHeight value that matches the ActorA
+> placeholder. Do not rely on an unstable runtime bounding-box method if
+> an explicit configurable height is more reliable.
+>
+> When a framing button is selected:
+>
+> 1. Read the active ShotCamera FOV.
+> 2. Calculate the required distance.
+> 3. Preserve the camera's current side and general viewing direction.
+> 4. Move ShotCameraRig along the camera-to-target axis.
+> 5. Aim ShotCamera toward ActorA_FramingTarget.
+> 6. Update the selected framing label.
+> 7. Update the active visual state of the framing buttons.
+>
+> Apply movement to ShotCameraRig rather than creating another camera.
+>
+> MATCH FRAMING TOGGLE
+>
+> Create a native SPECS UI Kit toggle named exactly:
+>
+> Toggle_MatchFraming
+>
+> Add a status label that displays either:
+>
+> MATCH FRAMING: ON
+>
+> or:
+>
+> MATCH FRAMING: OFF
+>
+> Behavior when Match Framing is OFF:
+>
+> - Changing lenses modifies only ShotCamera.fov.
+> - ShotCameraRig must remain stationary.
+> - The composition becomes wider or tighter as the focal length changes.
+>
+> Behavior when Match Framing is ON:
+>
+> - Changing lenses modifies ShotCamera.fov.
+> - Recalculate the distance required for the currently selected framing.
+> - Move ShotCameraRig forward or backward so ActorA remains approximately
+>   the same size in the PreviewScreen.
+> - Continue aiming at ActorA_FramingTarget.
+>
+> Expected behavior with Medium framing:
+>
+> - At 24mm, ShotCameraRig should be closer to ActorA.
+> - At 35mm, it should be slightly farther away.
+> - At 50mm, it should be farther away again.
+> - At 85mm, it should be substantially farther away.
+> - ActorA should remain approximately the same size in the spatial
+>   preview while the background perspective changes.
+>
+> Do not fake this behavior by scaling ActorA or the environment.
+> The camera must physically move.
+>
+> STATE MANAGEMENT
+>
+> Track:
+>
+> - Current focal-length preset
+> - Current framing preset
+> - Match Framing enabled/disabled
+> - Current calculated camera distance
+>
+> LensController and FramingController must share one source of truth.
+> Do not create competing values or independent copies of the current
+> lens selection.
+>
+> Add a small information readout to PreviewPanel displaying:
+>
+> LENS: 50mm
+> FRAMING: MEDIUM
+> MATCH: ON or OFF
+> DISTANCE: calculated value
+>
+> Format the distance to one decimal place.
+>
+> WORLD-SPACE UI
+>
+> Using /specs-build-ui, extend the existing control panel with:
+>
+> - Wide button
+> - Medium button
+> - Close-Up button
+> - Match Framing toggle
+>
+> Use native SPECS UI Kit components. Do not create custom collider-based
+> buttons.
+>
+> Clearly indicate the selected framing preset. Only one framing button
+> should appear selected at a time.
+>
+> FRAMING GUIDES
+>
+> Add a subtle rule-of-thirds overlay over PreviewScreen.
+>
+> Requirements:
+>
+> - Two vertical guide lines
+> - Two horizontal guide lines
+> - Low opacity
+> - Interface layer only
+> - Visible to the main SPECS camera
+> - Not rendered by ShotCamera
+> - Must not become part of ShotPreviewRT
+>
+> If the guide overlay introduces render-layer or visibility problems,
+> remove it rather than compromising the working preview.
+>
+> IMPORTANT EXCLUSIONS
+>
+> During this phase, do not add:
+>
+> - Barrel distortion
+> - Pincushion distortion
+> - Radial distortion shaders
+> - Depth of field
+> - Exposure controls
+> - Over-the-shoulder framing
+> - Saved storyboard cards
+> - Actor grabbing
+> - Camera grabbing
+> - Light controls
+> - Additional render targets
+> - Generated 3D assets
+>
+> VERIFICATION
+>
+> After implementation:
+>
+> 1. Save the project.
+> 2. Run /verify-preview.
+> 3. Test Wide, Medium, and Close-Up at 50mm.
+> 4. Confirm each button changes the camera distance and composition.
+> 5. Confirm the camera continues to aim at ActorA_FramingTarget.
+> 6. Confirm ActorA is not being scaled.
+> 7. Turn Match Framing OFF.
+> 8. Change from 24mm to 85mm.
+> 9. Confirm ShotCameraRig does not move and the framing becomes tighter.
+> 10. Turn Match Framing ON.
+> 11. Select Medium framing.
+> 12. Change sequentially between 24mm, 35mm, 50mm, and 85mm.
+> 13. Confirm ShotCameraRig moves farther away as focal length increases.
+> 14. Confirm ActorA remains approximately the same size in PreviewScreen.
+> 15. Confirm the background relationship visibly changes.
+> 16. Confirm all labels and selected states update correctly.
+> 17. Confirm the rule-of-thirds guides do not appear inside ShotPreviewRT.
+> 18. Confirm there are no persistent red Logger errors.
+>
+> If available, use ShotCamera.worldSpaceToScreenSpace on points
+> representing ActorA's top and bottom to estimate the percentage of
+> screen height occupied by ActorA. Use this only for verification; do
+> not create an expensive per-frame correction loop.
+>
+> If any framing mode fails, debug and repair it before adding another
+> feature.
+>
+> At completion, report:
+>
+> - Scripts created or modified
+> - UI objects created
+> - Framing values used
+> - Calculated camera distances for each lens at Medium framing
+> - Verification results
+> - Any remaining warnings
+
+Result: Extended the existing `Assets/Scripts/LensController.ts` as the single source of truth for lens, framing, Match Framing, and distance state. Added typed immutable Wide (0.35), Medium (0.60), and Close-Up (0.85) presets; the exact requested distance formula; configurable 6.0 cm subject height; guarded target-axis rig motion; camera aiming using the Lens camera's local -Z convention; combined typed state listeners; framing and Match public APIs; and an on-demand `worldSpaceToScreenSpace` verification helper. Extended `Assets/Scripts/ShotSpaceLensControlsUI.ts` with native UIKit framing buttons, a native UIKit switch, selected-state synchronization, framing and Match labels, and a four-line information readout. Added `ActorA_FramingTarget` under ActorA, four low-opacity rule-of-thirds guide objects under `PreviewPanel`, and `FramingGuideMaterial`. Assigned `ShotCameraRig` and `ActorA_FramingTarget` to the existing LensController. The authored control panel was raised to local Y -16 cm so all controls, especially the Match switch, are reachable in SPECS Preview.
+
+Verification: TypeScript compilation and IDE lint checks pass. At 50mm, Wide, Medium, and Close-Up produced 42.3 cm, 24.7 cm, and 17.4 cm respectively, with a consistent aim rotation and exclusive selected states. Medium Match Framing produced 11.9 cm at 24mm, 17.3 cm at 35mm, 24.7 cm at 50mm, and 42.0 cm at 85mm. With Match OFF, the exact 24mm-to-85mm sequence changed FOV from 0.798 to 0.237 radians while ShotCameraRig position `(-9.585625, -5.176181, -77.337570)` and rotation remained exactly unchanged. Turning Match ON immediately reapplied the current framing. The Match-ON 85mm Medium test moved the rig farther away while preserving Medium framing. ActorA and the environment were not scaled. The main SPECS camera was not modified. Runtime visual capture confirmed the preview composition, information panel, controls, selected states, background relationship changes, and the rule-of-thirds overlay. The guide objects use Interface mask 8 while ShotCamera renders only mask 2, so they remain outside `ShotPreviewRT`. The project was saved and restored to 50mm, Medium, Match ON. Final Logger inspection contained no errors.
+
+Problems: The script-author run was interrupted, so work resumed by validating the on-disk scripts and compiling them. During verification, the UIKit `Switch.onFinished` boolean was briefly interpreted as the switch value; package source inspection confirmed it is an `explicit` event flag, so the callback was corrected to read `matchSwitch.isOn` only for explicit interactions. Parallel preview-agent queries caused avoidable preview resets and unstable runtime IDs; subsequent verification used one named Preview panel sequentially. Several direct simulated pinches timed out, so measured-position and poke retries were used. The original Match switch row at world Y -22.5 cm was not reliably reachable by the preview hand simulator; raising the control panel 2 cm resolved it.
+
+Changes requested: The user said “Please continue” after the interrupted script-author run. No feature-scope correction was requested.
+
 ## Logging Instructions
 
 After each major prompt:

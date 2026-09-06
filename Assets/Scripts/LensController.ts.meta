@@ -28,7 +28,11 @@
   ExportUid: 00000000-0000-0000-0000-000000000000
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
+    framingTarget: false
+    matchFramingEnabled: false
     shotCamera: false
+    shotCameraRig: false
+    subjectHeightCm: false
   ScriptTypesHidden:
     {}
   ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
@@ -39,8 +43,16 @@
     []
   DefaultScriptInputs:
     - shotCamera: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      shotCameraRig: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      framingTarget: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      subjectHeightCm: !<float> 6.000000
+      matchFramingEnabled: true
   ScriptTypes:
     -
       {}
   InputLines:
     - '// @input SceneObject shotCamera {"hint":"Authored ShotCamera SceneObject whose Camera field of view is controlled."}'
+    - '// @input SceneObject shotCameraRig {"hint":"Existing authored ShotCameraRig moved to match the selected subject framing."}'
+    - '// @input SceneObject framingTarget {"hint":"Authored subject target that the ShotCameraRig aims toward."}'
+    - '// @input float subjectHeightCm = 6 {"hint":"Estimated subject height in centimeters, used by the exact framing-distance calculation.", "widget":"slider", "min":1, "max":30, "step":0.1}'
+    - '// @input bool matchFramingEnabled = true {"hint":"When enabled, focal changes preserve the selected framing by repositioning the ShotCameraRig."}'

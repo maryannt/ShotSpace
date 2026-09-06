@@ -6198,6 +6198,31 @@
       ]
     },
     {
+      "id": "b64e6c58-4dbe-46de-8a98-e393a2e37f75",
+      "name": "ActorA_FramingTarget",
+      "enabled": true,
+      "parentId": "875f1870-4538-477d-aff5-ee7259817a72",
+      "transform": {
+        "position": [
+          0,
+          0.25,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 2,
+      "components": []
+    },
+    {
       "id": "100e44ef-963c-4465-8f4b-bb2763ecd29a",
       "name": "ActorB",
       "enabled": true,
@@ -7544,6 +7569,13 @@
               "type": "float",
               "uiInfo": "{\"hint\":\"Local X center of the compact button panel.\", \"widget\":\"slider\", \"min\":-15, \"max\":15, \"step\":0.5}"
             },
+            "controlRowGapCm": {
+              "isScriptInput": true,
+              "value": 0.5,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Vertical gap between focal, framing, and Match rows.\", \"widget\":\"slider\", \"min\":0.2, \"max\":1, \"step\":0.1}",
+              "defaultValue": "0.5"
+            },
             "panelPaddingCm": {
               "isScriptInput": true,
               "value": 1,
@@ -7581,17 +7613,17 @@
             },
             "controlPanelHeightCm": {
               "isScriptInput": true,
-              "value": 5.199999809265137,
+              "value": 12.600000381469727,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Height of the compact focal-length control backplate, in centimeters.\", \"widget\":\"slider\", \"min\":4, \"max\":8, \"step\":0.2}",
-              "defaultValue": "5.2"
+              "uiInfo": "{\"hint\":\"Height of the combined focal, framing, and Match control backplate, in centimeters.\", \"widget\":\"slider\", \"min\":10, \"max\":18, \"step\":0.2}",
+              "defaultValue": "12.6"
             },
             "controlsCenterYCm": {
               "isScriptInput": true,
-              "value": -14,
+              "value": -16,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Local Y center of the button panel directly below PreviewPanel.\", \"widget\":\"slider\", \"min\":-20, \"max\":-10, \"step\":0.2}",
-              "defaultValue": "-14"
+              "uiInfo": "{\"hint\":\"Local Y center of the combined controls below PreviewPanel.\", \"widget\":\"slider\", \"min\":-24, \"max\":-12, \"step\":0.2}",
+              "defaultValue": "-18"
             },
             "fontSizeScale": {
               "isScriptInput": true,
@@ -7599,6 +7631,20 @@
               "type": "float",
               "uiInfo": "{\"hint\":\"Global multiplier for the Specs type-scale roles used by this panel.\", \"widget\":\"slider\", \"min\":0.8, \"max\":1.2, \"step\":0.01}",
               "defaultValue": "1"
+            },
+            "panelWidthCm": {
+              "isScriptInput": true,
+              "value": 29,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Width shared by the status and control backplates, in centimeters.\", \"widget\":\"slider\", \"min\":26, \"max\":36, \"step\":0.2}",
+              "defaultValue": "29"
+            },
+            "framingButtonWidthCm": {
+              "isScriptInput": true,
+              "value": 8.199999809265137,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Width of each framing button; sized so CLOSE-UP remains readable.\", \"widget\":\"slider\", \"min\":7, \"max\":9, \"step\":0.1}",
+              "defaultValue": "8.2"
             },
             "lensController": {
               "isScriptInput": true,
@@ -7609,12 +7655,12 @@
               "type": "AssignableType_1",
               "uiInfo": "{\"hint\":\"Authored LensController component that owns ShotCamera focal-length presets.\"}"
             },
-            "panelWidthCm": {
+            "matchSwitchWidthCm": {
               "isScriptInput": true,
-              "value": 29,
+              "value": 7,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Width shared by the status and control backplates, in centimeters.\", \"widget\":\"slider\", \"min\":26, \"max\":36, \"step\":0.2}",
-              "defaultValue": "29"
+              "uiInfo": "{\"hint\":\"Width of the native UIKit Match Framing switch.\", \"widget\":\"slider\", \"min\":5, \"max\":9, \"step\":0.1}",
+              "defaultValue": "7"
             },
             "primaryTextColor": {
               "isScriptInput": true,
@@ -7639,17 +7685,17 @@
             },
             "statusCenterYCm": {
               "isScriptInput": true,
-              "value": 7,
+              "value": 12,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Local Y center of the status/header group above the 16x9 PreviewScreen.\", \"widget\":\"slider\", \"min\":4, \"max\":11, \"step\":0.2}",
-              "defaultValue": "7"
+              "uiInfo": "{\"hint\":\"Local Y center of the status/header group above the 16x9 PreviewScreen.\", \"widget\":\"slider\", \"min\":8, \"max\":16, \"step\":0.2}",
+              "defaultValue": "12"
             },
             "statusPanelHeightCm": {
               "isScriptInput": true,
-              "value": 6,
+              "value": 14.199999809265137,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Height of the status/header backplate above PreviewScreen, in centimeters.\", \"widget\":\"slider\", \"min\":4, \"max\":9, \"step\":0.2}",
-              "defaultValue": "6"
+              "uiInfo": "{\"hint\":\"Height of the status/header backplate above PreviewScreen, in centimeters.\", \"widget\":\"slider\", \"min\":10, \"max\":18, \"step\":0.2}",
+              "defaultValue": "14.2"
             },
             "scriptAsset": "@asset:Scripts/ShotSpaceLensControlsUI.ts",
             "inputNames.0": "accentColor",
@@ -7657,17 +7703,20 @@
             "inputNames.2": "buttonHeightCm",
             "inputNames.3": "buttonWidthCm",
             "inputNames.4": "controlPanelHeightCm",
-            "inputNames.5": "controlsCenterXCm",
-            "inputNames.6": "controlsCenterYCm",
-            "inputNames.7": "fontSizeScale",
-            "inputNames.8": "lensController",
-            "inputNames.9": "panelPaddingCm",
-            "inputNames.10": "panelWidthCm",
-            "inputNames.11": "primaryTextColor",
-            "inputNames.12": "secondaryTextColor",
-            "inputNames.13": "statusCenterXCm",
-            "inputNames.14": "statusCenterYCm",
-            "inputNames.15": "statusPanelHeightCm",
+            "inputNames.5": "controlRowGapCm",
+            "inputNames.6": "controlsCenterXCm",
+            "inputNames.7": "controlsCenterYCm",
+            "inputNames.8": "fontSizeScale",
+            "inputNames.9": "framingButtonWidthCm",
+            "inputNames.10": "lensController",
+            "inputNames.11": "matchSwitchWidthCm",
+            "inputNames.12": "panelPaddingCm",
+            "inputNames.13": "panelWidthCm",
+            "inputNames.14": "primaryTextColor",
+            "inputNames.15": "secondaryTextColor",
+            "inputNames.16": "statusCenterXCm",
+            "inputNames.17": "statusCenterYCm",
+            "inputNames.18": "statusPanelHeightCm",
             "name": "ShotSpaceLensControlsUI",
             "enabled": true,
             "sceneObject": "@sceneObject:LensControlsUI",
@@ -7675,6 +7724,419 @@
             "hasPrefabChanges": false,
             "id": "2316869b-fdbe-4add-8bd5-cb55919bc3a3",
             "type": "ScriptComponent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "efafe006-ab3a-4918-bce0-3b1604a14738",
+      "name": "FramingGuides",
+      "enabled": true,
+      "parentId": "835d9499-cb2a-495b-b880-a271e07f4d2a",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 8,
+      "components": []
+    },
+    {
+      "id": "a0c53c0f-5ef3-4bc4-9d1f-e3565b86141a",
+      "name": "GuideVertical_Left",
+      "enabled": true,
+      "parentId": "efafe006-ab3a-4918-bce0-3b1604a14738",
+      "transform": {
+        "position": [
+          -2.6666998863220215,
+          0,
+          0.30000001192092896
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.05999999865889549,
+          9,
+          0.05999999865889549
+        ]
+      },
+      "layers": 8,
+      "components": [
+        {
+          "id": "c35c2501-88ed-4cef-abfd-e47e7992b3ce",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/FramingGuideMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/FramingGuideMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:GuideVertical_Left",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "c35c2501-88ed-4cef-abfd-e47e7992b3ce",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2b878902-0471-4b6b-8d4a-c1e435ed8bba",
+      "name": "GuideVertical_Right",
+      "enabled": true,
+      "parentId": "efafe006-ab3a-4918-bce0-3b1604a14738",
+      "transform": {
+        "position": [
+          2.6666998863220215,
+          0,
+          0.30000001192092896
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.05999999865889549,
+          9,
+          0.05999999865889549
+        ]
+      },
+      "layers": 8,
+      "components": [
+        {
+          "id": "87a69ca8-2cdf-4a5e-a753-57fdbce158ee",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/FramingGuideMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/FramingGuideMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:GuideVertical_Right",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "87a69ca8-2cdf-4a5e-a753-57fdbce158ee",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "630fd096-fe50-4118-9288-2f7336e0d2ca",
+      "name": "GuideHorizontal_Top",
+      "enabled": true,
+      "parentId": "efafe006-ab3a-4918-bce0-3b1604a14738",
+      "transform": {
+        "position": [
+          0,
+          1.5,
+          0.30000001192092896
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          16,
+          0.05999999865889549,
+          0.05999999865889549
+        ]
+      },
+      "layers": 8,
+      "components": [
+        {
+          "id": "d13e19a7-fd45-463c-a2de-ba5c0902a757",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/FramingGuideMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/FramingGuideMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:GuideHorizontal_Top",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "d13e19a7-fd45-463c-a2de-ba5c0902a757",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ffb39213-eb9e-406d-aa05-01f5187ab7c3",
+      "name": "GuideHorizontal_Bottom",
+      "enabled": true,
+      "parentId": "efafe006-ab3a-4918-bce0-3b1604a14738",
+      "transform": {
+        "position": [
+          0,
+          -1.5,
+          0.30000001192092896
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          16,
+          0.05999999865889549,
+          0.05999999865889549
+        ]
+      },
+      "layers": 8,
+      "components": [
+        {
+          "id": "c7df138b-81cf-407c-8dc9-d5b2cfd56a16",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/FramingGuideMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/FramingGuideMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:GuideHorizontal_Bottom",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "c7df138b-81cf-407c-8dc9-d5b2cfd56a16",
+            "type": "RenderMeshVisual"
           }
         }
       ]
@@ -7709,6 +8171,29 @@
           "name": "LensController",
           "enabled": true,
           "properties": {
+            "subjectHeightCm": {
+              "isScriptInput": true,
+              "value": 6,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Estimated subject height in centimeters, used by the exact framing-distance calculation.\", \"widget\":\"slider\", \"min\":1, \"max\":30, \"step\":0.1}",
+              "defaultValue": "6"
+            },
+            "framingTarget": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "b64e6c58-4dbe-46de-8a98-e393a2e37f75",
+                "name": "ActorA_FramingTarget"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Authored subject target that the ShotCameraRig aims toward.\"}"
+            },
+            "matchFramingEnabled": {
+              "isScriptInput": true,
+              "value": true,
+              "type": "bool",
+              "uiInfo": "{\"hint\":\"When enabled, focal changes preserve the selected framing by repositioning the ShotCameraRig.\"}",
+              "defaultValue": "true"
+            },
             "shotCamera": {
               "isScriptInput": true,
               "value": {
@@ -7718,8 +8203,21 @@
               "type": "SceneObject",
               "uiInfo": "{\"hint\":\"Authored ShotCamera SceneObject whose Camera field of view is controlled.\"}"
             },
+            "shotCameraRig": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "c17c6db8-2e7c-44a4-a2c7-a6d4fb054412",
+                "name": "ShotCameraRig"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Existing authored ShotCameraRig moved to match the selected subject framing.\"}"
+            },
             "scriptAsset": "@asset:Scripts/LensController.ts",
-            "inputNames.0": "shotCamera",
+            "inputNames.0": "framingTarget",
+            "inputNames.1": "matchFramingEnabled",
+            "inputNames.2": "shotCamera",
+            "inputNames.3": "shotCameraRig",
+            "inputNames.4": "subjectHeightCm",
             "name": "LensController",
             "enabled": true,
             "sceneObject": "@sceneObject:Systems",
@@ -7732,7 +8230,7 @@
       ]
     },
     {
-      "id": "11e6eaed-da5c-4e09-90a4-460536705fe9",
+      "id": "4dc1a117-72d5-467b-89bd-9dd29385dffc",
       "name": "AiPreviewAgent Handler",
       "enabled": true,
       "parentId": null,
@@ -7756,7 +8254,7 @@
       "layers": 1,
       "components": [
         {
-          "id": "33a7bcdc-0e0c-4abd-b147-97d71af8b636",
+          "id": "32ea313e-6f65-492a-910f-39b12e4ce8a3",
           "type": "ScriptComponent",
           "name": "AgentInspectScript",
           "enabled": true,
@@ -7767,12 +8265,12 @@
             "sceneObject": "@sceneObject:AiPreviewAgent Handler",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
-            "id": "33a7bcdc-0e0c-4abd-b147-97d71af8b636",
+            "id": "32ea313e-6f65-492a-910f-39b12e4ce8a3",
             "type": "ScriptComponent"
           }
         },
         {
-          "id": "6092db06-0680-4fd2-be27-36f1403b7bc3",
+          "id": "bb3ace01-e626-4b96-8e36-662bd72cb4b4",
           "type": "ScriptComponent",
           "name": "AgentInteractScript",
           "enabled": true,
@@ -7783,7 +8281,7 @@
             "sceneObject": "@sceneObject:AiPreviewAgent Handler",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
-            "id": "6092db06-0680-4fd2-be27-36f1403b7bc3",
+            "id": "bb3ace01-e626-4b96-8e36-662bd72cb4b4",
             "type": "ScriptComponent"
           }
         }
@@ -12318,6 +12816,219 @@
         "name": "CaretDragMat",
         "fileMeta.id": "a6be3c05-71aa-85b8-ae74-574617a68f1b",
         "id": "e644cd8d-225f-445c-9529-8ed7135a376b",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "b0a3d7fb-e798-4721-9c16-7ca8a048a4e9",
+      "name": "FramingGuideMaterial",
+      "type": "Material",
+      "path": "ShotSpace/Materials/FramingGuideMaterial.mat",
+      "properties": {
+        "passInfos.0.baseColor.value": {
+          "x": 0.3499999940395355,
+          "y": 0.800000011920929,
+          "z": 1,
+          "w": 0.2199999988079071
+        },
+        "passInfos.0.baseColor.label": "Base Color",
+        "passInfos.0.ENABLE_BASE_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseTex.value": null,
+        "passInfos.0.baseTex.hidden": true,
+        "passInfos.0.baseTex.enabledBy": "ENABLE_BASE_TEX",
+        "passInfos.0.baseTex.label": "Texture",
+        "passInfos.0.Texture UV": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Transformed UV 2",
+            "Transformed UV 3"
+          ],
+          "label": "Texture UV"
+        },
+        "passInfos.0.ENABLE_OPACITY_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Opacity Texture"
+        },
+        "passInfos.0.opacityTex.value": null,
+        "passInfos.0.opacityTex.hidden": true,
+        "passInfos.0.opacityTex.enabledBy": "ENABLE_OPACITY_TEX",
+        "passInfos.0.opacityTex.label": "Texture",
+        "passInfos.0.Tweak_N67": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 2"
+        },
+        "passInfos.0.Source": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Screen UV",
+            "Transformed UV 2"
+          ],
+          "label": "Source"
+        },
+        "passInfos.0.uv2Scale.value": null,
+        "passInfos.0.uv2Scale.hidden": true,
+        "passInfos.0.uv2Scale.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Scale.label": "Scale",
+        "passInfos.0.uv2Offset.value": null,
+        "passInfos.0.uv2Offset.hidden": true,
+        "passInfos.0.uv2Offset.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Offset.label": "Offset",
+        "passInfos.0.uv2EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.Tweak_N11": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 3"
+        },
+        "passInfos.0.uv3Scale.value": null,
+        "passInfos.0.uv3Scale.hidden": true,
+        "passInfos.0.uv3Scale.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Scale.label": "Scale",
+        "passInfos.0.uv3Offset.value": null,
+        "passInfos.0.uv3Offset.hidden": true,
+        "passInfos.0.uv3Offset.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Offset.label": "Offset",
+        "passInfos.0.uv3EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.enabledBy": "uv3EnableAnimation",
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_Default_N204": 1,
+        "passInfos.0.Port_Default_N369": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": false,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Normal",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "5657c78c-921c-4f1f-b9f3-e00a0000289e",
+        "passInfos.0.type": "PassInfo",
+        "name": "FramingGuideMaterial",
+        "fileMeta.id": "c1c9ea64-74f7-4040-8853-924c59f416df",
+        "id": "b0a3d7fb-e798-4721-9c16-7ca8a048a4e9",
         "type": "Material"
       }
     },

@@ -9,6 +9,7 @@ import {BackPlate} from "SpectaclesUIKit.lspkg/Scripts/BackPlate"
 import {Button} from "SpectaclesUIKit.lspkg/Scripts/Components/Button/Button"
 import {FlexLayout} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexLayout"
 import {FlexItem} from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexItem"
+import {Switch} from "SpectaclesUIKit.lspkg/Scripts/Components/Switch/Switch"
 import {
   FlexAlign,
   FlexAlignSelf,
@@ -16,7 +17,11 @@ import {
   FlexJustify,
 } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
 
-import {LensController, LensPreset} from "./LensController"
+import {
+  LensController,
+  LensPreset,
+  ShotFramingState,
+} from "./LensController"
 
 type TextRole =
   | "Title1"
@@ -60,9 +65,16 @@ type LensButtonEntry = {
   label: Text
 }
 
+type FramingButtonEntry = {
+  displayLabel: string
+  button: Button
+  label: Text
+}
+
 const CONTENT_Z_LIFT_CM = 0.6
 const BUTTON_LABEL_Z_LIFT_CM = 0.08
 const DEFAULT_FOCAL_LENGTH_MM = 50
+const DEFAULT_FRAMING_LABEL = "MEDIUM"
 
 @component
 export class ShotSpaceLensControlsUI extends BaseScriptComponent {
@@ -84,13 +96,13 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
 
   @input
   @hint("Height of the status/header backplate above PreviewScreen, in centimeters.")
-  @widget(new SliderWidget(4, 9, 0.2))
-  statusPanelHeightCm: number = 6
+  @widget(new SliderWidget(10, 18, 0.2))
+  statusPanelHeightCm: number = 14.2
 
   @input
-  @hint("Height of the compact focal-length control backplate, in centimeters.")
-  @widget(new SliderWidget(4, 8, 0.2))
-  controlPanelHeightCm: number = 5.2
+  @hint("Height of the combined focal, framing, and Match control backplate, in centimeters.")
+  @widget(new SliderWidget(10, 18, 0.2))
+  controlPanelHeightCm: number = 12.6
 
   @input
   @hint("Local X center of the status group so it remains aligned above PreviewScreen.")
@@ -99,8 +111,8 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
 
   @input
   @hint("Local Y center of the status/header group above the 16x9 PreviewScreen.")
-  @widget(new SliderWidget(4, 11, 0.2))
-  statusCenterYCm: number = 7
+  @widget(new SliderWidget(8, 16, 0.2))
+  statusCenterYCm: number = 12
 
   @input
   @hint("Local X center of the compact button panel.")
@@ -108,9 +120,9 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
   controlsCenterXCm: number = 0
 
   @input
-  @hint("Local Y center of the button panel directly below PreviewPanel.")
-  @widget(new SliderWidget(-20, -10, 0.2))
-  controlsCenterYCm: number = -14
+  @hint("Local Y center of the combined controls below PreviewPanel.")
+  @widget(new SliderWidget(-24, -12, 0.2))
+  controlsCenterYCm: number = -18
   @ui.group_end
 
   @ui.separator
@@ -129,6 +141,21 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
   @hint("Horizontal gap between neighboring focal-length buttons, in centimeters.")
   @widget(new SliderWidget(0.4, 1.5, 0.1))
   buttonGapCm: number = 0.8
+
+  @input
+  @hint("Width of each framing button; sized so CLOSE-UP remains readable.")
+  @widget(new SliderWidget(7, 9, 0.1))
+  framingButtonWidthCm: number = 8.2
+
+  @input
+  @hint("Vertical gap between focal, framing, and Match rows.")
+  @widget(new SliderWidget(0.2, 1, 0.1))
+  controlRowGapCm: number = 0.5
+
+  @input
+  @hint("Width of the native UIKit Match Framing switch.")
+  @widget(new SliderWidget(5, 9, 0.1))
+  matchSwitchWidthCm: number = 7
 
   @input
   @hint("Inset between panel edges and their content, in centimeters.")
@@ -161,14 +188,21 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
 
   private currentLensText: Text | null = null
   private educationalText: Text | null = null
+  private framingStatusText: Text | null = null
+  private matchStatusText: Text | null = null
+  private informationReadoutText: Text | null = null
+  private matchSwitch: Switch | null = null
   private readonly lensButtons: LensButtonEntry[] = []
-  private unsubscribePresetChanged: (() => void) | null = null
+  private readonly framingButtons: FramingButtonEntry[] = []
+  private unsubscribeStateChanged: (() => void) | null = null
 
   onAwake(): void {
     this.sceneObject.createComponent("Component.Canvas")
     this.buildStatusPanel()
     this.buildControlPanel()
     this.setSelectedFocalLength(DEFAULT_FOCAL_LENGTH_MM)
+    this.setSelectedFramingLabel(DEFAULT_FRAMING_LABEL)
+    this.setMatchFramingDisplay(true)
 
     const connectDelay = this.createEvent("DelayedCallbackEvent")
     connectDelay.bind(() => this.connectLensController())
@@ -181,6 +215,20 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
    */
   public syncFromPreset(preset: LensPreset): void {
     this.setSelectedFocalLength(preset.focalLengthMm)
+  }
+
+  public syncFromState(state: ShotFramingState): void {
+    this.setSelectedFocalLength(state.currentLens.focalLengthMm)
+    this.setSelectedFramingLabel(state.currentFraming.displayLabel)
+    this.setMatchFramingDisplay(state.matchFramingEnabled)
+
+    if (this.informationReadoutText) {
+      this.informationReadoutText.text =
+        `LENS: ${state.currentLens.focalLengthMm}mm\n` +
+        `FRAMING: ${state.currentFraming.displayLabel}\n` +
+        `MATCH: ${state.matchFramingEnabled ? "ON" : "OFF"}\n` +
+        `DISTANCE: ${state.distanceCm.toFixed(1)} cm`
+    }
   }
 
   /**
@@ -200,6 +248,28 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
       const selected = entry.focalLengthMm === focalLengthMm
       entry.button.isOn = selected
       entry.label.textFill.color = selected ? this.accentColor : this.primaryTextColor
+    }
+  }
+
+  public setSelectedFramingLabel(displayLabel: string): void {
+    if (this.framingStatusText) {
+      this.framingStatusText.text = `CURRENT FRAMING: ${displayLabel}`
+    }
+
+    for (let i = 0; i < this.framingButtons.length; i++) {
+      const entry = this.framingButtons[i]
+      const selected = entry.displayLabel === displayLabel
+      entry.button.isOn = selected
+      entry.label.textFill.color = selected ? this.accentColor : this.primaryTextColor
+    }
+  }
+
+  private setMatchFramingDisplay(enabled: boolean): void {
+    if (this.matchStatusText) {
+      this.matchStatusText.text = `MATCH FRAMING: ${enabled ? "ON" : "OFF"}`
+    }
+    if (this.matchSwitch) {
+      this.matchSwitch.isOn = enabled
     }
   }
 
@@ -249,11 +319,48 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
       "50mm: NORMAL",
       "Caption",
       this.secondaryTextColor,
-      1.8
+      1.5
     )
     this.educationalText = education.text
 
-    layout.addItems([current.item, education.item])
+    const framing = this.createStatusText(
+      content,
+      "CurrentFramingLabel",
+      "CURRENT FRAMING: MEDIUM",
+      "Callout",
+      this.primaryTextColor,
+      1.5
+    )
+    this.framingStatusText = framing.text
+
+    const match = this.createStatusText(
+      content,
+      "MatchFramingStatusLabel",
+      "MATCH FRAMING: ON",
+      "Caption",
+      this.secondaryTextColor,
+      1.4
+    )
+    this.matchStatusText = match.text
+
+    const information = this.createStatusText(
+      content,
+      "LensInformationReadout",
+      "LENS: 50mm\nFRAMING: MEDIUM\nMATCH: ON\nDISTANCE: 0.0 cm",
+      "Caption",
+      this.primaryTextColor,
+      5.2,
+      HorizontalAlignment.Left
+    )
+    this.informationReadoutText = information.text
+
+    layout.addItems([
+      current.item,
+      education.item,
+      framing.item,
+      match.item,
+      information.item,
+    ])
   }
 
   private buildControlPanel(): void {
@@ -276,21 +383,69 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
     layout.autoDiscoverItemsOnStart = false
     layout.width = this.panelWidthCm
     layout.height = this.controlPanelHeightCm
-    layout.direction = FlexDirection.Row
+    layout.direction = FlexDirection.Column
     layout.justifyContent = FlexJustify.Center
-    layout.alignItems = FlexAlign.Center
-    layout.columnGap = this.buttonGapCm
+    layout.alignItems = FlexAlign.Stretch
+    layout.rowGap = this.controlRowGapCm
     layout.paddingTop = this.panelPaddingCm
     layout.paddingBottom = this.panelPaddingCm
     layout.paddingLeft = this.panelPaddingCm
     layout.paddingRight = this.panelPaddingCm
 
-    const items: FlexItem[] = []
-    items.push(this.createLensButton(content, 24, "LensButton_24mm"))
-    items.push(this.createLensButton(content, 35, "LensButton_35mm"))
-    items.push(this.createLensButton(content, 50, "LensButton_50mm"))
-    items.push(this.createLensButton(content, 85, "LensButton_85mm"))
-    layout.addItems(items)
+    const focalRow = this.createControlRow(content, "FocalControlsRow", this.buttonHeightCm)
+    focalRow.layout.addItems([
+      this.createLensButton(focalRow.object, 24, "LensButton_24mm"),
+      this.createLensButton(focalRow.object, 35, "LensButton_35mm"),
+      this.createLensButton(focalRow.object, 50, "LensButton_50mm"),
+      this.createLensButton(focalRow.object, 85, "LensButton_85mm"),
+    ])
+
+    const framingRow = this.createControlRow(content, "FramingControlsRow", this.buttonHeightCm)
+    framingRow.layout.addItems([
+      this.createFramingButton(framingRow.object, "WIDE", "FramingButton_Wide"),
+      this.createFramingButton(framingRow.object, "MEDIUM", "FramingButton_Medium"),
+      this.createFramingButton(framingRow.object, "CLOSE-UP", "FramingButton_CloseUp"),
+    ])
+
+    const matchRow = this.createControlRow(content, "MatchControlsRow", this.buttonHeightCm)
+    const matchLabel = this.createFlexText(
+      matchRow.object,
+      "MatchFramingRowLabel",
+      "MATCH FRAMING",
+      "Button",
+      this.primaryTextColor,
+      this.panelWidthCm - this.panelPaddingCm * 2 - this.matchSwitchWidthCm - this.buttonGapCm,
+      this.buttonHeightCm,
+      HorizontalAlignment.Right
+    )
+    const toggle = this.createMatchSwitch(matchRow.object)
+    matchRow.layout.addItems([matchLabel.item, toggle])
+
+    layout.addItems([focalRow.item, framingRow.item, matchRow.item])
+  }
+
+  private createControlRow(
+    parent: SceneObject,
+    objectName: string,
+    heightCm: number
+  ): {object: SceneObject; layout: FlexLayout; item: FlexItem} {
+    const rowObject = this.createObject(parent, objectName)
+    const rowLayout = rowObject.createComponent(FlexLayout.getTypeName()) as FlexLayout
+    rowLayout.autoDiscoverItemsOnStart = false
+    rowLayout.width = this.panelWidthCm - this.panelPaddingCm * 2
+    rowLayout.height = heightCm
+    rowLayout.direction = FlexDirection.Row
+    rowLayout.justifyContent = FlexJustify.Center
+    rowLayout.alignItems = FlexAlign.Center
+    rowLayout.columnGap = this.buttonGapCm
+
+    const rowItem = rowObject.createComponent(FlexItem.getTypeName()) as FlexItem
+    rowItem.overrideWidth = this.panelWidthCm - this.panelPaddingCm * 2
+    rowItem.overrideHeight = heightCm
+    rowItem.flexGrow = 0
+    rowItem.flexShrink = 0
+    rowItem.alignSelf = FlexAlignSelf.Center
+    return {object: rowObject, layout: rowLayout, item: rowItem}
   }
 
   private createLensButton(
@@ -338,45 +493,152 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
     return item
   }
 
+  private createFramingButton(
+    parent: SceneObject,
+    displayLabel: string,
+    objectName: string
+  ): FlexItem {
+    const buttonObject = this.createObject(parent, objectName)
+    const button = buttonObject.createComponent(Button.getTypeName()) as Button
+    button.size = new vec3(this.framingButtonWidthCm, this.buttonHeightCm, 1)
+    button.setIsToggleable(true)
+    button.isOn = displayLabel === DEFAULT_FRAMING_LABEL
+
+    const labelObject = this.createObject(
+      buttonObject,
+      `${objectName}_Label`,
+      new vec3(0, 0, BUTTON_LABEL_Z_LIFT_CM)
+    )
+    const label = labelObject.createComponent("Component.Text") as Text
+    label.text = displayLabel
+    label.depthTest = true
+    applyTextRole(label, "Button", this.fontSizeScale)
+    label.horizontalAlignment = HorizontalAlignment.Center
+    label.verticalAlignment = VerticalAlignment.Center
+    label.horizontalOverflow = HorizontalOverflow.Overflow
+    label.verticalOverflow = VerticalOverflow.Overflow
+    label.layoutRect = Rect.create(
+      -(this.framingButtonWidthCm - 0.5) / 2,
+      (this.framingButtonWidthCm - 0.5) / 2,
+      -this.buttonHeightCm / 2,
+      this.buttonHeightCm / 2
+    )
+    label.textFill.color =
+      displayLabel === DEFAULT_FRAMING_LABEL ? this.accentColor : this.primaryTextColor
+
+    const item = buttonObject.createComponent(FlexItem.getTypeName()) as FlexItem
+    item.overrideWidth = this.framingButtonWidthCm
+    item.overrideHeight = this.buttonHeightCm
+    item.flexGrow = 0
+    item.flexShrink = 0
+    item.alignSelf = FlexAlignSelf.Center
+
+    this.framingButtons.push({displayLabel, button, label})
+    button.onTriggerUp.add(() => this.requestFramingPreset(displayLabel))
+    return item
+  }
+
+  private createMatchSwitch(parent: SceneObject): FlexItem {
+    const switchObject = this.createObject(parent, "Toggle_MatchFraming")
+    const matchSwitch = switchObject.createComponent(Switch.getTypeName()) as Switch
+    matchSwitch.size = new vec3(this.matchSwitchWidthCm, this.buttonHeightCm, 1)
+    matchSwitch.initialize()
+    matchSwitch.isOn = true
+    matchSwitch.onFinished.add((explicit: boolean) => {
+      if (explicit) {
+        this.requestMatchFraming(matchSwitch.isOn)
+      }
+    })
+    this.matchSwitch = matchSwitch
+
+    const item = switchObject.createComponent(FlexItem.getTypeName()) as FlexItem
+    item.overrideWidth = this.matchSwitchWidthCm
+    item.overrideHeight = this.buttonHeightCm
+    item.flexGrow = 0
+    item.flexShrink = 0
+    item.alignSelf = FlexAlignSelf.Center
+    return item
+  }
+
   private createStatusText(
     parent: SceneObject,
     objectName: string,
     value: string,
     role: TextRole,
     color: vec4,
-    heightCm: number
+    heightCm: number,
+    alignment: HorizontalAlignment = HorizontalAlignment.Center
+  ): {text: Text; item: FlexItem} {
+    return this.createFlexText(
+      parent,
+      objectName,
+      value,
+      role,
+      color,
+      this.panelWidthCm - this.panelPaddingCm * 2,
+      heightCm,
+      alignment
+    )
+  }
+
+  private createFlexText(
+    parent: SceneObject,
+    objectName: string,
+    value: string,
+    role: TextRole,
+    color: vec4,
+    widthCm: number,
+    heightCm: number,
+    alignment: HorizontalAlignment
   ): {text: Text; item: FlexItem} {
     const textObject = this.createObject(parent, objectName)
     const text = textObject.createComponent("Component.Text") as Text
     text.text = value
     text.depthTest = true
     applyTextRole(text, role, this.fontSizeScale)
-    text.horizontalAlignment = HorizontalAlignment.Center
+    text.horizontalAlignment = alignment
     text.verticalAlignment = VerticalAlignment.Center
     text.horizontalOverflow = HorizontalOverflow.Overflow
     text.verticalOverflow = VerticalOverflow.Overflow
     text.layoutRect = Rect.create(
-      -(this.panelWidthCm - this.panelPaddingCm * 2) / 2,
-      (this.panelWidthCm - this.panelPaddingCm * 2) / 2,
+      -widthCm / 2,
+      widthCm / 2,
       -heightCm / 2,
       heightCm / 2
     )
     text.textFill.color = color
 
     const item = textObject.createComponent(FlexItem.getTypeName()) as FlexItem
+    item.overrideWidth = widthCm
     item.overrideHeight = heightCm
-    item.alignSelf = FlexAlignSelf.Stretch
+    item.alignSelf = FlexAlignSelf.Center
     item.flexGrow = 0
     item.flexShrink = 0
     return {text, item}
   }
 
   private requestPreset(focalLengthMm: number): void {
-    this.setSelectedFocalLength(focalLengthMm)
     if (!this.lensController || isNull(this.lensController)) {
+      console.error("[ShotSpaceLensControlsUI] Cannot change lens: lensController is unavailable.")
       return
     }
     this.lensController.applyPresetByFocalLength(focalLengthMm)
+  }
+
+  private requestFramingPreset(displayLabel: string): void {
+    if (!this.lensController || isNull(this.lensController)) {
+      console.error("[ShotSpaceLensControlsUI] Cannot change framing: lensController is unavailable.")
+      return
+    }
+    this.lensController.applyFramingByLabel(displayLabel)
+  }
+
+  private requestMatchFraming(enabled: boolean): void {
+    if (!this.lensController || isNull(this.lensController)) {
+      console.error("[ShotSpaceLensControlsUI] Cannot change Match Framing: lensController is unavailable.")
+      return
+    }
+    this.lensController.setMatchFramingEnabled(enabled)
   }
 
   private connectLensController(): void {
@@ -387,20 +649,20 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
       return
     }
 
-    this.unsubscribePresetChanged = this.lensController.addPresetChangedListener(
-      (preset: LensPreset) => this.syncFromPreset(preset)
+    this.unsubscribeStateChanged = this.lensController.addStateChangedListener(
+      (state: ShotFramingState) => this.syncFromState(state)
     )
 
-    const currentPreset = this.lensController.getCurrentPreset()
-    if (currentPreset && !isNull(currentPreset)) {
-      this.syncFromPreset(currentPreset)
+    const currentState = this.lensController.getCurrentState()
+    if (currentState && !isNull(currentState)) {
+      this.syncFromState(currentState)
     }
   }
 
   private disconnectLensController(): void {
-    if (this.unsubscribePresetChanged) {
-      this.unsubscribePresetChanged()
-      this.unsubscribePresetChanged = null
+    if (this.unsubscribeStateChanged) {
+      this.unsubscribeStateChanged()
+      this.unsubscribeStateChanged = null
     }
   }
 
