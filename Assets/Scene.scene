@@ -846,8 +846,8 @@
     buttonHeightCm: true
     buttonGapCm: true
     framingButtonWidthCm: true
-    controlRowGapCm: true
     matchSwitchWidthCm: true
+    distortionSwitchWidthCm: true
     panelPaddingCm: true
     fontSizeScale: true
     primaryTextColor: true
@@ -859,18 +859,19 @@
     "":
       lensController: !<MappingBased.AssignableType_1> 7f6d4e88-5d6e-4daf-bba0-92dc778564da
       panelWidthCm: !<float> 29.000000
-      statusPanelHeightCm: 14.200000
-      controlPanelHeightCm: 12.600000
+      statusPanelHeightCm: 17.400000
+      controlPanelHeightCm: 17.400000
       statusCenterXCm: !<float> 5.000000
-      statusCenterYCm: !<float> 12.000000
+      statusCenterYCm: 13.600000
       controlsCenterXCm: !<float> 0.000000
-      controlsCenterYCm: !<float> -16.000000
+      controlsCenterYCm: -13.600000
       buttonWidthCm: !<float> 6.000000
       buttonHeightCm: !<float> 3.000000
       buttonGapCm: 0.800000
       framingButtonWidthCm: 8.200000
-      controlRowGapCm: 0.500000
+      controlRowGapCm: !<float> 1.000000
       matchSwitchWidthCm: !<float> 7.000000
+      distortionSwitchWidthCm: !<float> 7.000000
       panelPaddingCm: !<float> 1.000000
       fontSizeScale: !<float> 1.000000
       primaryTextColor: !<Vec4> {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
@@ -2141,6 +2142,7 @@
   ScriptInputsDefault:
     subjectHeightCm: true
     matchFramingEnabled: true
+    lensDistortionEnabled: true
   ScriptTypesDefault:
     {}
   ScriptInputs:
@@ -2148,8 +2150,11 @@
       shotCamera: !<reference.SceneObject> d33d9798-d274-4653-b856-fffc26e96e21
       shotCameraRig: !<reference.SceneObject> c17c6db8-2e7c-44a4-a2c7-a6d4fb054412
       framingTarget: !<reference.SceneObject> b64e6c58-4dbe-46de-8a98-e393a2e37f75
+      previewScreen: !<reference.SceneObject> 3a44425f-6c4b-4203-a878-5261f3f14a19
+      shotPreviewRenderTarget: !<reference.Texture> c2b9d4df-b605-4eea-af90-bae759a0d9b6
       subjectHeightCm: !<float> 6.000000
       matchFramingEnabled: true
+      lensDistortionEnabled: true
   ScriptTypes:
     "":
       {}
@@ -3351,7 +3356,7 @@
   ShadowColor: {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
   ShadowDensity: 1.000000
   Materials:
-    - !<reference> 00be9ec5-7a3e-45f5-ab65-e8cdbd1d0cec
+    - !<reference> 31bb5410-6b9f-4206-b01c-7df82d1b04b2
   Mesh: !<reference> e7c66b46-2dae-409c-9d04-82df000b650e
   Skin: !<reference> 00000000-0000-0000-0000-000000000000
   BlendShapesEnabled: true

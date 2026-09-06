@@ -36,6 +36,7 @@
     controlRowGapCm: false
     controlsCenterXCm: false
     controlsCenterYCm: false
+    distortionSwitchWidthCm: false
     fontSizeScale: false
     framingButtonWidthCm: false
     lensController: false
@@ -70,6 +71,7 @@
       framingButtonWidthCm: 8.200000
       controlRowGapCm: 0.500000
       matchSwitchWidthCm: !<float> 7.000000
+      distortionSwitchWidthCm: !<float> 7.000000
       panelPaddingCm: !<float> 1.000000
       fontSizeScale: !<float> 1.000000
       primaryTextColor: !<Vec4> {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
@@ -87,8 +89,8 @@
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Panel Placement"}'
     - '// @input float panelWidthCm = 29 {"hint":"Width shared by the status and control backplates, in centimeters.", "widget":"slider", "min":26, "max":36, "step":0.2}'
-    - '// @input float statusPanelHeightCm = 14.2 {"hint":"Height of the status/header backplate above PreviewScreen, in centimeters.", "widget":"slider", "min":10, "max":18, "step":0.2}'
-    - '// @input float controlPanelHeightCm = 12.6 {"hint":"Height of the combined focal, framing, and Match control backplate, in centimeters.", "widget":"slider", "min":10, "max":18, "step":0.2}'
+    - '// @input float statusPanelHeightCm = 16 {"hint":"Height of the status/header backplate above PreviewScreen, in centimeters.", "widget":"slider", "min":10, "max":18, "step":0.2}'
+    - '// @input float controlPanelHeightCm = 16 {"hint":"Height of the combined focal, framing, Match, and distortion control backplate, in centimeters.", "widget":"slider", "min":10, "max":18, "step":0.2}'
     - '// @input float statusCenterXCm = 5 {"hint":"Local X center of the status group so it remains aligned above PreviewScreen.", "widget":"slider", "min":-15, "max":15, "step":0.5}'
     - '// @input float statusCenterYCm = 12 {"hint":"Local Y center of the status/header group above the 16x9 PreviewScreen.", "widget":"slider", "min":8, "max":16, "step":0.2}'
     - '// @input float controlsCenterXCm {"hint":"Local X center of the compact button panel.", "widget":"slider", "min":-15, "max":15, "step":0.5}'
@@ -102,6 +104,7 @@
     - '// @input float framingButtonWidthCm = 8.2 {"hint":"Width of each framing button; sized so CLOSE-UP remains readable.", "widget":"slider", "min":7, "max":9, "step":0.1}'
     - '// @input float controlRowGapCm = 0.5 {"hint":"Vertical gap between focal, framing, and Match rows.", "widget":"slider", "min":0.2, "max":1, "step":0.1}'
     - '// @input float matchSwitchWidthCm = 7 {"hint":"Width of the native UIKit Match Framing switch.", "widget":"slider", "min":5, "max":9, "step":0.1}'
+    - '// @input float distortionSwitchWidthCm = 7 {"hint":"Width of the native UIKit Lens Distortion switch.", "widget":"slider", "min":5, "max":9, "step":0.1}'
     - '// @input float panelPaddingCm = 1 {"hint":"Inset between panel edges and their content, in centimeters.", "widget":"slider", "min":0.5, "max":2, "step":0.1}'
     - '// @ui {"widget":"group_end"}'
     - '// @ui {"widget":"separator"}'

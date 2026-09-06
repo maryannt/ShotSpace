@@ -614,6 +614,361 @@ Problems: The script-author run was interrupted, so work resumed by validating t
 
 Changes requested: The user said “Please continue” after the interrupted script-author run. No feature-scope correction was requested.
 
+## Prompt 4 — Radial Lens Distortion
+
+Date: 2026-09-06
+
+Prompt:
+
+> Using the existing working ShotSpace SPECS project, implement Prompt 4:
+> radial lens distortion in the spatial shot preview.
+>
+> Preserve all existing working systems and behavior, including:
+>
+> - ShotCamera and ShotCameraRig
+> - ShotPreviewRT
+> - PreviewPanel and PreviewScreen
+> - LensController.ts
+> - ShotSpaceLensControlsUI.ts
+> - 24mm, 35mm, 50mm, and 85mm lens controls
+> - Wide, Medium, and Close-Up framing presets
+> - Match Framing
+> - ActorA_FramingTarget
+> - Rule-of-thirds guides
+> - Existing render layers
+> - Existing verified camera-distance calculations
+>
+> The final default state must remain:
+>
+> - 50mm
+> - Medium
+> - Match Framing ON
+>
+> Do not rebuild, rename, reset, or duplicate these systems.
+>
+> PHASE GOAL
+>
+> Create a controllable radial-distortion material that modifies only the
+> image displayed inside PreviewScreen.
+>
+> The distortion must not affect:
+>
+> - The user's main SPECS view
+> - PreviewPanel's physical frame
+> - UI buttons
+> - Labels
+> - Rule-of-thirds guides
+> - The diorama as seen outside the monitor
+> - ShotCamera's position, rotation, FOV, or render target
+>
+> PRESERVE A FALLBACK
+>
+> Before modifying the preview material:
+>
+> 1. Preserve the existing working undistorted preview material.
+> 2. Duplicate or create a new material named:
+>
+> ShotPreviewDistortionMaterial
+>
+> 3. Assign the new material only to the mesh or image surface displaying
+>    ShotPreviewRT.
+> 4. Keep the original material available as a fallback.
+> 5. Do not create another camera or render target.
+>
+> MATERIAL INPUT
+>
+> ShotPreviewDistortionMaterial must sample the existing:
+>
+> ShotPreviewRT
+>
+> Create exposed material parameters named:
+>
+> - k1
+> - k2
+> - distortionBlend
+>
+> Use distortionBlend to interpolate between the original UV coordinates
+> and distorted UV coordinates:
+>
+> - 0.0 = distortion disabled
+> - 1.0 = full selected-lens distortion
+>
+> Do not implement the toggle by replacing the render target or changing
+> ShotCamera.
+>
+> RADIAL DISTORTION SHADER
+>
+> Using /shader-graph, create a static radial UV-distortion effect.
+>
+> Do not use animated noise, procedural wobble, liquid distortion, or a
+> generic noise-distortion subgraph.
+>
+> Use this calculation:
+>
+> 1. Read the PreviewScreen UV coordinates.
+>
+> 2. Convert them from 0–1 space into centered -1–1 space:
+>
+> centeredUV = UV * 2.0 - 1.0
+>
+> 3. Correct the horizontal coordinate for the 16:9 aspect ratio:
+>
+> centeredUV.x = centeredUV.x * 1.7777778
+>
+> 4. Calculate radial distance:
+>
+> r2 = dot(centeredUV, centeredUV)
+> r4 = r2 * r2
+>
+> 5. Calculate radial scale:
+>
+> radialScale = 1.0 + (k1 * r2) + (k2 * r4)
+>
+> 6. Calculate distorted coordinates:
+>
+> distortedCenteredUV = centeredUV * radialScale
+>
+> 7. Remove the aspect-ratio correction:
+>
+> distortedCenteredUV.x =
+> distortedCenteredUV.x / 1.7777778
+>
+> 8. Convert the result back to 0–1 UV space:
+>
+> distortedUV = distortedCenteredUV * 0.5 + 0.5
+>
+> 9. Blend between the original and distorted coordinates:
+>
+> finalUV = lerp(UV, distortedUV, distortionBlend)
+>
+> 10. Sample ShotPreviewRT using finalUV.
+>
+> 11. Pixels outside the valid 0–1 UV range should render as black or be
+>     cleanly masked. They must not repeat, wrap, or smear.
+>
+> 12. Preserve the original image orientation. The resulting preview must
+>     not be vertically or horizontally flipped.
+>
+> LENS DISTORTION PROFILES
+>
+> Extend the existing typed LensPreset data in LensController.ts with:
+>
+> - distortionK1
+> - distortionK2
+> - distortionDescription
+>
+> Start with these approximate creative-simulation values:
+>
+> 24mm:
+> - k1: -0.080
+> - k2: 0.015
+> - Description: BARREL
+>
+> 35mm:
+> - k1: -0.035
+> - k2: 0.005
+> - Description: MILD BARREL
+>
+> 50mm:
+> - k1: 0.000
+> - k2: 0.000
+> - Description: NEUTRAL
+>
+> 85mm:
+> - k1: 0.012
+> - k2: 0.000
+> - Description: SUBTLE PINCUSHION
+>
+> These are illustrative optical profiles, not measured profiles from
+> specific commercial lenses.
+>
+> IMPORTANT SIGN VERIFICATION
+>
+> Because the visible direction of radial distortion depends on whether
+> the shader implements forward or inverse UV mapping, verify the result
+> visually.
+>
+> The intended result is:
+>
+> - 24mm: straight lines near the edges visibly bow outward in a
+>   controlled barrel-distortion appearance.
+> - 35mm: the same effect is present but milder.
+> - 50mm: straight lines remain straight.
+> - 85mm: straight lines bend very subtly in the opposite,
+>   pincushion direction.
+>
+> If the implemented shader produces the opposite behavior, reverse the
+> signs of k1 and k2 rather than changing the desired visual definitions.
+>
+> Do not exaggerate the effect so strongly that actors or the set become
+> unusable for shot planning.
+>
+> CONTROLLER INTEGRATION
+>
+> Extend LensController.ts without creating a competing source of truth.
+>
+> When a lens is selected:
+>
+> 1. Continue applying the existing FOV value.
+> 2. Continue applying the existing Match Framing behavior.
+> 3. Read that lens preset's k1 and k2 values.
+> 4. Send k1 and k2 to the unique runtime material used by PreviewScreen.
+> 5. Update the distortion-description label.
+> 6. Do not change distortionBlend when switching lenses.
+>
+> The current lens, current framing preset, Match Framing state, and lens
+> distortion state must remain part of one coordinated application state.
+>
+> Create or use a unique runtime material instance so changing its
+> parameters does not unintentionally affect other scene objects.
+>
+> DISTORTION TOGGLE
+>
+> Using /specs-build-ui, extend the existing world-space control panel
+> with a native SPECS UI Kit toggle named exactly:
+>
+> Toggle_LensDistortion
+>
+> This is separate from:
+>
+> Toggle_MatchFraming
+>
+> Add a status label displaying:
+>
+> DISTORTION: ON
+>
+> or:
+>
+> DISTORTION: OFF
+>
+> Behavior when distortion is ON:
+>
+> - distortionBlend = 1.0
+> - The active lens's k1 and k2 profile is visible.
+>
+> Behavior when distortion is OFF:
+>
+> - distortionBlend = 0.0
+> - The preview uses its original UV coordinates.
+> - The selected lens FOV remains active.
+> - ShotCameraRig must not move.
+> - Match Framing must not change.
+> - The current lens and framing selections must not reset.
+>
+> Use Distortion ON as the default state.
+>
+> DISTORTION READOUT
+>
+> Extend the existing PreviewPanel information readout to include:
+>
+> OPTICAL PROFILE: BARREL
+>
+> Use the corresponding description for each lens:
+>
+> - BARREL
+> - MILD BARREL
+> - NEUTRAL
+> - SUBTLE PINCUSHION
+>
+> When distortion is disabled, display:
+>
+> OPTICAL PROFILE: OFF
+>
+> VISUAL CALIBRATION
+>
+> Use the existing floor grid and vertical wall edges to evaluate the
+> distortion.
+>
+> If necessary, add lightweight calibration objects to PrevisSet:
+>
+> - Two thin vertical columns near the left and right frame edges
+> - A rectangular doorframe or window frame
+> - A checker or grid reference
+>
+> These objects must use simple primitives and must be part of the set.
+> Do not create detailed generated assets.
+>
+> IMPORTANT EXCLUSIONS
+>
+> During Prompt 4, do not add:
+>
+> - Chromatic aberration
+> - Vignette
+> - Blur
+> - Depth of field
+> - Exposure controls
+> - Anamorphic distortion
+> - Lens breathing
+> - Focus controls
+> - Saved storyboard cards
+> - Actor grabbing
+> - Camera grabbing
+> - Lighting controls
+> - Additional cameras
+> - Additional render targets
+> - Generated 3D assets
+>
+> VERIFICATION
+>
+> After implementation:
+>
+> 1. Save the project.
+> 2. Run /verify-preview.
+> 3. Confirm the original undistorted material still exists as a fallback.
+> 4. Confirm PreviewScreen uses ShotPreviewDistortionMaterial.
+> 5. Confirm the material samples the existing ShotPreviewRT.
+> 6. Confirm no additional camera or render target was created.
+> 7. Confirm the preview is not flipped.
+> 8. Confirm invalid UV areas do not repeat or smear.
+> 9. Select 24mm with distortion ON.
+> 10. Confirm visible controlled barrel distortion at frame edges.
+> 11. Select 35mm and confirm a milder version.
+> 12. Select 50mm and confirm a neutral image.
+> 13. Select 85mm and confirm subtle opposite-direction distortion.
+> 14. Toggle distortion OFF at each focal length.
+> 15. Confirm FOV changes remain visible while radial distortion disappears.
+> 16. Confirm toggling distortion does not move ShotCameraRig.
+> 17. Confirm toggling distortion does not change framing or Match Framing.
+> 18. Confirm Match Framing still works from 24mm through 85mm.
+> 19. Confirm the rule-of-thirds guides and UI remain undistorted.
+> 20. Confirm no distortion is applied to the main SPECS view.
+> 21. Confirm there are no persistent red Logger errors.
+>
+> If the shader graph fails or breaks the spatial preview:
+>
+> - Restore the original preview material.
+> - Keep the completed focal-length and framing systems intact.
+> - Report the exact shader or material error.
+> - Do not replace the working preview system with an unverified approach.
+>
+> At completion, report:
+>
+> - Materials created or modified
+> - Shader parameters exposed
+> - Scripts modified
+> - UI objects created
+> - Final k1 and k2 values
+> - Whether any parameter signs had to be reversed
+> - Visual result for each focal length
+> - Distortion-toggle verification
+> - Regression results for lens selection and Match Framing
+> - Any remaining warnings or limitations
+>
+> Update CLAD_PROMPT_LOG.md with the full prompt, implementation result,
+> corrections, and verification history.
+
+Result: Preserved `Assets/ShotSpace/Materials/ShotPreviewMaterial.mat` as the undistorted fallback. Created `ShotPreviewDistortionMaterial.mat` plus the custom `ShotPreviewRadialDistortion.graphShader`, assigned the new material only to `PreviewScreen`, and kept it bound to the existing `ShotPreviewRT`. The graph exposes `baseTex`, `k1`, `k2`, and `distortionBlend`; implements the specified centered-UV, 16:9-corrected r2/r4 radial calculation; blends original and distorted UVs; clamps sampling coordinates; and multiplies by an explicit 0–1 validity mask so invalid regions render black without wrap or smear. It uses static GLSL only and preserves mesh UV orientation.
+
+`Assets/Scripts/LensController.ts` remains the single source of truth and now stores the lens profile coefficients/descriptions, distortion-enabled state, and the existing lens/framing/Match/distance state together. At startup it clones `PreviewScreen`'s assigned distortion material once, rebinds the existing `ShotPreviewRT`, and writes k1/k2/blend only to that unique runtime instance. Lens changes preserve the previous distortion blend. Distortion-toggle changes write only `distortionBlend` and emit coordinated state; they do not alter the camera, rig, framing, or Match Framing. `Assets/Scripts/ShotSpaceLensControlsUI.ts` now creates the native `Toggle_LensDistortion`, `LensDistortionStatusLabel`, `LensDistortionRowLabel`, and a five-line information readout containing the optical profile. Distortion defaults ON. The expanded controls use larger row spacing, and the distortion switch was placed on the opposite side from the Match switch to separate their poke targets.
+
+Final lens values: 24mm `k1=-0.080`, `k2=0.015`, BARREL; 35mm `k1=-0.035`, `k2=0.005`, MILD BARREL; 50mm `k1=0.000`, `k2=0.000`, NEUTRAL; 85mm `k1=0.012`, `k2=0.000`, SUBTLE PINCUSHION. Visual verification showed controlled outward edge bowing at 24mm, a milder version at 35mm, a straight neutral image at 50mm, and a subtle opposite-direction response at 85mm. The requested signs produced the intended forward-mapping appearance, so no coefficient signs were reversed. Existing floor-grid lines and vertical set edges were sufficient; no calibration geometry was added.
+
+Verification: TypeScript compilation, IDE lint checks, project save, runtime startup, material binding, and visual preview checks pass. `PreviewScreen` reports a unique runtime `Clone of ShotPreviewDistortionMaterial`; its authored material points to `ShotPreviewDistortionMaterial`, and that material's `baseTex` points to the existing `ShotPreviewRT`. The original `ShotPreviewMaterial` remains in the project. No camera or render-target asset was created. The image is not flipped. The validity mask prevents repeat/smear, and no invalid-UV artifact was visible at the tested coefficients. Distortion OFF was exercised at 24mm, 35mm, 50mm, and 85mm; each state retained the active FOV, Medium framing, and Match ON while the readout changed to `OPTICAL PROFILE: OFF`. At 24mm, toggling distortion changed ON/OFF while ShotCameraRig remained exactly at `(-10.514946, -5.279438, -82.810234)` with unchanged rotation and FOV `0.798`. Equivalent no-motion checks passed when enabling 35mm and 85mm profiles. Match Framing regression produced the previously verified Medium distances: 11.9 cm at 24mm, 17.3 cm at 35mm, 24.7 cm at 50mm, and 42.0 cm at 85mm. The rule-of-thirds guides remain separate straight Interface-layer meshes in front of the monitor; the main SPECS view, panel frame, UI, labels, and surrounding diorama remain undistorted. Final runtime and authored state were restored to 50mm, Medium, Match Framing ON, Distortion ON. Logger inspection contained no errors.
+
+Problems and corrections: The first Code Node preset material was only a temporary creation path; it was replaced with an empty material and the custom imported shader-graph pass. The initial pass-attachment check found that the Empty Material preset still contains one pass, so the implementation correctly replaced that pass with `PassInfo.setPassConfiguration` rather than adding a second pass. An initial `defines = {}` assignment failed with `InternalError: Value is not an array`; removing the unnecessary defines override allowed the graph to attach and exposed exactly `PreviewEnabled`, `baseTex`, `distortionBlend`, `k1`, and `k2`. Early simulated hover/poke attempts timed out or touched neighboring tightly stacked controls. The control panel was expanded, row spacing was increased, the distortion switch was moved opposite the Match switch, and verification used measured-position held pinches followed by in-place release; this prevented release drift into adjacent rows and produced clean state transitions. No working camera, framing, or fallback material system was replaced during these corrections.
+
+Changes requested: No correction to Prompt 4 scope was requested.
+
 ## Logging Instructions
 
 After each major prompt:

@@ -1,0 +1,322 @@
+SchemaVersion: 1
+Nodes:
+  ChildNodes:
+    Node0:
+      DependencyIndex: 0
+      LevelID: 2
+      NodeCount: 0
+      NodeType: 1
+      Ports:
+        DepthMap:
+          Variable: false
+        ExtraOutputs:
+          Variable: false
+        Group:
+          String: Lens Distortion
+        PixelSize:
+          IOType: 1
+          Variable: [0.0, 0.0]
+        ScriptName:
+          String: baseTex
+        SortIndex:
+          Variable: 0
+        Texture:
+          ClassType2: TEXTURE_OBJECT_2D
+          IOType: 1
+        TextureSize:
+          IOType: 1
+          Variable: [0.0, 0.0]
+        Title:
+          String: Shot Preview
+        Tooltip:
+          String: Existing ShotPreviewRT sampled by the spatial monitor.
+      PositionX: -620
+      PositionY: -120
+      TemplateID: nodes_inputs_parameters_texture2d_object
+      TemplateVersionMinor: 1
+      Title1: Texture 2D Object Parameter
+      Title2: Shot Preview
+    Node1:
+      DependencyIndex: 1
+      LevelID: 1
+      NodeCount: 0
+      NodeType: 1
+      Ports:
+        Channels:
+          ItemIndex: 5
+          ItemList: "xyzw : rgba : xyz : rgb : xy : x"
+        Default:
+          Variable: 0.0
+        EnableMax:
+          Variable: false
+        EnableMin:
+          Variable: false
+        Group:
+          String: Lens Distortion
+        Max:
+          Variable: 0.25
+        Min:
+          Variable: -0.25
+        Output:
+          IOType: 1
+          Variable: 0.0
+        ScriptName:
+          String: k1
+        SortIndex:
+          Variable: 1
+        Step:
+          Variable: 0.001
+        Title:
+          String: K1
+        Tooltip:
+          String: Primary radial distortion coefficient.
+      PositionX: -620
+      PositionY: 20
+      TemplateID: nodes_inputs_parameters_float
+      Title1: Float Parameter
+      Title2: K1
+    Node2:
+      DependencyIndex: 2
+      LevelID: 3
+      NodeCount: 0
+      NodeType: 1
+      Ports:
+        Channels:
+          ItemIndex: 5
+          ItemList: "xyzw : rgba : xyz : rgb : xy : x"
+        Default:
+          Variable: 0.0
+        EnableMax:
+          Variable: false
+        EnableMin:
+          Variable: false
+        Group:
+          String: Lens Distortion
+        Max:
+          Variable: 0.25
+        Min:
+          Variable: -0.25
+        Output:
+          IOType: 1
+          Variable: 0.0
+        ScriptName:
+          String: k2
+        SortIndex:
+          Variable: 2
+        Step:
+          Variable: 0.001
+        Title:
+          String: K2
+        Tooltip:
+          String: Secondary radial distortion coefficient.
+      PositionX: -620
+      PositionY: 160
+      TemplateID: nodes_inputs_parameters_float
+      Title1: Float Parameter
+      Title2: K2
+    Node3:
+      DependencyIndex: 3
+      LevelID: 4
+      NodeCount: 0
+      NodeType: 1
+      Ports:
+        Channels:
+          ItemIndex: 5
+          ItemList: "xyzw : rgba : xyz : rgb : xy : x"
+        Default:
+          Variable: 1.0
+        EnableMax:
+          Variable: true
+        EnableMin:
+          Variable: true
+        Group:
+          String: Lens Distortion
+        Max:
+          Variable: 1.0
+        Min:
+          Variable: 0.0
+        Output:
+          IOType: 1
+          Variable: 0.0
+        ScriptName:
+          String: distortionBlend
+        SortIndex:
+          Variable: 3
+        Step:
+          Variable: 0.01
+        Title:
+          String: Distortion Blend
+        Tooltip:
+          String: Zero preserves original UVs; one applies the active optical profile.
+      PositionX: -620
+      PositionY: 300
+      TemplateID: nodes_inputs_parameters_float
+      Title1: Float Parameter
+      Title2: Distortion Blend
+    Node4:
+      DependencyIndex: 4
+      LevelID: 0
+      NodeCount: 0
+      NodeType: 1
+      Ports:
+        Code:
+          ClassType1: TEXT
+          String: |-
+            input_texture_2d baseTexture;
+            input_float distortionK1;
+            input_float distortionK2;
+            input_float blendAmount;
+            output_vec4 result;
+            
+            void main()
+            {
+            	const float aspect = 1.7777778;
+            	vec2 uv = system.getSurfaceUVCoord0();
+            	vec2 centeredUV = uv * 2.0 - 1.0;
+            	centeredUV.x *= aspect;
+            
+            	float r2 = dot(centeredUV, centeredUV);
+            	float r4 = r2 * r2;
+            	float radialScale = 1.0 + distortionK1 * r2 + distortionK2 * r4;
+            	vec2 distortedCenteredUV = centeredUV * radialScale;
+            	distortedCenteredUV.x /= aspect;
+            	vec2 distortedUV = distortedCenteredUV * 0.5 + 0.5;
+            	vec2 finalUV = mix(uv, distortedUV, clamp(blendAmount, 0.0, 1.0));
+            
+            	float valid =
+            		step(0.0, finalUV.x) * step(finalUV.x, 1.0) *
+            		step(0.0, finalUV.y) * step(finalUV.y, 1.0);
+            	vec4 sampledColor = baseTexture.sample(clamp(finalUV, vec2(0.0), vec2(1.0)));
+            	result = vec4(sampledColor.rgb * valid, 1.0);
+            }
+        CustomCodeNodeAsset:
+          ClassType1: REFUID
+          String: ""
+        Description:
+          ClassType1: TEXT
+          String: Static 16:9 radial UV distortion with clean black invalid-UV masking.
+        Examples:
+          ItemIndex: 0
+          ItemList: "Custom : Input/Output/Global Types : Extra Functions : Procedural Execution : Lighting Loop : System Built-In Values/Functions"
+        ID:
+          Variable: 0
+        Locked:
+          Variable: false
+        Stage:
+          ItemIndex: 1
+          ItemList: "Vertex : Pixel"
+        Title:
+          String: Radial Lens Distortion
+        UseExternalFile:
+          Variable: false
+        baseTexture:
+          ClassType2: TEXTURE_OBJECT_2D
+          Connection0:
+            NodeLevelID: 2
+            PortID: Texture
+        distortionK1:
+          Connection0:
+            NodeLevelID: 1
+            PortID: Output
+          Variable: 0.0
+        distortionK2:
+          Connection0:
+            NodeLevelID: 3
+            PortID: Output
+          Variable: 0.0
+        blendAmount:
+          Connection0:
+            NodeLevelID: 4
+            PortID: Output
+          Variable: 1.0
+        ngs_Height:
+          Variable: 650
+        ngs_Version:
+          String: 0.1.0
+        result:
+          IOType: 1
+          Variable: [0.0, 0.0, 0.0, 0.0]
+      PositionX: -210
+      PositionY: 40
+      TemplateID: node_util_custom
+      TemplateVersionMinor: 2
+      Title1: Radial Lens Distortion
+    Node5:
+      CommentSizeX: 0
+      CommentSizeY: 0
+      DependencyIndex: 5
+      LevelID: 5
+      NodeCount: 0
+      NodeType: 1
+      Ports:
+        Depth:
+          Variable: 1.0
+        DepthMode:
+          ItemIndex: 0
+          ItemList: "Non-Linear - Normalized [0 to 1] : Linear - Normalized [-1 to 1] : View Space - Non-Normalized [-near to -far]"
+        DontFreezeSpec:
+          Variable: false
+        FinalColor:
+          ClassType1: COLOR
+          Connection0:
+            NodeLevelID: 0
+            PortID: result
+          Variable: [1.0, 1.0, 1.0, 1.0]
+        FinalColor1:
+          ClassType1: COLOR
+          Variable: [1.0, 1.0, 1.0, 1.0]
+        FinalColor2:
+          ClassType1: COLOR
+          Variable: [1.0, 1.0, 1.0, 1.0]
+        FinalColor3:
+          ClassType1: COLOR
+          Variable: [1.0, 1.0, 1.0, 1.0]
+        GSplatPointSize:
+          Variable: 0.0
+        GSplatRotation:
+          Variable: [0.0, 0.0, 0.0, 1.0]
+        GSplatScale:
+          Variable: [0.0, 0.0, 0.0]
+        Motion Vector Pass:
+          ItemIndex: 0
+          ItemList: "Write Velocity and Depth : Discard Velocity but Write Depth : Discard Velocity and Depth"
+        Negative:
+          Variable: false
+        PrevWorldPosition:
+          Variable: [0.0, 0.0, 0.0]
+        RayDirection:
+          Variable: [0.0, 1.0, 0.0]
+        RayOrigin:
+          Variable: [0.0, 0.0, 0.0]
+        ShowPrevPos:
+          Variable: false
+        Targets:
+          ItemIndex: 0
+          ItemList: "1 : 2 : 3 : 4"
+        Type:
+          ItemIndex: 0
+          ItemList: "3D : Post Effect : Hair : Gaussian Splatting"
+        WorldNormal:
+          Variable: [0.0, 1.0, 0.0]
+        WorldPosition:
+          Variable: [0.0, 0.0, 0.0]
+        WorldTangent:
+          Variable: [0.0, 0.0, 1.0]
+        WriteDepth:
+          Variable: false
+      PositionX: 240
+      PositionY: 40
+      TemplateID: nodes_main_graph
+      Title1: Shader
+      Title2: 3D
+  IsSubGraph0: true
+  IsSubGraph1: true
+  IsSubGraph2: true
+  IsSubGraph3: true
+  LevelID: 0
+  NodeType: 3
+  PositionX: 0
+  PositionY: 0
+  TemplateID: nodes_main_subgraph
+  Title1: ""
+SystemID: dev.snap.shaders

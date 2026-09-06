@@ -97,12 +97,12 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
   @input
   @hint("Height of the status/header backplate above PreviewScreen, in centimeters.")
   @widget(new SliderWidget(10, 18, 0.2))
-  statusPanelHeightCm: number = 14.2
+  statusPanelHeightCm: number = 16
 
   @input
-  @hint("Height of the combined focal, framing, and Match control backplate, in centimeters.")
+  @hint("Height of the combined focal, framing, Match, and distortion control backplate, in centimeters.")
   @widget(new SliderWidget(10, 18, 0.2))
-  controlPanelHeightCm: number = 12.6
+  controlPanelHeightCm: number = 16
 
   @input
   @hint("Local X center of the status group so it remains aligned above PreviewScreen.")
@@ -158,6 +158,11 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
   matchSwitchWidthCm: number = 7
 
   @input
+  @hint("Width of the native UIKit Lens Distortion switch.")
+  @widget(new SliderWidget(5, 9, 0.1))
+  distortionSwitchWidthCm: number = 7
+
+  @input
   @hint("Inset between panel edges and their content, in centimeters.")
   @widget(new SliderWidget(0.5, 2, 0.1))
   panelPaddingCm: number = 1
@@ -190,8 +195,10 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
   private educationalText: Text | null = null
   private framingStatusText: Text | null = null
   private matchStatusText: Text | null = null
+  private distortionStatusText: Text | null = null
   private informationReadoutText: Text | null = null
   private matchSwitch: Switch | null = null
+  private distortionSwitch: Switch | null = null
   private readonly lensButtons: LensButtonEntry[] = []
   private readonly framingButtons: FramingButtonEntry[] = []
   private unsubscribeStateChanged: (() => void) | null = null
@@ -203,6 +210,7 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
     this.setSelectedFocalLength(DEFAULT_FOCAL_LENGTH_MM)
     this.setSelectedFramingLabel(DEFAULT_FRAMING_LABEL)
     this.setMatchFramingDisplay(true)
+    this.setLensDistortionDisplay(true)
 
     const connectDelay = this.createEvent("DelayedCallbackEvent")
     connectDelay.bind(() => this.connectLensController())
@@ -221,12 +229,17 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
     this.setSelectedFocalLength(state.currentLens.focalLengthMm)
     this.setSelectedFramingLabel(state.currentFraming.displayLabel)
     this.setMatchFramingDisplay(state.matchFramingEnabled)
+    this.setLensDistortionDisplay(state.lensDistortionEnabled)
 
     if (this.informationReadoutText) {
+      const opticalProfile = state.lensDistortionEnabled
+        ? state.currentLens.distortionDescription
+        : "OFF"
       this.informationReadoutText.text =
         `LENS: ${state.currentLens.focalLengthMm}mm\n` +
         `FRAMING: ${state.currentFraming.displayLabel}\n` +
         `MATCH: ${state.matchFramingEnabled ? "ON" : "OFF"}\n` +
+        `OPTICAL PROFILE: ${opticalProfile}\n` +
         `DISTANCE: ${state.distanceCm.toFixed(1)} cm`
     }
   }
@@ -270,6 +283,15 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
     }
     if (this.matchSwitch) {
       this.matchSwitch.isOn = enabled
+    }
+  }
+
+  private setLensDistortionDisplay(enabled: boolean): void {
+    if (this.distortionStatusText) {
+      this.distortionStatusText.text = `DISTORTION: ${enabled ? "ON" : "OFF"}`
+    }
+    if (this.distortionSwitch) {
+      this.distortionSwitch.isOn = enabled
     }
   }
 
@@ -343,13 +365,23 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
     )
     this.matchStatusText = match.text
 
+    const distortion = this.createStatusText(
+      content,
+      "LensDistortionStatusLabel",
+      "DISTORTION: ON",
+      "Caption",
+      this.secondaryTextColor,
+      1.4
+    )
+    this.distortionStatusText = distortion.text
+
     const information = this.createStatusText(
       content,
       "LensInformationReadout",
-      "LENS: 50mm\nFRAMING: MEDIUM\nMATCH: ON\nDISTANCE: 0.0 cm",
+      "LENS: 50mm\nFRAMING: MEDIUM\nMATCH: ON\nOPTICAL PROFILE: NEUTRAL\nDISTANCE: 0.0 cm",
       "Caption",
       this.primaryTextColor,
-      5.2,
+      6.2,
       HorizontalAlignment.Left
     )
     this.informationReadoutText = information.text
@@ -359,6 +391,7 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
       education.item,
       framing.item,
       match.item,
+      distortion.item,
       information.item,
     ])
   }
@@ -421,7 +454,35 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
     const toggle = this.createMatchSwitch(matchRow.object)
     matchRow.layout.addItems([matchLabel.item, toggle])
 
-    layout.addItems([focalRow.item, framingRow.item, matchRow.item])
+    const distortionRow = this.createControlRow(
+      content,
+      "LensDistortionControlsRow",
+      this.buttonHeightCm
+    )
+    const distortionLabel = this.createFlexText(
+      distortionRow.object,
+      "LensDistortionRowLabel",
+      "LENS DISTORTION",
+      "Button",
+      this.primaryTextColor,
+      this.panelWidthCm -
+        this.panelPaddingCm * 2 -
+        this.distortionSwitchWidthCm -
+        this.buttonGapCm,
+      this.buttonHeightCm,
+      HorizontalAlignment.Left
+    )
+    const distortionToggle = this.createLensDistortionSwitch(distortionRow.object)
+    // Alternate the switch side from Match Framing so the two large poke
+    // targets do not overlap during a straight-ahead hand approach.
+    distortionRow.layout.addItems([distortionToggle, distortionLabel.item])
+
+    layout.addItems([
+      focalRow.item,
+      framingRow.item,
+      matchRow.item,
+      distortionRow.item,
+    ])
   }
 
   private createControlRow(
@@ -560,6 +621,34 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
     return item
   }
 
+  private createLensDistortionSwitch(parent: SceneObject): FlexItem {
+    const switchObject = this.createObject(parent, "Toggle_LensDistortion")
+    const distortionSwitch = switchObject.createComponent(
+      Switch.getTypeName()
+    ) as Switch
+    distortionSwitch.size = new vec3(
+      this.distortionSwitchWidthCm,
+      this.buttonHeightCm,
+      1
+    )
+    distortionSwitch.initialize()
+    distortionSwitch.isOn = true
+    distortionSwitch.onFinished.add((explicit: boolean) => {
+      if (explicit) {
+        this.requestLensDistortion(distortionSwitch.isOn)
+      }
+    })
+    this.distortionSwitch = distortionSwitch
+
+    const item = switchObject.createComponent(FlexItem.getTypeName()) as FlexItem
+    item.overrideWidth = this.distortionSwitchWidthCm
+    item.overrideHeight = this.buttonHeightCm
+    item.flexGrow = 0
+    item.flexShrink = 0
+    item.alignSelf = FlexAlignSelf.Center
+    return item
+  }
+
   private createStatusText(
     parent: SceneObject,
     objectName: string,
@@ -639,6 +728,16 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
       return
     }
     this.lensController.setMatchFramingEnabled(enabled)
+  }
+
+  private requestLensDistortion(enabled: boolean): void {
+    if (!this.lensController || isNull(this.lensController)) {
+      console.error(
+        "[ShotSpaceLensControlsUI] Cannot change lens distortion: lensController is unavailable."
+      )
+      return
+    }
+    this.lensController.setLensDistortionEnabled(enabled)
   }
 
   private connectLensController(): void {

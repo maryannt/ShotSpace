@@ -29,9 +29,12 @@
   PackagePolicy: CanBeUnpacked
   ScriptInputsHidden:
     framingTarget: false
+    lensDistortionEnabled: false
     matchFramingEnabled: false
+    previewScreen: false
     shotCamera: false
     shotCameraRig: false
+    shotPreviewRenderTarget: false
     subjectHeightCm: false
   ScriptTypesHidden:
     {}
@@ -45,8 +48,11 @@
     - shotCamera: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       shotCameraRig: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       framingTarget: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      previewScreen: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      shotPreviewRenderTarget: !<reference.Texture> 00000000-0000-0000-0000-000000000000
       subjectHeightCm: !<float> 6.000000
       matchFramingEnabled: true
+      lensDistortionEnabled: true
   ScriptTypes:
     -
       {}
@@ -54,5 +60,8 @@
     - '// @input SceneObject shotCamera {"hint":"Authored ShotCamera SceneObject whose Camera field of view is controlled."}'
     - '// @input SceneObject shotCameraRig {"hint":"Existing authored ShotCameraRig moved to match the selected subject framing."}'
     - '// @input SceneObject framingTarget {"hint":"Authored subject target that the ShotCameraRig aims toward."}'
+    - '// @input SceneObject previewScreen {"hint":"Existing PreviewScreen whose assigned distortion material is cloned once for unique runtime control."}'
+    - '// @input Asset.Texture shotPreviewRenderTarget {"hint":"Existing ShotPreviewRT sampled by the unique PreviewScreen distortion material instance."}'
     - '// @input float subjectHeightCm = 6 {"hint":"Estimated subject height in centimeters, used by the exact framing-distance calculation.", "widget":"slider", "min":1, "max":30, "step":0.1}'
     - '// @input bool matchFramingEnabled = true {"hint":"When enabled, focal changes preserve the selected framing by repositioning the ShotCameraRig."}'
+    - '// @input bool lensDistortionEnabled = true {"hint":"When enabled, the active lens profile is blended into PreviewScreen UVs."}'

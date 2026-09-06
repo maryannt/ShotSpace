@@ -7,30 +7,45 @@ export type LensPreset = Readonly<{
   displayLabel: string
   focalLengthMm: number
   fovRadians: number
+  distortionK1: number
+  distortionK2: number
+  distortionDescription: string
 }>
 
 export const LENS_PRESET_24MM: LensPreset = Object.freeze({
   displayLabel: "24mm",
   focalLengthMm: 24,
   fovRadians: 0.798,
+  distortionK1: -0.080,
+  distortionK2: 0.015,
+  distortionDescription: "BARREL",
 })
 
 export const LENS_PRESET_35MM: LensPreset = Object.freeze({
   displayLabel: "35mm",
   focalLengthMm: 35,
   fovRadians: 0.563,
+  distortionK1: -0.035,
+  distortionK2: 0.005,
+  distortionDescription: "MILD BARREL",
 })
 
 export const LENS_PRESET_50MM: LensPreset = Object.freeze({
   displayLabel: "50mm",
   focalLengthMm: 50,
   fovRadians: 0.400,
+  distortionK1: 0.000,
+  distortionK2: 0.000,
+  distortionDescription: "NEUTRAL",
 })
 
 export const LENS_PRESET_85MM: LensPreset = Object.freeze({
   displayLabel: "85mm",
   focalLengthMm: 85,
   fovRadians: 0.237,
+  distortionK1: 0.012,
+  distortionK2: 0.000,
+  distortionDescription: "SUBTLE PINCUSHION",
 })
 
 export type FramingPreset = Readonly<{
@@ -57,6 +72,7 @@ export type ShotFramingState = Readonly<{
   currentLens: LensPreset
   currentFraming: FramingPreset
   matchFramingEnabled: boolean
+  lensDistortionEnabled: boolean
   distanceCm: number
 }>
 
@@ -81,6 +97,14 @@ export class LensController extends BaseScriptComponent {
   framingTarget!: SceneObject
 
   @input
+  @hint("Existing PreviewScreen whose assigned distortion material is cloned once for unique runtime control.")
+  previewScreen!: SceneObject
+
+  @input
+  @hint("Existing ShotPreviewRT sampled by the unique PreviewScreen distortion material instance.")
+  shotPreviewRenderTarget!: Texture
+
+  @input
   @hint("Estimated subject height in centimeters, used by the exact framing-distance calculation.")
   @widget(new SliderWidget(1, 30, 0.1))
   subjectHeightCm: number = 6.0
@@ -89,7 +113,12 @@ export class LensController extends BaseScriptComponent {
   @hint("When enabled, focal changes preserve the selected framing by repositioning the ShotCameraRig.")
   matchFramingEnabled: boolean = true
 
+  @input
+  @hint("When enabled, the active lens profile is blended into PreviewScreen UVs.")
+  lensDistortionEnabled: boolean = true
+
   private shotCameraComponent: Camera | null = null
+  private previewDistortionMaterial: Material | null = null
   private selectedPreset: LensPreset | null = null
   private selectedFramingPreset: FramingPreset = FRAMING_PRESET_MEDIUM
   private currentCameraDistanceCm: number = 0
@@ -106,6 +135,7 @@ export class LensController extends BaseScriptComponent {
     }
 
     this.validateFramingReferences()
+    this.resolvePreviewDistortionMaterial()
 
     // Establish the complete default atomically so startup emits one compatible
     // preset event and one combined-state event with no intermediate state.
@@ -113,6 +143,9 @@ export class LensController extends BaseScriptComponent {
     this.selectedPreset = LENS_PRESET_50MM
     this.selectedFramingPreset = FRAMING_PRESET_MEDIUM
     this.matchFramingEnabled = true
+    this.lensDistortionEnabled = true
+    this.applyDistortionProfile(LENS_PRESET_50MM)
+    this.applyDistortionBlend()
     this.applyCurrentFramingTransform()
     this.refreshActualDistance()
     this.emitPresetChanged(LENS_PRESET_50MM)
@@ -130,6 +163,7 @@ export class LensController extends BaseScriptComponent {
 
     this.shotCameraComponent!.fov = preset.fovRadians
     this.selectedPreset = preset
+    this.applyDistortionProfile(preset)
 
     if (this.matchFramingEnabled) {
       this.applyCurrentFramingTransform()
@@ -196,6 +230,22 @@ export class LensController extends BaseScriptComponent {
     this.emitStateChanged()
   }
 
+  /**
+   * Distortion is an isolated PreviewScreen material state. It never changes
+   * focal length, framing, Match Framing, or any authored camera transform.
+   */
+  public setLensDistortionEnabled(enabled: boolean): void {
+    if (this.lensDistortionEnabled === enabled) {
+      this.applyDistortionBlend()
+      this.emitStateChanged()
+      return
+    }
+
+    this.lensDistortionEnabled = enabled
+    this.applyDistortionBlend()
+    this.emitStateChanged()
+  }
+
   public getCurrentPreset(): LensPreset | null {
     return this.selectedPreset
   }
@@ -206,6 +256,10 @@ export class LensController extends BaseScriptComponent {
 
   public getMatchFramingEnabled(): boolean {
     return this.matchFramingEnabled
+  }
+
+  public getLensDistortionEnabled(): boolean {
+    return this.lensDistortionEnabled
   }
 
   public getCurrentCameraDistanceCm(): number {
@@ -357,6 +411,60 @@ export class LensController extends BaseScriptComponent {
     return true
   }
 
+  private resolvePreviewDistortionMaterial(): boolean {
+    if (!this.previewScreen || isNull(this.previewScreen)) {
+      console.error("[LensController] previewScreen input is not wired; lens distortion is unavailable.")
+      return false
+    }
+
+    const visual = this.previewScreen.getComponent(
+      "Component.RenderMeshVisual"
+    ) as RenderMeshVisual | null
+    if (isNull(visual)) {
+      console.error("[LensController] PreviewScreen has no RenderMeshVisual.")
+      return false
+    }
+
+    const sourceMaterial = visual.mainMaterial
+    if (!sourceMaterial || isNull(sourceMaterial)) {
+      console.error("[LensController] PreviewScreen has no material to clone.")
+      return false
+    }
+
+    const runtimeMaterial = sourceMaterial.clone()
+    visual.clearMaterials()
+    visual.addMaterial(runtimeMaterial)
+    this.previewDistortionMaterial = runtimeMaterial
+
+    if (this.shotPreviewRenderTarget && !isNull(this.shotPreviewRenderTarget)) {
+      runtimeMaterial.mainPass.baseTex = this.shotPreviewRenderTarget
+    } else {
+      console.error(
+        "[LensController] shotPreviewRenderTarget input is not wired; the distortion material will retain its authored texture."
+      )
+    }
+
+    return true
+  }
+
+  private applyDistortionProfile(preset: LensPreset): void {
+    if (isNull(this.previewDistortionMaterial)) {
+      return
+    }
+
+    this.previewDistortionMaterial.mainPass.k1 = preset.distortionK1
+    this.previewDistortionMaterial.mainPass.k2 = preset.distortionK2
+  }
+
+  private applyDistortionBlend(): void {
+    if (isNull(this.previewDistortionMaterial)) {
+      return
+    }
+
+    this.previewDistortionMaterial.mainPass.distortionBlend =
+      this.lensDistortionEnabled ? 1.0 : 0.0
+  }
+
   private ensureShotCameraAvailable(action: string): boolean {
     if (!isNull(this.shotCameraComponent)) {
       return true
@@ -398,6 +506,7 @@ export class LensController extends BaseScriptComponent {
       currentLens: this.selectedPreset!,
       currentFraming: this.selectedFramingPreset,
       matchFramingEnabled: this.matchFramingEnabled,
+      lensDistortionEnabled: this.lensDistortionEnabled,
       distanceCm: this.currentCameraDistanceCm,
     })
   }

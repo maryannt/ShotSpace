@@ -6990,8 +6990,8 @@
             "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
             "blendShapesEnabled": true,
             "blendNormals": false,
-            "materials.0": "@asset:ShotSpace/Materials/ShotPreviewMaterial.mat",
-            "mainMaterial": "@asset:ShotSpace/Materials/ShotPreviewMaterial.mat",
+            "materials.0": "@asset:ShotSpace/Materials/ShotPreviewDistortionMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/ShotPreviewDistortionMaterial.mat",
             "stretchMode": {
               "value": "Stretch",
               "type": "enum",
@@ -7569,9 +7569,16 @@
               "type": "float",
               "uiInfo": "{\"hint\":\"Local X center of the compact button panel.\", \"widget\":\"slider\", \"min\":-15, \"max\":15, \"step\":0.5}"
             },
+            "distortionSwitchWidthCm": {
+              "isScriptInput": true,
+              "value": 7,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Width of the native UIKit Lens Distortion switch.\", \"widget\":\"slider\", \"min\":5, \"max\":9, \"step\":0.1}",
+              "defaultValue": "7"
+            },
             "controlRowGapCm": {
               "isScriptInput": true,
-              "value": 0.5,
+              "value": 1,
               "type": "float",
               "uiInfo": "{\"hint\":\"Vertical gap between focal, framing, and Match rows.\", \"widget\":\"slider\", \"min\":0.2, \"max\":1, \"step\":0.1}",
               "defaultValue": "0.5"
@@ -7613,14 +7620,14 @@
             },
             "controlPanelHeightCm": {
               "isScriptInput": true,
-              "value": 12.600000381469727,
+              "value": 17.399999618530273,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Height of the combined focal, framing, and Match control backplate, in centimeters.\", \"widget\":\"slider\", \"min\":10, \"max\":18, \"step\":0.2}",
-              "defaultValue": "12.6"
+              "uiInfo": "{\"hint\":\"Height of the combined focal, framing, Match, and distortion control backplate, in centimeters.\", \"widget\":\"slider\", \"min\":10, \"max\":18, \"step\":0.2}",
+              "defaultValue": "16"
             },
             "controlsCenterYCm": {
               "isScriptInput": true,
-              "value": -16,
+              "value": -13.600000381469727,
               "type": "float",
               "uiInfo": "{\"hint\":\"Local Y center of the combined controls below PreviewPanel.\", \"widget\":\"slider\", \"min\":-24, \"max\":-12, \"step\":0.2}",
               "defaultValue": "-18"
@@ -7685,17 +7692,17 @@
             },
             "statusCenterYCm": {
               "isScriptInput": true,
-              "value": 12,
+              "value": 13.600000381469727,
               "type": "float",
               "uiInfo": "{\"hint\":\"Local Y center of the status/header group above the 16x9 PreviewScreen.\", \"widget\":\"slider\", \"min\":8, \"max\":16, \"step\":0.2}",
               "defaultValue": "12"
             },
             "statusPanelHeightCm": {
               "isScriptInput": true,
-              "value": 14.199999809265137,
+              "value": 17.399999618530273,
               "type": "float",
               "uiInfo": "{\"hint\":\"Height of the status/header backplate above PreviewScreen, in centimeters.\", \"widget\":\"slider\", \"min\":10, \"max\":18, \"step\":0.2}",
-              "defaultValue": "14.2"
+              "defaultValue": "16"
             },
             "scriptAsset": "@asset:Scripts/ShotSpaceLensControlsUI.ts",
             "inputNames.0": "accentColor",
@@ -7706,17 +7713,18 @@
             "inputNames.5": "controlRowGapCm",
             "inputNames.6": "controlsCenterXCm",
             "inputNames.7": "controlsCenterYCm",
-            "inputNames.8": "fontSizeScale",
-            "inputNames.9": "framingButtonWidthCm",
-            "inputNames.10": "lensController",
-            "inputNames.11": "matchSwitchWidthCm",
-            "inputNames.12": "panelPaddingCm",
-            "inputNames.13": "panelWidthCm",
-            "inputNames.14": "primaryTextColor",
-            "inputNames.15": "secondaryTextColor",
-            "inputNames.16": "statusCenterXCm",
-            "inputNames.17": "statusCenterYCm",
-            "inputNames.18": "statusPanelHeightCm",
+            "inputNames.8": "distortionSwitchWidthCm",
+            "inputNames.9": "fontSizeScale",
+            "inputNames.10": "framingButtonWidthCm",
+            "inputNames.11": "lensController",
+            "inputNames.12": "matchSwitchWidthCm",
+            "inputNames.13": "panelPaddingCm",
+            "inputNames.14": "panelWidthCm",
+            "inputNames.15": "primaryTextColor",
+            "inputNames.16": "secondaryTextColor",
+            "inputNames.17": "statusCenterXCm",
+            "inputNames.18": "statusCenterYCm",
+            "inputNames.19": "statusPanelHeightCm",
             "name": "ShotSpaceLensControlsUI",
             "enabled": true,
             "sceneObject": "@sceneObject:LensControlsUI",
@@ -8187,12 +8195,37 @@
               "type": "SceneObject",
               "uiInfo": "{\"hint\":\"Authored subject target that the ShotCameraRig aims toward.\"}"
             },
+            "lensDistortionEnabled": {
+              "isScriptInput": true,
+              "value": true,
+              "type": "bool",
+              "uiInfo": "{\"hint\":\"When enabled, the active lens profile is blended into PreviewScreen UVs.\"}",
+              "defaultValue": "true"
+            },
             "matchFramingEnabled": {
               "isScriptInput": true,
               "value": true,
               "type": "bool",
               "uiInfo": "{\"hint\":\"When enabled, focal changes preserve the selected framing by repositioning the ShotCameraRig.\"}",
               "defaultValue": "true"
+            },
+            "previewScreen": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "3a44425f-6c4b-4203-a878-5261f3f14a19",
+                "name": "PreviewScreen"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Existing PreviewScreen whose assigned distortion material is cloned once for unique runtime control.\"}"
+            },
+            "shotPreviewRenderTarget": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "c2b9d4df-b605-4eea-af90-bae759a0d9b6",
+                "name": "ShotPreviewRT"
+              },
+              "type": "Asset.Texture",
+              "uiInfo": "{\"hint\":\"Existing ShotPreviewRT sampled by the unique PreviewScreen distortion material instance.\"}"
             },
             "shotCamera": {
               "isScriptInput": true,
@@ -8214,10 +8247,13 @@
             },
             "scriptAsset": "@asset:Scripts/LensController.ts",
             "inputNames.0": "framingTarget",
-            "inputNames.1": "matchFramingEnabled",
-            "inputNames.2": "shotCamera",
-            "inputNames.3": "shotCameraRig",
-            "inputNames.4": "subjectHeightCm",
+            "inputNames.1": "lensDistortionEnabled",
+            "inputNames.2": "matchFramingEnabled",
+            "inputNames.3": "previewScreen",
+            "inputNames.4": "shotCamera",
+            "inputNames.5": "shotCameraRig",
+            "inputNames.6": "shotPreviewRenderTarget",
+            "inputNames.7": "subjectHeightCm",
             "name": "LensController",
             "enabled": true,
             "sceneObject": "@sceneObject:Systems",
@@ -9826,6 +9862,130 @@
         "name": "InteractorLineMaterial",
         "fileMeta.id": "1ec9570b-6e58-8647-393c-06eb6a67cedc",
         "id": "515adedb-808a-4b69-af91-2565a9dc2a21",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "31bb5410-6b9f-4206-b01c-7df82d1b04b2",
+      "name": "ShotPreviewDistortionMaterial",
+      "type": "Material",
+      "path": "ShotSpace/Materials/ShotPreviewDistortionMaterial.mat",
+      "properties": {
+        "passInfos.0.baseTex.value.id": "c2b9d4df-b605-4eea-af90-bae759a0d9b6",
+        "passInfos.0.baseTex.label": "Shot Preview",
+        "passInfos.0.k1.value": 0,
+        "passInfos.0.k1.label": "K1",
+        "passInfos.0.k2.value": 0,
+        "passInfos.0.k2.label": "K2",
+        "passInfos.0.distortionBlend.value": 1,
+        "passInfos.0.distortionBlend.label": "Distortion Blend",
+        "passInfos.0.distortionBlend.min": 0,
+        "passInfos.0.distortionBlend.max": 1,
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "9a23ac45-8846-41b1-b513-1126fe4a0679",
+        "passInfos.0.type": "PassInfo",
+        "name": "ShotPreviewDistortionMaterial",
+        "fileMeta.id": "b0dbbaba-3d36-4bf1-893f-82e9c125acf5",
+        "id": "31bb5410-6b9f-4206-b01c-7df82d1b04b2",
         "type": "Material"
       }
     },
