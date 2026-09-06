@@ -60,11 +60,96 @@ Ready for scene construction: Yes.
 
 ## Prompt 1 — Scene Foundation
 
-Date:
+Date: 2026-09-06
+
 Prompt:
-Result:
-Problems:
-Changes requested:
+
+> Using SPECS experience builder, create the first foundation of a
+> SPECS spatial filmmaking previsualization experience called ShotSpace.
+>
+> The goal of this phase is only to establish:
+>
+> 1. A small tabletop filmmaking diorama
+> 2. A separate virtual shot camera
+> 3. A 16:9 render target
+> 4. A world-space director's preview monitor displaying the shot camera
+> 5. Correct render-layer separation
+>
+> Use simple, lightweight primitives for this first version. Do not use
+> text-to-3D or generate detailed assets.
+>
+> Create this organization:
+>
+> ShotSpaceRoot
+> - DioramaRoot
+>   - Floor with a visible grid
+>   - BackWall
+>   - SideWall
+>   - ActorA placeholder
+>   - ActorB placeholder
+>   - One foreground set object
+> - ShotCameraRig
+>   - ShotCamera
+>   - CameraProxyMesh
+> - KeyLightRig
+>   - KeyLight
+>   - LightConeVisualizer
+> - PreviewPanel
+>   - PreviewScreen
+>   - PreviewFrame
+>   - Temporary label reading "SHOT PREVIEW"
+> - Systems
+>
+> Create or configure these render layers:
+>
+> - PrevisSet
+> - MainExperience
+> - Interface
+>
+> Layer behavior:
+>
+> - The set, actors, and props belong to PrevisSet.
+> - ShotCamera renders only PrevisSet.
+> - CameraProxyMesh and LightConeVisualizer belong to MainExperience.
+> - PreviewPanel belongs to Interface.
+> - The main SPECS camera can see the entire experience.
+> - ShotCamera must not see PreviewPanel, CameraProxyMesh, UI, or its own
+>   output.
+>
+> Create one Texture2D render target named ShotPreviewRT at 512 × 288.
+> Use a 16:9 aspect ratio.
+>
+> Configure ShotCamera as a perspective camera that renders PrevisSet
+> into ShotPreviewRT. Disable physical camera-property overrides so its
+> field of view can later be controlled through script.
+>
+> Create an unlit preview material that samples ShotPreviewRT and place it
+> on the world-space PreviewScreen.
+>
+> Position the diorama and preview monitor so they are both comfortably
+> visible in the SPECS Preview.
+>
+> Do not add lens buttons, framing presets, radial distortion, saved
+> shots, actor grabbing, camera grabbing, or final UI during this phase.
+>
+> Build the scene, save the project, and run /verify-preview.
+>
+> Verify that:
+>
+> 1. ShotCamera produces a visible image on PreviewScreen.
+> 2. Repositioning ShotCamera changes the preview image.
+> 3. The PreviewScreen does not appear inside its own camera feed.
+> 4. The grid, both actor placeholders, and set walls appear in the feed.
+> 5. The project compiles without persistent red errors.
+>
+> Report all objects, assets, layers, and materials created, along with
+> any warnings or incomplete items.
+
+Result: Created and saved the requested ShotSpace hierarchy using lightweight procedural box, cylinder, and cone meshes. Added the tabletop set, visible grid, two actor placeholders, foreground prop, shot-camera rig and proxy, key-light rig and cone visualizer, world-space preview monitor, temporary UIKit label, and Systems root. Created `ShotPreviewRT` at 512 × 288 and an unlit `ShotPreviewMaterial` that samples it. Configured the ShotCamera as Perspective with a 16:9 aspect, no device-property override, the PrevisSet-only mask, and `ShotPreviewRT` output. The main camera sees all experience masks. `/verify-preview` confirmed a visible isolated feed, changed framing after temporarily moving the shot camera, no recursive monitor image, expected set contents, successful TypeScript compilation, and no runtime Logger errors. The camera was restored to its authored position and the project was saved again.
+
+Problems: Lens Studio 5.23.2 preserved the three custom layer masks and their behavior but reverted their display names to `Layer 2`, `Layer 3`, and `Layer 4` after save instead of `PrevisSet`, `MainExperience`, and `Interface`.
+
+Changes requested: No correction prompt yet. If persistent custom display names are required for submission, rename the layers manually in Lens Studio while retaining masks 2, 4, and 8.
 
 ## Logging Instructions
 

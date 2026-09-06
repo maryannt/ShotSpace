@@ -1,0 +1,56 @@
+- !<AssetImportMetadata/83b5120b-56a2-4d8c-94fc-750bbb8244dc>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> be6efaae-9832-4c4c-9c8d-bdec392a6353
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> be6efaae-9832-4c4c-9c8d-bdec392a6353
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> e320dbb2-4c5d-4f79-a57b-1e8a25c00e2f
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/e320dbb2-4c5d-4f79-a57b-1e8a25c00e2f>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 8f7f6fd4-f69a-4565-9ea5-1276c8f3707b
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    labelText: false
+    panelWidthCm: false
+    textColor: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - labelText: SHOT PREVIEW
+      panelWidthCm: !<float> 18.000000
+      textColor: !<Vec4> {x: 0.750000, y: 0.900000, z: 1.000000, w: 1.000000}
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">ShotSpace Preview Label</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input string labelText = "SHOT PREVIEW" {"hint":"Temporary label shown beneath the director preview monitor."}'
+    - '// @input float panelWidthCm = 18 {"hint":"Width of the world-space label layout in centimeters.", "widget":"slider", "min":10, "max":30, "step":0.5}'
+    - '// @input vec4 textColor = "{0.75,0.9,1,1}" {"hint":"Color of the preview label on the additive Specs display.", "widget":"color"}'
+    - '// @ui {"widget":"group_end"}'

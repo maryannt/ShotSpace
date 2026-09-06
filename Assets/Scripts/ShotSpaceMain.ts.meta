@@ -1,0 +1,59 @@
+- !<AssetImportMetadata/ea78bcce-3b11-4f0c-a74f-cb01728c84fb>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> a39004bf-136f-4fa1-976e-1a8bf41c9a0b
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> a39004bf-136f-4fa1-976e-1a8bf41c9a0b
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> a3e9c8df-c4f8-4933-bd7c-2d2429c29727
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/a3e9c8df-c4f8-4933-bd7c-2d2429c29727>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: aed708e2-b0c0-4aa5-a712-202b6305b94a
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    dioramaRoot: false
+    previewLabel: false
+    previewScreen: false
+    shotCamera: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - dioramaRoot: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      shotCamera: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      previewScreen: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      previewLabel: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">ShotSpace Foundation</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"References"}'
+    - '// @input SceneObject dioramaRoot {"hint":"Authored root containing the tabletop set, actors, and prop."}'
+    - '// @input SceneObject shotCamera {"hint":"Authored virtual camera that renders the PrevisSet layer."}'
+    - '// @input SceneObject previewScreen {"hint":"Authored monitor surface displaying ShotPreviewRT."}'
+    - '// @input AssignableType_1 previewLabel {"hint":"Typed UI module that owns the temporary preview label."}'
+    - '// @ui {"widget":"group_end"}'

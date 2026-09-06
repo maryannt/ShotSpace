@@ -131,7 +131,7 @@
             "maskTexture": null,
             "inputTexture": null,
             "renderLayer": {
-              "value": 1,
+              "value": 15,
               "type": "layer_set_mask"
             },
             "name": "Camera",
@@ -4706,6 +4706,2874 @@
           }
         }
       ]
+    },
+    {
+      "id": "375b0fd5-c3e9-44fa-9f08-0ddbbef0f702",
+      "name": "ShotSpaceRoot",
+      "enabled": true,
+      "parentId": null,
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 4,
+      "components": [
+        {
+          "id": "e339f1dd-3342-4e9d-a97c-5376465803cc",
+          "type": "ScriptComponent",
+          "name": "ShotSpaceMain",
+          "enabled": true,
+          "properties": {
+            "dioramaRoot": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "bcdcc8f2-fff4-4826-81c2-f3e3d83dd717",
+                "name": "DioramaRoot"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Authored root containing the tabletop set, actors, and prop.\"}"
+            },
+            "previewLabel": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "87466d1f-3b69-46a0-9789-09f255f960cd",
+                "name": "ShotSpacePreviewLabelUI"
+              },
+              "type": "AssignableType_1",
+              "uiInfo": "{\"hint\":\"Typed UI module that owns the temporary preview label.\"}"
+            },
+            "previewScreen": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "3a44425f-6c4b-4203-a878-5261f3f14a19",
+                "name": "PreviewScreen"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Authored monitor surface displaying ShotPreviewRT.\"}"
+            },
+            "shotCamera": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "d33d9798-d274-4653-b856-fffc26e96e21",
+                "name": "ShotCamera"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Authored virtual camera that renders the PrevisSet layer.\"}"
+            },
+            "scriptAsset": "@asset:Scripts/ShotSpaceMain.ts",
+            "inputNames.0": "dioramaRoot",
+            "inputNames.1": "previewLabel",
+            "inputNames.2": "previewScreen",
+            "inputNames.3": "shotCamera",
+            "name": "ShotSpaceMain",
+            "enabled": true,
+            "sceneObject": "@sceneObject:ShotSpaceRoot",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "e339f1dd-3342-4e9d-a97c-5376465803cc",
+            "type": "ScriptComponent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "bcdcc8f2-fff4-4826-81c2-f3e3d83dd717",
+      "name": "DioramaRoot",
+      "enabled": true,
+      "parentId": "375b0fd5-c3e9-44fa-9f08-0ddbbef0f702",
+      "transform": {
+        "position": [
+          -8,
+          -10,
+          -95
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 2,
+      "components": []
+    },
+    {
+      "id": "3051c2b0-a565-4e26-930b-7c77b05194a5",
+      "name": "Floor",
+      "enabled": true,
+      "parentId": "bcdcc8f2-fff4-4826-81c2-f3e3d83dd717",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          26,
+          0.5,
+          18
+        ]
+      },
+      "layers": 2,
+      "components": [
+        {
+          "id": "cafea247-5bbe-4363-b38a-e00be0a47f4a",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/DioramaFloorMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/DioramaFloorMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:Floor",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "cafea247-5bbe-4363-b38a-e00be0a47f4a",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "4e91d8b4-026c-48a3-97dc-f78d5445101e",
+      "name": "FloorGrid",
+      "enabled": true,
+      "parentId": "bcdcc8f2-fff4-4826-81c2-f3e3d83dd717",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 2,
+      "components": []
+    },
+    {
+      "id": "543f3ead-c9dd-4740-9b6f-dc08d6b0954b",
+      "name": "GridLineX_-10",
+      "enabled": true,
+      "parentId": "4e91d8b4-026c-48a3-97dc-f78d5445101e",
+      "transform": {
+        "position": [
+          -10,
+          0.28999999165534973,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.07999999821186066,
+          0.05999999865889549,
+          18.100000381469727
+        ]
+      },
+      "layers": 2,
+      "components": [
+        {
+          "id": "19a0732b-f2ae-4db0-8eec-7178e8a38282",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/GridMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/GridMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:GridLineX_-10",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "19a0732b-f2ae-4db0-8eec-7178e8a38282",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2d60a500-a2ad-482a-bcd8-395f2091ce4e",
+      "name": "GridLineX_-5",
+      "enabled": true,
+      "parentId": "4e91d8b4-026c-48a3-97dc-f78d5445101e",
+      "transform": {
+        "position": [
+          -5,
+          0.28999999165534973,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.07999999821186066,
+          0.05999999865889549,
+          18.100000381469727
+        ]
+      },
+      "layers": 2,
+      "components": [
+        {
+          "id": "dd452681-566a-4123-84b3-3cc2a984b109",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/GridMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/GridMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:GridLineX_-5",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "dd452681-566a-4123-84b3-3cc2a984b109",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "0544886d-d935-44c8-9e95-9b9dc1cb6034",
+      "name": "GridLineX_0",
+      "enabled": true,
+      "parentId": "4e91d8b4-026c-48a3-97dc-f78d5445101e",
+      "transform": {
+        "position": [
+          0,
+          0.28999999165534973,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.07999999821186066,
+          0.05999999865889549,
+          18.100000381469727
+        ]
+      },
+      "layers": 2,
+      "components": [
+        {
+          "id": "bfb9f5be-cee9-4fc5-8c82-c6d99eb3bd5e",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/GridMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/GridMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:GridLineX_0",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "bfb9f5be-cee9-4fc5-8c82-c6d99eb3bd5e",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "10200875-5f70-4fc6-9f17-168756797827",
+      "name": "GridLineX_5",
+      "enabled": true,
+      "parentId": "4e91d8b4-026c-48a3-97dc-f78d5445101e",
+      "transform": {
+        "position": [
+          5,
+          0.28999999165534973,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.07999999821186066,
+          0.05999999865889549,
+          18.100000381469727
+        ]
+      },
+      "layers": 2,
+      "components": [
+        {
+          "id": "03ffb4a7-bad8-40fd-8ebb-fc956278d9e2",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/GridMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/GridMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:GridLineX_5",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "03ffb4a7-bad8-40fd-8ebb-fc956278d9e2",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "a4f362c3-91d9-480b-874e-b0eba4704ec7",
+      "name": "GridLineX_10",
+      "enabled": true,
+      "parentId": "4e91d8b4-026c-48a3-97dc-f78d5445101e",
+      "transform": {
+        "position": [
+          10,
+          0.28999999165534973,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.07999999821186066,
+          0.05999999865889549,
+          18.100000381469727
+        ]
+      },
+      "layers": 2,
+      "components": [
+        {
+          "id": "03f746d9-f0f4-4c76-82bc-8762d284a0ee",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/GridMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/GridMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:GridLineX_10",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "03f746d9-f0f4-4c76-82bc-8762d284a0ee",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "0663ad9f-acb9-4a6f-aa38-257e031d54df",
+      "name": "GridLineZ_-6",
+      "enabled": true,
+      "parentId": "4e91d8b4-026c-48a3-97dc-f78d5445101e",
+      "transform": {
+        "position": [
+          0,
+          0.28999999165534973,
+          -6
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          26.100000381469727,
+          0.05999999865889549,
+          0.07999999821186066
+        ]
+      },
+      "layers": 2,
+      "components": [
+        {
+          "id": "d73668c3-0749-4a93-a1b1-5f56dde23338",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/GridMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/GridMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:GridLineZ_-6",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "d73668c3-0749-4a93-a1b1-5f56dde23338",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "132294c7-9392-44e2-b15c-df3ece6ff63d",
+      "name": "GridLineZ_-3",
+      "enabled": true,
+      "parentId": "4e91d8b4-026c-48a3-97dc-f78d5445101e",
+      "transform": {
+        "position": [
+          0,
+          0.28999999165534973,
+          -3
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          26.100000381469727,
+          0.05999999865889549,
+          0.07999999821186066
+        ]
+      },
+      "layers": 2,
+      "components": [
+        {
+          "id": "277ce63b-c66c-48a6-bd2f-8d9190073368",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/GridMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/GridMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:GridLineZ_-3",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "277ce63b-c66c-48a6-bd2f-8d9190073368",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "57d94fce-e661-4117-85c1-9b293b765225",
+      "name": "GridLineZ_0",
+      "enabled": true,
+      "parentId": "4e91d8b4-026c-48a3-97dc-f78d5445101e",
+      "transform": {
+        "position": [
+          0,
+          0.28999999165534973,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          26.100000381469727,
+          0.05999999865889549,
+          0.07999999821186066
+        ]
+      },
+      "layers": 2,
+      "components": [
+        {
+          "id": "061efc29-2d5a-459b-98b3-9890f745b6f7",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/GridMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/GridMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:GridLineZ_0",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "061efc29-2d5a-459b-98b3-9890f745b6f7",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "16130b90-dc08-466f-b6d8-47fd7939fe39",
+      "name": "GridLineZ_3",
+      "enabled": true,
+      "parentId": "4e91d8b4-026c-48a3-97dc-f78d5445101e",
+      "transform": {
+        "position": [
+          0,
+          0.28999999165534973,
+          3
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          26.100000381469727,
+          0.05999999865889549,
+          0.07999999821186066
+        ]
+      },
+      "layers": 2,
+      "components": [
+        {
+          "id": "521476ac-902e-4b87-b519-e5230dd15bfc",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/GridMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/GridMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:GridLineZ_3",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "521476ac-902e-4b87-b519-e5230dd15bfc",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "343e126b-b5f2-4657-84dc-9174b29829ce",
+      "name": "GridLineZ_6",
+      "enabled": true,
+      "parentId": "4e91d8b4-026c-48a3-97dc-f78d5445101e",
+      "transform": {
+        "position": [
+          0,
+          0.28999999165534973,
+          6
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          26.100000381469727,
+          0.05999999865889549,
+          0.07999999821186066
+        ]
+      },
+      "layers": 2,
+      "components": [
+        {
+          "id": "77e91447-348d-44d9-83c7-6bf7586c892c",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/GridMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/GridMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:GridLineZ_6",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "77e91447-348d-44d9-83c7-6bf7586c892c",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "020688e2-faad-417c-8c86-aabae35c186c",
+      "name": "BackWall",
+      "enabled": true,
+      "parentId": "bcdcc8f2-fff4-4826-81c2-f3e3d83dd717",
+      "transform": {
+        "position": [
+          0,
+          6,
+          -9
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          26,
+          12,
+          0.5
+        ]
+      },
+      "layers": 2,
+      "components": [
+        {
+          "id": "ca8d0a55-cd14-4231-9e9d-22f2ca7275c4",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/SetWallMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/SetWallMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:BackWall",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "ca8d0a55-cd14-4231-9e9d-22f2ca7275c4",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "35919a83-38d7-4dd0-a8ca-5e23f4ca8044",
+      "name": "SideWall",
+      "enabled": true,
+      "parentId": "bcdcc8f2-fff4-4826-81c2-f3e3d83dd717",
+      "transform": {
+        "position": [
+          -13,
+          6,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.5,
+          12,
+          18
+        ]
+      },
+      "layers": 2,
+      "components": [
+        {
+          "id": "37144555-de8b-49d0-9bf5-0d06104b025b",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/SetWallMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/SetWallMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:SideWall",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "37144555-de8b-49d0-9bf5-0d06104b025b",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "875f1870-4538-477d-aff5-ee7259817a72",
+      "name": "ActorA",
+      "enabled": true,
+      "parentId": "bcdcc8f2-fff4-4826-81c2-f3e3d83dd717",
+      "transform": {
+        "position": [
+          -4.5,
+          3,
+          0.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.200000047683716,
+          6,
+          2.200000047683716
+        ]
+      },
+      "layers": 2,
+      "components": [
+        {
+          "id": "42013b0f-cf65-4fde-89b1-f7c7c706f297",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceCylinder.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/ActorAMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/ActorAMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:ActorA",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "42013b0f-cf65-4fde-89b1-f7c7c706f297",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "100e44ef-963c-4465-8f4b-bb2763ecd29a",
+      "name": "ActorB",
+      "enabled": true,
+      "parentId": "bcdcc8f2-fff4-4826-81c2-f3e3d83dd717",
+      "transform": {
+        "position": [
+          4,
+          3,
+          -2.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2.200000047683716,
+          6,
+          2.200000047683716
+        ]
+      },
+      "layers": 2,
+      "components": [
+        {
+          "id": "92c62dc7-982f-4310-8804-3d049fecb8ca",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceCylinder.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/ActorBMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/ActorBMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:ActorB",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "92c62dc7-982f-4310-8804-3d049fecb8ca",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "f4b3cc43-1757-4e3f-9a2b-d6c4b7c043c9",
+      "name": "ForegroundSetObject",
+      "enabled": true,
+      "parentId": "bcdcc8f2-fff4-4826-81c2-f3e3d83dd717",
+      "transform": {
+        "position": [
+          7,
+          2,
+          5.5
+        ],
+        "rotation": [
+          0,
+          25,
+          0
+        ],
+        "scale": [
+          4,
+          4,
+          4
+        ]
+      },
+      "layers": 2,
+      "components": [
+        {
+          "id": "0316ef2a-a9bc-469a-a1b2-8fcbfd19f2ef",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/ForegroundSetMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/ForegroundSetMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:ForegroundSetObject",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "0316ef2a-a9bc-469a-a1b2-8fcbfd19f2ef",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "c17c6db8-2e7c-44a4-a2c7-a6d4fb054412",
+      "name": "ShotCameraRig",
+      "enabled": true,
+      "parentId": "375b0fd5-c3e9-44fa-9f08-0ddbbef0f702",
+      "transform": {
+        "position": [
+          -8,
+          -5,
+          -68
+        ],
+        "rotation": [
+          -6,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 4,
+      "components": []
+    },
+    {
+      "id": "d33d9798-d274-4653-b856-fffc26e96e21",
+      "name": "ShotCamera",
+      "enabled": true,
+      "parentId": "c17c6db8-2e7c-44a4-a2c7-a6d4fb054412",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 4,
+      "components": [
+        {
+          "id": "2e87210a-5a87-4877-a984-5215b83c5e98",
+          "type": "Camera",
+          "name": "Camera",
+          "enabled": true,
+          "properties": {
+            "mipmapLevel": 0,
+            "renderOrder": 0,
+            "size": 20,
+            "near": 1,
+            "far": 250,
+            "fov": 48,
+            "clearColor.mode": {
+              "value": "Color",
+              "type": "enum",
+              "enumType": "Editor.Components.CameraClearColor.Mode",
+              "options": [
+                "None",
+                "Background",
+                "Color",
+                "Texture"
+              ]
+            },
+            "clearColor.color": {
+              "x": 0.02500000037252903,
+              "y": 0.03500000014901161,
+              "z": 0.054999999701976776,
+              "w": 1
+            },
+            "clearColor.input": null,
+            "clearColor.id": "b168576f-8519-4bdc-a3fb-fa54fa2bde98",
+            "clearColor.type": "CameraClearColor",
+            "clearDepth": {
+              "mode": {
+                "value": "Value",
+                "type": "enum",
+                "enumType": "Editor.Components.CameraClearDepth.Mode",
+                "options": [
+                  "None",
+                  "Value",
+                  "Texture"
+                ]
+              },
+              "value": 1,
+              "input": null,
+              "id": "da50acc4-8a3f-4042-acdd-f0238999238a",
+              "type": "CameraClearDepth"
+            },
+            "aspect": 1.7777777778,
+            "cameraType": {
+              "value": "Perspective",
+              "type": "enum",
+              "enumType": "Editor.Components.CameraType",
+              "options": [
+                "Perspective",
+                "Orthographic"
+              ]
+            },
+            "depthMode": {
+              "value": "Regular",
+              "type": "enum",
+              "enumType": "Editor.Components.CameraDepthBufferMode",
+              "options": [
+                "Regular",
+                "Logarithmic"
+              ]
+            },
+            "deviceProperty": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.CameraDeviceProperty",
+              "options": [
+                "None",
+                "Aspect",
+                "Fov",
+                "All"
+              ]
+            },
+            "aspectPreset": {
+              "value": "Custom",
+              "type": "enum",
+              "enumType": "Editor.Components.CameraAspectPreset",
+              "options": [
+                "Specific",
+                "Custom"
+              ]
+            },
+            "oitLayers": {
+              "value": "NoOit",
+              "type": "enum",
+              "enumType": "Editor.Components.CameraOitLayers",
+              "options": [
+                "NoOit",
+                "Layers4",
+                "Layers4Plus1",
+                "Layers8"
+              ]
+            },
+            "renderTarget": "@asset:ShotSpace/Render/ShotPreviewRT.renderTarget",
+            "maskTexture": null,
+            "inputTexture": null,
+            "renderLayer": {
+              "value": 2,
+              "type": "layer_set_mask"
+            },
+            "name": "Camera",
+            "enabled": true,
+            "sceneObject": "@sceneObject:ShotCamera",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "2e87210a-5a87-4877-a984-5215b83c5e98",
+            "type": "Camera"
+          }
+        }
+      ]
+    },
+    {
+      "id": "4c83b36a-d453-4fec-ae43-e8d255b78112",
+      "name": "CameraProxyMesh",
+      "enabled": true,
+      "parentId": "c17c6db8-2e7c-44a4-a2c7-a6d4fb054412",
+      "transform": {
+        "position": [
+          0,
+          0,
+          2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.200000047683716,
+          2.200000047683716,
+          4
+        ]
+      },
+      "layers": 4,
+      "components": [
+        {
+          "id": "61dbc65a-1855-4765-81fb-1cbe5855f4c3",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/CameraProxyMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/CameraProxyMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:CameraProxyMesh",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "61dbc65a-1855-4765-81fb-1cbe5855f4c3",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "89857d2e-4b6b-4f22-8449-a5e5bbac4a8c",
+      "name": "KeyLightRig",
+      "enabled": true,
+      "parentId": "375b0fd5-c3e9-44fa-9f08-0ddbbef0f702",
+      "transform": {
+        "position": [
+          -18,
+          7,
+          -75
+        ],
+        "rotation": [
+          -18,
+          28,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 4,
+      "components": []
+    },
+    {
+      "id": "8672b844-6723-4f12-88cc-ce28f984a469",
+      "name": "KeyLight",
+      "enabled": true,
+      "parentId": "89857d2e-4b6b-4f22-8449-a5e5bbac4a8c",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 2,
+      "components": [
+        {
+          "id": "cca3d564-7143-411c-b66a-ebb16e43588e",
+          "type": "LightSource",
+          "name": "Light Source",
+          "enabled": true,
+          "properties": {
+            "lightType": {
+              "value": "Spot",
+              "type": "enum",
+              "enumType": "Editor.Components.LightType",
+              "options": [
+                "Point",
+                "Directional",
+                "Spot",
+                "Ambient",
+                "EnvMap",
+                "Estimation"
+              ]
+            },
+            "intensity": 3.2,
+            "innerConeAngle": 18,
+            "outerConeAngle": 38,
+            "decayType": {
+              "value": "Linear",
+              "type": "enum",
+              "enumType": "Editor.Components.DecayType",
+              "options": [
+                "Linear",
+                "None",
+                "Quadratic"
+              ]
+            },
+            "decayLimit": true,
+            "decayRange": 80,
+            "falloffType": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.FalloffType",
+              "options": [
+                "None",
+                "Quadratic"
+              ]
+            },
+            "falloffRange": 80,
+            "shadowType": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.ShadowType",
+              "options": [
+                "None",
+                "Projective",
+                "ShadowMap"
+              ]
+            },
+            "castsShadows": false,
+            "shadowDensity": 1,
+            "shadowBlurRadius": 0,
+            "shadowTextureSize": 512,
+            "autoLightSourcePosition": false,
+            "autoShadowFrustumSize": false,
+            "autoShadowFrustumSizeExtend": 2,
+            "shadowFrustumSize": 30,
+            "shadowFrustumNearClipPlane": 1,
+            "shadowFrustumFarClipPlane": 1000,
+            "useEnvmapFromCamera": false,
+            "envmapFromCameraMode": {
+              "value": "Auto",
+              "type": "enum",
+              "enumType": "Editor.Components.EnvmapFromCameraMode",
+              "options": [
+                "Auto",
+                "Face",
+                "Surface"
+              ]
+            },
+            "estimationSharpness": 1,
+            "envmapExposure": 1,
+            "envmapRotation": 0,
+            "diffuseEnvmapTexture": null,
+            "specularEnvmapTexture": null,
+            "color": {
+              "x": 1,
+              "y": 0.8199999928474426,
+              "z": 0.6200000047683716,
+              "w": 1
+            },
+            "shadowColor": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+              "w": 1
+            },
+            "dynamicEnvInputTexture": null,
+            "renderLayer": {
+              "value": 2,
+              "type": "layer_set_mask"
+            },
+            "name": "Light Source",
+            "enabled": true,
+            "sceneObject": "@sceneObject:KeyLight",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "cca3d564-7143-411c-b66a-ebb16e43588e",
+            "type": "LightSource"
+          }
+        }
+      ]
+    },
+    {
+      "id": "400c54cf-6a0c-439d-bd9b-674c261edaa4",
+      "name": "LightConeVisualizer",
+      "enabled": true,
+      "parentId": "89857d2e-4b6b-4f22-8449-a5e5bbac4a8c",
+      "transform": {
+        "position": [
+          0,
+          0,
+          -4
+        ],
+        "rotation": [
+          90,
+          0,
+          0
+        ],
+        "scale": [
+          2.5,
+          7,
+          2.5
+        ]
+      },
+      "layers": 4,
+      "components": [
+        {
+          "id": "c72afa63-e8d6-4686-8340-5db118e501e5",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceCone.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/LightVisualizerMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/LightVisualizerMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:LightConeVisualizer",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "c72afa63-e8d6-4686-8340-5db118e501e5",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "835d9499-cb2a-495b-b880-a271e07f4d2a",
+      "name": "PreviewPanel",
+      "enabled": true,
+      "parentId": "375b0fd5-c3e9-44fa-9f08-0ddbbef0f702",
+      "transform": {
+        "position": [
+          14,
+          -1,
+          -82
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 8,
+      "components": []
+    },
+    {
+      "id": "3a44425f-6c4b-4203-a878-5261f3f14a19",
+      "name": "PreviewScreen",
+      "enabled": true,
+      "parentId": "835d9499-cb2a-495b-b880-a271e07f4d2a",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          16,
+          9,
+          0.18000000715255737
+        ]
+      },
+      "layers": 8,
+      "components": [
+        {
+          "id": "d3a90672-1904-408c-8281-b35cb3350b05",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/ShotPreviewMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/ShotPreviewMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:PreviewScreen",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "d3a90672-1904-408c-8281-b35cb3350b05",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "1c12632c-053a-4afa-aefa-75cbf1e19b5c",
+      "name": "PreviewFrame",
+      "enabled": true,
+      "parentId": "835d9499-cb2a-495b-b880-a271e07f4d2a",
+      "transform": {
+        "position": [
+          0,
+          0,
+          -0.11999999731779099
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 8,
+      "components": []
+    },
+    {
+      "id": "afcd57b8-8dd6-43f1-be3e-8f3ef4877076",
+      "name": "PreviewFrameTop",
+      "enabled": true,
+      "parentId": "1c12632c-053a-4afa-aefa-75cbf1e19b5c",
+      "transform": {
+        "position": [
+          0,
+          5,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          18,
+          1,
+          0.6000000238418579
+        ]
+      },
+      "layers": 8,
+      "components": [
+        {
+          "id": "6b6a7408-6843-4344-9fc0-d75b3d31ad90",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/PreviewFrameMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/PreviewFrameMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:PreviewFrameTop",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "6b6a7408-6843-4344-9fc0-d75b3d31ad90",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "77f464a0-1769-44bf-bb53-f54c87c2bef9",
+      "name": "PreviewFrameBottom",
+      "enabled": true,
+      "parentId": "1c12632c-053a-4afa-aefa-75cbf1e19b5c",
+      "transform": {
+        "position": [
+          0,
+          -5,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          18,
+          1,
+          0.6000000238418579
+        ]
+      },
+      "layers": 8,
+      "components": [
+        {
+          "id": "09fda0cb-ef89-464b-abb4-37a49ff37996",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/PreviewFrameMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/PreviewFrameMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:PreviewFrameBottom",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "09fda0cb-ef89-464b-abb4-37a49ff37996",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "603f973e-daea-4dac-905b-2f5e645c3aa7",
+      "name": "PreviewFrameLeft",
+      "enabled": true,
+      "parentId": "1c12632c-053a-4afa-aefa-75cbf1e19b5c",
+      "transform": {
+        "position": [
+          -8.5,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          9,
+          0.6000000238418579
+        ]
+      },
+      "layers": 8,
+      "components": [
+        {
+          "id": "69c22d51-ec94-4e5a-bfbd-84a929018d4b",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/PreviewFrameMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/PreviewFrameMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:PreviewFrameLeft",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "69c22d51-ec94-4e5a-bfbd-84a929018d4b",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "dfa7e926-f5d3-44d5-92c4-87997d2c4abf",
+      "name": "PreviewFrameRight",
+      "enabled": true,
+      "parentId": "1c12632c-053a-4afa-aefa-75cbf1e19b5c",
+      "transform": {
+        "position": [
+          8.5,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          9,
+          0.6000000238418579
+        ]
+      },
+      "layers": 8,
+      "components": [
+        {
+          "id": "d9c77261-9a1b-4620-8d96-fc0f803fc660",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/PreviewFrameMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/PreviewFrameMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:PreviewFrameRight",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "d9c77261-9a1b-4620-8d96-fc0f803fc660",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "1ef28e8f-b28f-4837-8e24-ec6ee2bf2443",
+      "name": "TemporaryLabel",
+      "enabled": true,
+      "parentId": "835d9499-cb2a-495b-b880-a271e07f4d2a",
+      "transform": {
+        "position": [
+          0,
+          -7,
+          0.10000000149011612
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 8,
+      "components": [
+        {
+          "id": "87466d1f-3b69-46a0-9789-09f255f960cd",
+          "type": "ScriptComponent",
+          "name": "ShotSpacePreviewLabelUI",
+          "enabled": true,
+          "properties": {
+            "labelText": {
+              "isScriptInput": true,
+              "value": "SHOT PREVIEW",
+              "type": "string",
+              "uiInfo": "{\"hint\":\"Temporary label shown beneath the director preview monitor.\"}",
+              "defaultValue": "SHOT PREVIEW"
+            },
+            "panelWidthCm": {
+              "isScriptInput": true,
+              "value": 18,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Width of the world-space label layout in centimeters.\", \"widget\":\"slider\", \"min\":10, \"max\":30, \"step\":0.5}",
+              "defaultValue": "18"
+            },
+            "textColor": {
+              "isScriptInput": true,
+              "value": "{x: 0.75, y: 0.9, z: 1, w: 1}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Color of the preview label on the additive Specs display.\", \"widget\":\"color\"}",
+              "defaultValue": "{0.75,0.9,1,1}"
+            },
+            "scriptAsset": "@asset:Scripts/ShotSpacePreviewLabelUI.ts",
+            "inputNames.0": "labelText",
+            "inputNames.1": "panelWidthCm",
+            "inputNames.2": "textColor",
+            "name": "ShotSpacePreviewLabelUI",
+            "enabled": true,
+            "sceneObject": "@sceneObject:TemporaryLabel",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "87466d1f-3b69-46a0-9789-09f255f960cd",
+            "type": "ScriptComponent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "bef2da9c-b0a9-41fa-8e97-3a315de3fc25",
+      "name": "Systems",
+      "enabled": true,
+      "parentId": "375b0fd5-c3e9-44fa-9f08-0ddbbef0f702",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 4,
+      "components": []
+    },
+    {
+      "id": "35d9360a-cd71-4295-b04a-86cf61e0739e",
+      "name": "AiPreviewAgent Handler",
+      "enabled": true,
+      "parentId": null,
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 1,
+      "components": [
+        {
+          "id": "c722971e-9a46-4c5b-8608-eaac89afbd0c",
+          "type": "ScriptComponent",
+          "name": "AgentInspectScript",
+          "enabled": true,
+          "properties": {
+            "scriptAsset": "@asset:Packages/AiPreviewAgentInspect.lspkg/AgentInspectScript.ts",
+            "name": "AgentInspectScript",
+            "enabled": true,
+            "sceneObject": "@sceneObject:AiPreviewAgent Handler",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "c722971e-9a46-4c5b-8608-eaac89afbd0c",
+            "type": "ScriptComponent"
+          }
+        }
+      ]
     }
   ],
   "assets": [
@@ -5818,6 +8686,152 @@
         "name": "ManipCursor",
         "fileMeta.id": "3e41dea1-ad4d-59c0-35a0-6e730a8fa223",
         "id": "897db372-4baf-414b-a159-6b1dc578ef7a",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "fd941a9c-084e-4ab9-aea3-462ad4a91460",
+      "name": "DioramaFloorMaterial",
+      "type": "Material",
+      "path": "ShotSpace/Materials/DioramaFloorMaterial.mat",
+      "properties": {
+        "passInfos.0.baseColor.value": {
+          "x": 0.07999999821186066,
+          "y": 0.10000000149011612,
+          "z": 0.14000000059604645,
+          "w": 1
+        },
+        "passInfos.0.baseColor.label": "Base Color",
+        "passInfos.0.baseTex.value.id": "56f3d0b6-ce05-4724-9a36-1826f41d3591",
+        "passInfos.0.baseTex.label": "Base Texture",
+        "passInfos.0.metallic.value": 0,
+        "passInfos.0.metallic.label": "Metallic",
+        "passInfos.0.metallic.min": 0,
+        "passInfos.0.metallic.max": 1,
+        "passInfos.0.roughness.value": 0.8999999761581421,
+        "passInfos.0.roughness.label": "Roughness",
+        "passInfos.0.roughness.min": 0,
+        "passInfos.0.roughness.max": 1,
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_AO_N006": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_Emissive_N006": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "passInfos.0.Port_SpecularAO_N006": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "91286f74-2cdb-466d-9cb3-a310a89fd806",
+        "passInfos.0.type": "PassInfo",
+        "name": "DioramaFloorMaterial",
+        "fileMeta.id": "60fe2f3a-37e2-42b0-af4d-a010ef13670e",
+        "id": "fd941a9c-084e-4ab9-aea3-462ad4a91460",
         "type": "Material"
       }
     },
@@ -10039,6 +13053,281 @@
       }
     },
     {
+      "id": "885171b1-245b-48e6-9580-fd251c323144",
+      "name": "LightVisualizerMaterial",
+      "type": "Material",
+      "path": "ShotSpace/Materials/LightVisualizerMaterial.mat",
+      "properties": {
+        "passInfos.0.baseColor.value": {
+          "x": 1,
+          "y": 0.7799999713897705,
+          "z": 0.18000000715255737,
+          "w": 1
+        },
+        "passInfos.0.baseColor.label": "Base Color",
+        "passInfos.0.ENABLE_BASE_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseTex.value": null,
+        "passInfos.0.baseTex.hidden": true,
+        "passInfos.0.baseTex.enabledBy": "ENABLE_BASE_TEX",
+        "passInfos.0.baseTex.label": "Texture",
+        "passInfos.0.Texture UV": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Transformed UV 2",
+            "Transformed UV 3"
+          ],
+          "label": "Texture UV"
+        },
+        "passInfos.0.ENABLE_OPACITY_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Opacity Texture"
+        },
+        "passInfos.0.opacityTex.value": null,
+        "passInfos.0.opacityTex.hidden": true,
+        "passInfos.0.opacityTex.enabledBy": "ENABLE_OPACITY_TEX",
+        "passInfos.0.opacityTex.label": "Texture",
+        "passInfos.0.Tweak_N67": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 2"
+        },
+        "passInfos.0.Source": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Screen UV",
+            "Transformed UV 2"
+          ],
+          "label": "Source"
+        },
+        "passInfos.0.uv2Scale.value": null,
+        "passInfos.0.uv2Scale.hidden": true,
+        "passInfos.0.uv2Scale.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Scale.label": "Scale",
+        "passInfos.0.uv2Offset.value": null,
+        "passInfos.0.uv2Offset.hidden": true,
+        "passInfos.0.uv2Offset.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Offset.label": "Offset",
+        "passInfos.0.uv2EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.Tweak_N11": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 3"
+        },
+        "passInfos.0.uv3Scale.value": null,
+        "passInfos.0.uv3Scale.hidden": true,
+        "passInfos.0.uv3Scale.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Scale.label": "Scale",
+        "passInfos.0.uv3Offset.value": null,
+        "passInfos.0.uv3Offset.hidden": true,
+        "passInfos.0.uv3Offset.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Offset.label": "Offset",
+        "passInfos.0.uv3EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.enabledBy": "uv3EnableAnimation",
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_Default_N204": 1,
+        "passInfos.0.Port_Default_N369": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "b415cec3-e4d0-4254-b212-33ede448466f",
+        "passInfos.0.type": "PassInfo",
+        "name": "LightVisualizerMaterial",
+        "fileMeta.id": "a85b324c-a360-4dd2-9125-7b7a8ae28ad4",
+        "id": "885171b1-245b-48e6-9580-fd251c323144",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "c2b9d4df-b605-4eea-af90-bae759a0d9b6",
+      "name": "ShotPreviewRT",
+      "type": "RenderTarget",
+      "path": "ShotSpace/Render/ShotPreviewRT.renderTarget",
+      "properties": {
+        "useScreenResolution": false,
+        "allocateMips": false,
+        "antialiasingMode": {
+          "value": "MSAA",
+          "type": "enum",
+          "enumType": "Editor.Assets.AntialiasingMode",
+          "options": [
+            "Disabled",
+            "MSAA",
+            "TAA"
+          ]
+        },
+        "msaaStrategy": {
+          "value": "OnlyWhenRequired",
+          "type": "enum",
+          "enumType": "Editor.Assets.MSAAStrategy",
+          "options": [
+            "Default",
+            "OnlyWhenRequired"
+          ]
+        },
+        "depthBuffer": {
+          "value": "ForceOn",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthBufferStrategy",
+          "options": [
+            "Auto",
+            "ForceOff",
+            "ForceOn"
+          ]
+        },
+        "clearColorOption": {
+          "value": "CustomColor",
+          "type": "enum",
+          "enumType": "Editor.Assets.ClearColorOption",
+          "options": [
+            "None",
+            "BackgroundTexture",
+            "CustomColor",
+            "CustomTexture",
+            "LegacyClearColorEnable"
+          ]
+        },
+        "inputTexture": null,
+        "clearColor": {
+          "x": 0.02500000037252903,
+          "y": 0.03500000014901161,
+          "z": 0.054999999701976776,
+          "w": 1
+        },
+        "name": "ShotPreviewRT",
+        "fileMeta.id": "4ac8c411-6474-4b2d-a90e-a92308e787e5",
+        "id": "c2b9d4df-b605-4eea-af90-bae759a0d9b6",
+        "type": "RenderTarget"
+      }
+    },
+    {
       "id": "c6634e37-b185-4112-aecd-b47a832c89d1",
       "name": "LabelledButton",
       "type": "ObjectPrefab",
@@ -11034,6 +14323,298 @@
       }
     },
     {
+      "id": "c14fc6af-72f3-40ef-95b5-71630aa4ab84",
+      "name": "ForegroundSetMaterial",
+      "type": "Material",
+      "path": "ShotSpace/Materials/ForegroundSetMaterial.mat",
+      "properties": {
+        "passInfos.0.baseColor.value": {
+          "x": 0.5799999833106995,
+          "y": 0.18000000715255737,
+          "z": 0.7200000286102295,
+          "w": 1
+        },
+        "passInfos.0.baseColor.label": "Base Color",
+        "passInfos.0.baseTex.value.id": "56f3d0b6-ce05-4724-9a36-1826f41d3591",
+        "passInfos.0.baseTex.label": "Base Texture",
+        "passInfos.0.metallic.value": 0,
+        "passInfos.0.metallic.label": "Metallic",
+        "passInfos.0.metallic.min": 0,
+        "passInfos.0.metallic.max": 1,
+        "passInfos.0.roughness.value": 0.699999988079071,
+        "passInfos.0.roughness.label": "Roughness",
+        "passInfos.0.roughness.min": 0,
+        "passInfos.0.roughness.max": 1,
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_AO_N006": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_Emissive_N006": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "passInfos.0.Port_SpecularAO_N006": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "a49c3288-6dbb-4c0f-aaa8-7f2cadf87bda",
+        "passInfos.0.type": "PassInfo",
+        "name": "ForegroundSetMaterial",
+        "fileMeta.id": "cc4119ed-676f-4369-b5c9-fea69d74cfc3",
+        "id": "c14fc6af-72f3-40ef-95b5-71630aa4ab84",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "03137685-70eb-4b2b-8b39-6bf5e2f27893",
+      "name": "PreviewFrameMaterial",
+      "type": "Material",
+      "path": "ShotSpace/Materials/PreviewFrameMaterial.mat",
+      "properties": {
+        "passInfos.0.baseColor.value": {
+          "x": 0.10000000149011612,
+          "y": 0.14000000059604645,
+          "z": 0.20000000298023224,
+          "w": 1
+        },
+        "passInfos.0.baseColor.label": "Base Color",
+        "passInfos.0.baseTex.value.id": "56f3d0b6-ce05-4724-9a36-1826f41d3591",
+        "passInfos.0.baseTex.label": "Base Texture",
+        "passInfos.0.metallic.value": 0.3499999940395355,
+        "passInfos.0.metallic.label": "Metallic",
+        "passInfos.0.metallic.min": 0,
+        "passInfos.0.metallic.max": 1,
+        "passInfos.0.roughness.value": 0.4000000059604645,
+        "passInfos.0.roughness.label": "Roughness",
+        "passInfos.0.roughness.min": 0,
+        "passInfos.0.roughness.max": 1,
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_AO_N006": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_Emissive_N006": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "passInfos.0.Port_SpecularAO_N006": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "06d86fc4-194f-4e82-a6c9-d998ab52e840",
+        "passInfos.0.type": "PassInfo",
+        "name": "PreviewFrameMaterial",
+        "fileMeta.id": "58a06069-3950-4569-b576-07856d5406da",
+        "id": "03137685-70eb-4b2b-8b39-6bf5e2f27893",
+        "type": "Material"
+      }
+    },
+    {
       "id": "3dae0781-d80a-446b-ac7f-072a8f3fb111",
       "name": "ImageButton",
       "type": "ObjectPrefab",
@@ -11049,6 +14630,357 @@
         "fileMeta.id": "e17ac6f4-4724-bd95-aedc-4f8275ef238c",
         "id": "3dae0781-d80a-446b-ac7f-072a8f3fb111",
         "type": "ObjectPrefab"
+      }
+    },
+    {
+      "id": "00be9ec5-7a3e-45f5-ab65-e8cdbd1d0cec",
+      "name": "ShotPreviewMaterial",
+      "type": "Material",
+      "path": "ShotSpace/Materials/ShotPreviewMaterial.mat",
+      "properties": {
+        "passInfos.0.baseColor.value": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.baseColor.label": "Base Color",
+        "passInfos.0.ENABLE_BASE_TEX": {
+          "value": true,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseTex.value.id": "c2b9d4df-b605-4eea-af90-bae759a0d9b6",
+        "passInfos.0.baseTex.label": "Texture",
+        "passInfos.0.Texture UV": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Transformed UV 2",
+            "Transformed UV 3"
+          ],
+          "label": "Texture UV"
+        },
+        "passInfos.0.ENABLE_OPACITY_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Opacity Texture"
+        },
+        "passInfos.0.opacityTex.value": null,
+        "passInfos.0.opacityTex.hidden": true,
+        "passInfos.0.opacityTex.enabledBy": "ENABLE_OPACITY_TEX",
+        "passInfos.0.opacityTex.label": "Texture",
+        "passInfos.0.Tweak_N67": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 2"
+        },
+        "passInfos.0.Source": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Screen UV",
+            "Transformed UV 2"
+          ],
+          "label": "Source"
+        },
+        "passInfos.0.uv2Scale.value": null,
+        "passInfos.0.uv2Scale.hidden": true,
+        "passInfos.0.uv2Scale.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Scale.label": "Scale",
+        "passInfos.0.uv2Offset.value": null,
+        "passInfos.0.uv2Offset.hidden": true,
+        "passInfos.0.uv2Offset.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Offset.label": "Offset",
+        "passInfos.0.uv2EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.Tweak_N11": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 3"
+        },
+        "passInfos.0.uv3Scale.value": null,
+        "passInfos.0.uv3Scale.hidden": true,
+        "passInfos.0.uv3Scale.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Scale.label": "Scale",
+        "passInfos.0.uv3Offset.value": null,
+        "passInfos.0.uv3Offset.hidden": true,
+        "passInfos.0.uv3Offset.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Offset.label": "Offset",
+        "passInfos.0.uv3EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.enabledBy": "uv3EnableAnimation",
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_Default_N204": 1,
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "936e3f1a-1845-4988-892f-b1055f804374",
+        "passInfos.0.type": "PassInfo",
+        "name": "ShotPreviewMaterial",
+        "fileMeta.id": "119b17e5-fca2-44d2-a9f9-021f55a9f460",
+        "id": "00be9ec5-7a3e-45f5-ab65-e8cdbd1d0cec",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "8f853a00-b6f1-4e62-b39d-78b50a91c1c5",
+      "name": "ActorBMaterial",
+      "type": "Material",
+      "path": "ShotSpace/Materials/ActorBMaterial.mat",
+      "properties": {
+        "passInfos.0.baseColor.value": {
+          "x": 0.07999999821186066,
+          "y": 0.800000011920929,
+          "z": 0.7200000286102295,
+          "w": 1
+        },
+        "passInfos.0.baseColor.label": "Base Color",
+        "passInfos.0.baseTex.value.id": "56f3d0b6-ce05-4724-9a36-1826f41d3591",
+        "passInfos.0.baseTex.label": "Base Texture",
+        "passInfos.0.metallic.value": 0,
+        "passInfos.0.metallic.label": "Metallic",
+        "passInfos.0.metallic.min": 0,
+        "passInfos.0.metallic.max": 1,
+        "passInfos.0.roughness.value": 0.6499999761581421,
+        "passInfos.0.roughness.label": "Roughness",
+        "passInfos.0.roughness.min": 0,
+        "passInfos.0.roughness.max": 1,
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_AO_N006": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_Emissive_N006": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "passInfos.0.Port_SpecularAO_N006": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "7a2c9207-d159-4793-a910-1d855c978f2d",
+        "passInfos.0.type": "PassInfo",
+        "name": "ActorBMaterial",
+        "fileMeta.id": "e9abd089-264f-4ebd-82f6-4b989ea8405f",
+        "id": "8f853a00-b6f1-4e62-b39d-78b50a91c1c5",
+        "type": "Material"
       }
     },
     {
@@ -11087,6 +15019,152 @@
         "fileMeta.id": "e18c868b-3b38-c105-a1ef-429781d2191c",
         "id": "d8dd1433-5f11-4f5c-9588-618a668518b7",
         "type": "ObjectPrefab"
+      }
+    },
+    {
+      "id": "cad2930d-c81c-4d62-a0d5-457c3f85b374",
+      "name": "SetWallMaterial",
+      "type": "Material",
+      "path": "ShotSpace/Materials/SetWallMaterial.mat",
+      "properties": {
+        "passInfos.0.baseColor.value": {
+          "x": 0.18000000715255737,
+          "y": 0.23999999463558197,
+          "z": 0.3400000035762787,
+          "w": 1
+        },
+        "passInfos.0.baseColor.label": "Base Color",
+        "passInfos.0.baseTex.value.id": "56f3d0b6-ce05-4724-9a36-1826f41d3591",
+        "passInfos.0.baseTex.label": "Base Texture",
+        "passInfos.0.metallic.value": 0,
+        "passInfos.0.metallic.label": "Metallic",
+        "passInfos.0.metallic.min": 0,
+        "passInfos.0.metallic.max": 1,
+        "passInfos.0.roughness.value": 0.800000011920929,
+        "passInfos.0.roughness.label": "Roughness",
+        "passInfos.0.roughness.min": 0,
+        "passInfos.0.roughness.max": 1,
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_AO_N006": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_Emissive_N006": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "passInfos.0.Port_SpecularAO_N006": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "ae5f938a-2548-4447-ad67-c69a74bb2f56",
+        "passInfos.0.type": "PassInfo",
+        "name": "SetWallMaterial",
+        "fileMeta.id": "2eea34a6-9744-4e36-b29c-8d305bb3008c",
+        "id": "cad2930d-c81c-4d62-a0d5-457c3f85b374",
+        "type": "Material"
       }
     },
     {
@@ -11225,6 +15303,578 @@
         "name": "ViewingPlane",
         "fileMeta.id": "7a6a1f35-90e0-66f2-bf27-60b4b892f1db",
         "id": "6a0089ba-f1e1-4007-8f33-27e564f26724",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "a140ab71-150f-465f-a0a6-43605987012f",
+      "name": "ActorAMaterial",
+      "type": "Material",
+      "path": "ShotSpace/Materials/ActorAMaterial.mat",
+      "properties": {
+        "passInfos.0.baseColor.value": {
+          "x": 1,
+          "y": 0.3799999952316284,
+          "z": 0.11999999731779099,
+          "w": 1
+        },
+        "passInfos.0.baseColor.label": "Base Color",
+        "passInfos.0.baseTex.value.id": "56f3d0b6-ce05-4724-9a36-1826f41d3591",
+        "passInfos.0.baseTex.label": "Base Texture",
+        "passInfos.0.metallic.value": 0,
+        "passInfos.0.metallic.label": "Metallic",
+        "passInfos.0.metallic.min": 0,
+        "passInfos.0.metallic.max": 1,
+        "passInfos.0.roughness.value": 0.6499999761581421,
+        "passInfos.0.roughness.label": "Roughness",
+        "passInfos.0.roughness.min": 0,
+        "passInfos.0.roughness.max": 1,
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_AO_N006": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.Port_Emissive_N006": {
+          "x": 0,
+          "y": 0,
+          "z": 0
+        },
+        "passInfos.0.Port_SpecularAO_N006": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "51dbb8de-265b-4268-83e7-fd3afb2c4825",
+        "passInfos.0.type": "PassInfo",
+        "name": "ActorAMaterial",
+        "fileMeta.id": "4e56ece6-7b53-42c2-b324-fee810ce27fd",
+        "id": "a140ab71-150f-465f-a0a6-43605987012f",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "c5139621-b838-47d4-85ac-fb84f657e225",
+      "name": "GridMaterial",
+      "type": "Material",
+      "path": "ShotSpace/Materials/GridMaterial.mat",
+      "properties": {
+        "passInfos.0.baseColor.value": {
+          "x": 0.25,
+          "y": 0.75,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.baseColor.label": "Base Color",
+        "passInfos.0.ENABLE_BASE_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseTex.value": null,
+        "passInfos.0.baseTex.hidden": true,
+        "passInfos.0.baseTex.enabledBy": "ENABLE_BASE_TEX",
+        "passInfos.0.baseTex.label": "Texture",
+        "passInfos.0.Texture UV": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Transformed UV 2",
+            "Transformed UV 3"
+          ],
+          "label": "Texture UV"
+        },
+        "passInfos.0.ENABLE_OPACITY_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Opacity Texture"
+        },
+        "passInfos.0.opacityTex.value": null,
+        "passInfos.0.opacityTex.hidden": true,
+        "passInfos.0.opacityTex.enabledBy": "ENABLE_OPACITY_TEX",
+        "passInfos.0.opacityTex.label": "Texture",
+        "passInfos.0.Tweak_N67": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 2"
+        },
+        "passInfos.0.Source": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Screen UV",
+            "Transformed UV 2"
+          ],
+          "label": "Source"
+        },
+        "passInfos.0.uv2Scale.value": null,
+        "passInfos.0.uv2Scale.hidden": true,
+        "passInfos.0.uv2Scale.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Scale.label": "Scale",
+        "passInfos.0.uv2Offset.value": null,
+        "passInfos.0.uv2Offset.hidden": true,
+        "passInfos.0.uv2Offset.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Offset.label": "Offset",
+        "passInfos.0.uv2EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.Tweak_N11": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 3"
+        },
+        "passInfos.0.uv3Scale.value": null,
+        "passInfos.0.uv3Scale.hidden": true,
+        "passInfos.0.uv3Scale.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Scale.label": "Scale",
+        "passInfos.0.uv3Offset.value": null,
+        "passInfos.0.uv3Offset.hidden": true,
+        "passInfos.0.uv3Offset.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Offset.label": "Offset",
+        "passInfos.0.uv3EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.enabledBy": "uv3EnableAnimation",
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_Default_N204": 1,
+        "passInfos.0.Port_Default_N369": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "40096897-4ff3-435d-8036-c104d2f6b8ed",
+        "passInfos.0.type": "PassInfo",
+        "name": "GridMaterial",
+        "fileMeta.id": "d89898ef-9fc8-40dc-84aa-9f44a7567fdc",
+        "id": "c5139621-b838-47d4-85ac-fb84f657e225",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "4fbf3b2c-63ed-4ef2-ad85-c2cb387c7bce",
+      "name": "CameraProxyMaterial",
+      "type": "Material",
+      "path": "ShotSpace/Materials/CameraProxyMaterial.mat",
+      "properties": {
+        "passInfos.0.baseColor.value": {
+          "x": 0.20000000298023224,
+          "y": 0.550000011920929,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.baseColor.label": "Base Color",
+        "passInfos.0.ENABLE_BASE_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseTex.value": null,
+        "passInfos.0.baseTex.hidden": true,
+        "passInfos.0.baseTex.enabledBy": "ENABLE_BASE_TEX",
+        "passInfos.0.baseTex.label": "Texture",
+        "passInfos.0.Texture UV": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Transformed UV 2",
+            "Transformed UV 3"
+          ],
+          "label": "Texture UV"
+        },
+        "passInfos.0.ENABLE_OPACITY_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Opacity Texture"
+        },
+        "passInfos.0.opacityTex.value": null,
+        "passInfos.0.opacityTex.hidden": true,
+        "passInfos.0.opacityTex.enabledBy": "ENABLE_OPACITY_TEX",
+        "passInfos.0.opacityTex.label": "Texture",
+        "passInfos.0.Tweak_N67": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 2"
+        },
+        "passInfos.0.Source": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Screen UV",
+            "Transformed UV 2"
+          ],
+          "label": "Source"
+        },
+        "passInfos.0.uv2Scale.value": null,
+        "passInfos.0.uv2Scale.hidden": true,
+        "passInfos.0.uv2Scale.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Scale.label": "Scale",
+        "passInfos.0.uv2Offset.value": null,
+        "passInfos.0.uv2Offset.hidden": true,
+        "passInfos.0.uv2Offset.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Offset.label": "Offset",
+        "passInfos.0.uv2EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.Tweak_N11": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 3"
+        },
+        "passInfos.0.uv3Scale.value": null,
+        "passInfos.0.uv3Scale.hidden": true,
+        "passInfos.0.uv3Scale.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Scale.label": "Scale",
+        "passInfos.0.uv3Offset.value": null,
+        "passInfos.0.uv3Offset.hidden": true,
+        "passInfos.0.uv3Offset.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Offset.label": "Offset",
+        "passInfos.0.uv3EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.enabledBy": "uv3EnableAnimation",
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_Default_N204": 1,
+        "passInfos.0.Port_Default_N369": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "999105e8-35c6-498b-9acc-ad00aca465f3",
+        "passInfos.0.type": "PassInfo",
+        "name": "CameraProxyMaterial",
+        "fileMeta.id": "3e61c1fa-5416-42cb-af0c-6b71d956a3d1",
+        "id": "4fbf3b2c-63ed-4ef2-ad85-c2cb387c7bce",
         "type": "Material"
       }
     }
