@@ -71,8 +71,10 @@ export const FRAMING_PRESET_CLOSE_UP: FramingPreset = Object.freeze({
 export type ShotFramingState = Readonly<{
   currentLens: LensPreset
   currentFraming: FramingPreset
+  framingDisplayLabel: string
   matchFramingEnabled: boolean
   lensDistortionEnabled: boolean
+  isCustomFraming: boolean
   distanceCm: number
 }>
 
@@ -121,7 +123,10 @@ export class LensController extends BaseScriptComponent {
   private previewDistortionMaterial: Material | null = null
   private selectedPreset: LensPreset | null = null
   private selectedFramingPreset: FramingPreset = FRAMING_PRESET_MEDIUM
+  private lastAutomaticFramingPreset: FramingPreset = FRAMING_PRESET_MEDIUM
   private currentCameraDistanceCm: number = 0
+  private isCustomFraming: boolean = false
+  private automaticFramingSuspended: boolean = false
   private readonly presetChangedListeners: PresetChangedListener[] = []
   private readonly stateChangedListeners: ShotFramingStateChangedListener[] = []
 
@@ -142,6 +147,9 @@ export class LensController extends BaseScriptComponent {
     this.shotCameraComponent!.fov = LENS_PRESET_50MM.fovRadians
     this.selectedPreset = LENS_PRESET_50MM
     this.selectedFramingPreset = FRAMING_PRESET_MEDIUM
+    this.lastAutomaticFramingPreset = FRAMING_PRESET_MEDIUM
+    this.isCustomFraming = false
+    this.automaticFramingSuspended = false
     this.matchFramingEnabled = true
     this.lensDistortionEnabled = true
     this.applyDistortionProfile(LENS_PRESET_50MM)
@@ -165,7 +173,7 @@ export class LensController extends BaseScriptComponent {
     this.selectedPreset = preset
     this.applyDistortionProfile(preset)
 
-    if (this.matchFramingEnabled) {
+    if (this.matchFramingEnabled && !this.automaticFramingSuspended && !this.isCustomFraming) {
       this.applyCurrentFramingTransform()
     }
     this.refreshActualDistance()
@@ -195,6 +203,9 @@ export class LensController extends BaseScriptComponent {
    */
   public applyFramingPreset(preset: FramingPreset): void {
     this.selectedFramingPreset = preset
+    this.lastAutomaticFramingPreset = preset
+    this.isCustomFraming = false
+    this.automaticFramingSuspended = false
     this.applyCurrentFramingTransform()
     this.refreshActualDistance()
     this.emitStateChanged()
@@ -215,6 +226,8 @@ export class LensController extends BaseScriptComponent {
   public setMatchFramingEnabled(enabled: boolean): void {
     if (this.matchFramingEnabled === enabled) {
       if (enabled) {
+        this.isCustomFraming = false
+        this.automaticFramingSuspended = false
         this.applyCurrentFramingTransform()
         this.refreshActualDistance()
         this.emitStateChanged()
@@ -224,9 +237,64 @@ export class LensController extends BaseScriptComponent {
 
     this.matchFramingEnabled = enabled
     if (enabled) {
+      this.isCustomFraming = false
+      this.automaticFramingSuspended = false
       this.applyCurrentFramingTransform()
     }
     this.refreshActualDistance()
+    this.emitStateChanged()
+  }
+
+  /**
+   * Manual camera grabs must not fight automatic Match Framing. Call this when
+   * CameraProxyMesh manipulation starts so the rig is not snapped mid-grab.
+   */
+  public beginManualCameraManipulation(): void {
+    this.automaticFramingSuspended = true
+  }
+
+  /**
+   * Completing a manual camera move records a CUSTOM framing, turns Match
+   * Framing off, and preserves the current lens and distortion profile.
+   */
+  public endManualCameraManipulation(): void {
+    this.automaticFramingSuspended = false
+    this.isCustomFraming = true
+    this.matchFramingEnabled = false
+    this.refreshActualDistance()
+    this.emitStateChanged()
+  }
+
+  /**
+   * Re-applies the last non-custom framing preset to ActorA without changing
+   * the current lens or distortion state.
+   */
+  public reframeActorA(): void {
+    const framing = this.lastAutomaticFramingPreset || FRAMING_PRESET_MEDIUM
+    this.applyFramingPreset(framing)
+  }
+
+  /**
+   * Restores the coordinated default shot state. Caller restores transforms.
+   */
+  public restoreDefaultShotState(): void {
+    if (!this.ensureShotCameraAvailable("restore default shot state")) {
+      return
+    }
+
+    this.automaticFramingSuspended = false
+    this.isCustomFraming = false
+    this.selectedPreset = LENS_PRESET_50MM
+    this.selectedFramingPreset = FRAMING_PRESET_MEDIUM
+    this.lastAutomaticFramingPreset = FRAMING_PRESET_MEDIUM
+    this.matchFramingEnabled = true
+    this.lensDistortionEnabled = true
+    this.shotCameraComponent!.fov = LENS_PRESET_50MM.fovRadians
+    this.applyDistortionProfile(LENS_PRESET_50MM)
+    this.applyDistortionBlend()
+    this.applyCurrentFramingTransform()
+    this.refreshActualDistance()
+    this.emitPresetChanged(LENS_PRESET_50MM)
     this.emitStateChanged()
   }
 
@@ -252,6 +320,14 @@ export class LensController extends BaseScriptComponent {
 
   public getCurrentFramingPreset(): FramingPreset {
     return this.selectedFramingPreset
+  }
+
+  public getLastAutomaticFramingPreset(): FramingPreset {
+    return this.lastAutomaticFramingPreset
+  }
+
+  public getIsCustomFraming(): boolean {
+    return this.isCustomFraming
   }
 
   public getMatchFramingEnabled(): boolean {
@@ -505,8 +581,12 @@ export class LensController extends BaseScriptComponent {
     return Object.freeze({
       currentLens: this.selectedPreset!,
       currentFraming: this.selectedFramingPreset,
+      framingDisplayLabel: this.isCustomFraming
+        ? "CUSTOM"
+        : this.selectedFramingPreset.displayLabel,
       matchFramingEnabled: this.matchFramingEnabled,
       lensDistortionEnabled: this.lensDistortionEnabled,
+      isCustomFraming: this.isCustomFraming,
       distanceCm: this.currentCameraDistanceCm,
     })
   }

@@ -1,0 +1,86 @@
+- !<AssetImportMetadata/bfa7f616-be03-45b7-8368-a824d3324f01>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> c28efa5c-d3d6-4f80-91a9-f0cc43735fa0
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> c28efa5c-d3d6-4f80-91a9-f0cc43735fa0
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> b4e30ed6-850d-4934-8c74-90170a539fc4
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/b4e30ed6-850d-4934-8c74-90170a539fc4>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: b98e788f-76b8-4ba4-953b-5b1f52a111b8
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    actorA: false
+    actorB: false
+    cameraProxyMesh: false
+    dioramaRoot: false
+    grabIndicatorColor: false
+    hoverIndicatorColor: false
+    idleIndicatorColor: false
+    keyLightProxy: false
+    keyLightRig: false
+    lensController: false
+    lightingController: false
+    shotCameraRig: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - lensController: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      lightingController: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+      actorA: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      actorB: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      shotCameraRig: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      cameraProxyMesh: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      keyLightRig: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      keyLightProxy: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      dioramaRoot: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      hoverIndicatorColor: !<Vec4> {x: 0.350000, y: 0.750000, z: 1.000000, w: 0.350000}
+      grabIndicatorColor: !<Vec4> {x: 0.550000, y: 0.950000, z: 1.000000, w: 0.700000}
+      idleIndicatorColor: !<Vec4> {x: 0.200000, y: 0.350000, z: 0.450000, w: 0.180000}
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">Spatial Manipulation Controller</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"References"}'
+    - '// @input AssignableType_1 lensController {"hint":"Existing LensController that remains the source of truth for lens and framing."}'
+    - '// @input AssignableType_2 lightingController {"hint":"Existing LightingController that remains the source of truth for key-light look."}'
+    - '// @input SceneObject actorA {"hint":"Existing ActorA placeholder. ActorA_FramingTarget must remain its child."}'
+    - '// @input SceneObject actorB {"hint":"Existing ActorB placeholder."}'
+    - '// @input SceneObject shotCameraRig {"hint":"Existing ShotCameraRig moved by CameraProxyMesh grabs."}'
+    - '// @input SceneObject cameraProxyMesh {"hint":"Visible MainExperience proxy used to grab ShotCameraRig."}'
+    - '// @input SceneObject keyLightRig {"hint":"Existing KeyLightRig moved and aimed by KeyLightProxy."}'
+    - '// @input SceneObject keyLightProxy {"hint":"MainExperience proxy used to grab KeyLightRig."}'
+    - '// @input SceneObject dioramaRoot {"hint":"Diorama root used as the actor floor and playable-set space."}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Feedback"}'
+    - '// @input vec4 hoverIndicatorColor = "{0.35,0.75,1,0.35}" {"hint":"Subtle hover color for MainExperience selection indicators.", "widget":"color"}'
+    - '// @input vec4 grabIndicatorColor = "{0.55,0.95,1,0.7}" {"hint":"Brighter grab color for MainExperience selection indicators.", "widget":"color"}'
+    - '// @input vec4 idleIndicatorColor = "{0.2,0.35,0.45,0.18}" {"hint":"Idle color for MainExperience selection indicators.", "widget":"color"}'
+    - '// @ui {"widget":"group_end"}'

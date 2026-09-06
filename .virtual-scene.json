@@ -6223,6 +6223,158 @@
       "components": []
     },
     {
+      "id": "f34f464a-106f-478c-9ccf-5d2567979d89",
+      "name": "ActorA_Interactable",
+      "enabled": true,
+      "parentId": "875f1870-4538-477d-aff5-ee7259817a72",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 4,
+      "components": [
+        {
+          "id": "f3539afe-07a6-4365-a6d8-d623c178d28a",
+          "type": "ColliderComponent",
+          "name": "Physics Collider",
+          "enabled": true,
+          "properties": {
+            "shape.radius": 6,
+            "shape.id": "4fd55e87-3279-4951-9885-7f907278c09f",
+            "shape.type": "Sphere",
+            "filter": null,
+            "fitVisual": false,
+            "forceCompound": false,
+            "intangible": false,
+            "debugDrawEnabled": true,
+            "matter": null,
+            "overlapFilter": null,
+            "smooth": false,
+            "translateSmoothFactor": 30,
+            "rotateSmoothFactor": 30,
+            "worldSettings": null,
+            "name": "Physics Collider",
+            "enabled": true,
+            "sceneObject": "@sceneObject:ActorA_Interactable",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "f3539afe-07a6-4365-a6d8-d623c178d28a",
+            "type": "ColliderComponent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "19f53fd5-c939-4136-ba67-1e35e7658a04",
+      "name": "ActorA_SelectionIndicator",
+      "enabled": true,
+      "parentId": "875f1870-4538-477d-aff5-ee7259817a72",
+      "transform": {
+        "position": [
+          0,
+          -0.5199999809265137,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.5,
+          0.05999999865889549,
+          1.5
+        ]
+      },
+      "layers": 4,
+      "components": [
+        {
+          "id": "4aaeb2d8-5a97-4216-9da1-f348bed812b6",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/SelectionIndicatorMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/SelectionIndicatorMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:ActorA_SelectionIndicator",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "4aaeb2d8-5a97-4216-9da1-f348bed812b6",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
       "id": "100e44ef-963c-4465-8f4b-bb2763ecd29a",
       "name": "ActorB",
       "enabled": true,
@@ -6314,6 +6466,158 @@
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "92c62dc7-982f-4310-8804-3d049fecb8ca",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "b3afa103-fe26-4223-b3b8-a516c307e128",
+      "name": "ActorB_Interactable",
+      "enabled": true,
+      "parentId": "100e44ef-963c-4465-8f4b-bb2763ecd29a",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 4,
+      "components": [
+        {
+          "id": "53e6ec5d-6718-43ea-a557-18610eec621f",
+          "type": "ColliderComponent",
+          "name": "Physics Collider",
+          "enabled": true,
+          "properties": {
+            "shape.radius": 6,
+            "shape.id": "7fb81e33-90d2-4176-821f-292b94e8a647",
+            "shape.type": "Sphere",
+            "filter": null,
+            "fitVisual": true,
+            "forceCompound": false,
+            "intangible": false,
+            "debugDrawEnabled": false,
+            "matter": null,
+            "overlapFilter": null,
+            "smooth": false,
+            "translateSmoothFactor": 30,
+            "rotateSmoothFactor": 30,
+            "worldSettings": null,
+            "name": "Physics Collider",
+            "enabled": true,
+            "sceneObject": "@sceneObject:ActorB_Interactable",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "53e6ec5d-6718-43ea-a557-18610eec621f",
+            "type": "ColliderComponent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "b349d540-eabd-4c7f-abe5-2e853da1cacd",
+      "name": "ActorB_SelectionIndicator",
+      "enabled": true,
+      "parentId": "100e44ef-963c-4465-8f4b-bb2763ecd29a",
+      "transform": {
+        "position": [
+          0,
+          -0.5199999809265137,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1.5,
+          0.05999999865889549,
+          1.5
+        ]
+      },
+      "layers": 4,
+      "components": [
+        {
+          "id": "16b5d901-e8bc-4ab0-b899-6e8f4f6d944a",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/SelectionIndicatorMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/SelectionIndicatorMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:ActorB_SelectionIndicator",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "16b5d901-e8bc-4ab0-b899-6e8f4f6d944a",
             "type": "RenderMeshVisual"
           }
         }
@@ -6679,6 +6983,255 @@
       ]
     },
     {
+      "id": "b083b419-c6af-493f-b81c-14b401e02fb2",
+      "name": "CameraRig_Interactable",
+      "enabled": true,
+      "parentId": "4c83b36a-d453-4fec-ae43-e8d255b78112",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 4,
+      "components": [
+        {
+          "id": "1338f744-029c-4c2a-a1fc-c8991803d760",
+          "type": "ColliderComponent",
+          "name": "Physics Collider",
+          "enabled": true,
+          "properties": {
+            "shape.radius": 6,
+            "shape.id": "d7e8d89a-993e-4c73-992a-c25f952c0c4e",
+            "shape.type": "Sphere",
+            "filter": null,
+            "fitVisual": true,
+            "forceCompound": false,
+            "intangible": false,
+            "debugDrawEnabled": false,
+            "matter": null,
+            "overlapFilter": null,
+            "smooth": false,
+            "translateSmoothFactor": 30,
+            "rotateSmoothFactor": 30,
+            "worldSettings": null,
+            "name": "Physics Collider",
+            "enabled": true,
+            "sceneObject": "@sceneObject:CameraRig_Interactable",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "1338f744-029c-4c2a-a1fc-c8991803d760",
+            "type": "ColliderComponent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "95f6aca7-4fe7-423b-9798-f78a3e29cf60",
+      "name": "CameraRig_SelectionIndicator",
+      "enabled": true,
+      "parentId": "c17c6db8-2e7c-44a4-a2c7-a6d4fb054412",
+      "transform": {
+        "position": [
+          0,
+          -1.5,
+          2
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          4.199999809265137,
+          0.11999999731779099,
+          4.800000190734863
+        ]
+      },
+      "layers": 4,
+      "components": [
+        {
+          "id": "f4e8966e-08fc-450d-a1db-1567b36a7e35",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/SelectionIndicatorMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/SelectionIndicatorMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:CameraRig_SelectionIndicator",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "f4e8966e-08fc-450d-a1db-1567b36a7e35",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "2fc46c62-f3d5-4993-b8df-e9afebbd3a3e",
+      "name": "CameraFrustumVisualizer",
+      "enabled": true,
+      "parentId": "c17c6db8-2e7c-44a4-a2c7-a6d4fb054412",
+      "transform": {
+        "position": [
+          0,
+          0,
+          -5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          0.1599999964237213,
+          0.1599999964237213,
+          10
+        ]
+      },
+      "layers": 4,
+      "components": [
+        {
+          "id": "dcf88764-e5dd-4164-a41d-d440b8567266",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/CameraFrustumMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/CameraFrustumMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:CameraFrustumVisualizer",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "dcf88764-e5dd-4164-a41d-d440b8567266",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
       "id": "89857d2e-4b6b-4f22-8449-a5e5bbac4a8c",
       "name": "KeyLightRig",
       "enabled": true,
@@ -6927,6 +7480,255 @@
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "c72afa63-e8d6-4686-8340-5db118e501e5",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "1ec90449-6551-46ed-ad7f-f846219e4fe8",
+      "name": "KeyLightProxy",
+      "enabled": true,
+      "parentId": "89857d2e-4b6b-4f22-8449-a5e5bbac4a8c",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          2,
+          2,
+          2
+        ]
+      },
+      "layers": 4,
+      "components": [
+        {
+          "id": "3036940b-4ccb-408f-9bc6-a7ef829c3e9f",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/KeyLightProxyMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/KeyLightProxyMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:KeyLightProxy",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "3036940b-4ccb-408f-9bc6-a7ef829c3e9f",
+            "type": "RenderMeshVisual"
+          }
+        }
+      ]
+    },
+    {
+      "id": "4d327852-b908-4213-b851-bdc8f4efb232",
+      "name": "KeyLightRig_Interactable",
+      "enabled": true,
+      "parentId": "1ec90449-6551-46ed-ad7f-f846219e4fe8",
+      "transform": {
+        "position": [
+          0,
+          0,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 4,
+      "components": [
+        {
+          "id": "2d84ded0-d23a-496f-bb14-394f98a8af32",
+          "type": "ColliderComponent",
+          "name": "Physics Collider",
+          "enabled": true,
+          "properties": {
+            "shape.radius": 6,
+            "shape.id": "e8765596-af05-44ec-a1f6-ca4ef6b53dcd",
+            "shape.type": "Sphere",
+            "filter": null,
+            "fitVisual": true,
+            "forceCompound": false,
+            "intangible": false,
+            "debugDrawEnabled": false,
+            "matter": null,
+            "overlapFilter": null,
+            "smooth": false,
+            "translateSmoothFactor": 30,
+            "rotateSmoothFactor": 30,
+            "worldSettings": null,
+            "name": "Physics Collider",
+            "enabled": true,
+            "sceneObject": "@sceneObject:KeyLightRig_Interactable",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "2d84ded0-d23a-496f-bb14-394f98a8af32",
+            "type": "ColliderComponent"
+          }
+        }
+      ]
+    },
+    {
+      "id": "5f1f56e1-6e8c-4f67-a7bb-c3eba9b8fafa",
+      "name": "KeyLight_SelectionIndicator",
+      "enabled": true,
+      "parentId": "89857d2e-4b6b-4f22-8449-a5e5bbac4a8c",
+      "transform": {
+        "position": [
+          0,
+          -1.399999976158142,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          3.200000047683716,
+          0.11999999731779099,
+          3.200000047683716
+        ]
+      },
+      "layers": 4,
+      "components": [
+        {
+          "id": "01c46d7d-264f-4141-adc1-58dfe33999a2",
+          "type": "RenderMeshVisual",
+          "name": "Render Mesh Visual",
+          "enabled": true,
+          "properties": {
+            "mesh": "@asset:ShotSpace/Geometry/ShotSpaceBox.mesh",
+            "blendShapesEnabled": true,
+            "blendNormals": false,
+            "materials.0": "@asset:ShotSpace/Materials/SelectionIndicatorMaterial.mat",
+            "mainMaterial": "@asset:ShotSpace/Materials/SelectionIndicatorMaterial.mat",
+            "stretchMode": {
+              "value": "Stretch",
+              "type": "enum",
+              "enumType": "Editor.Components.StretchMode",
+              "options": [
+                "Fill",
+                "Fit",
+                "Stretch",
+                "FitHeight",
+                "FitWidth",
+                "FillAndCut"
+              ]
+            },
+            "verticalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Vertical",
+              "options": [
+                "Bottom",
+                "Center",
+                "Top"
+              ]
+            },
+            "horizontalAlignment": {
+              "value": "Center",
+              "type": "enum",
+              "enumType": "Editor.Alignment.Horizontal",
+              "options": [
+                "Left",
+                "Center",
+                "Right"
+              ]
+            },
+            "meshShadowMode": {
+              "value": "None",
+              "type": "enum",
+              "enumType": "Editor.Components.MeshShadowMode",
+              "options": [
+                "None",
+                "Caster",
+                "Receiver"
+              ]
+            },
+            "shadowColor": {
+              "x": 1,
+              "y": 1,
+              "z": 1,
+              "w": 1
+            },
+            "shadowDensity": 1,
+            "renderOrder": 0,
+            "name": "Render Mesh Visual",
+            "enabled": true,
+            "sceneObject": "@sceneObject:KeyLight_SelectionIndicator",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "01c46d7d-264f-4141-adc1-58dfe33999a2",
             "type": "RenderMeshVisual"
           }
         }
@@ -7583,6 +8385,15 @@
               "uiInfo": "{\"hint\":\"Vertical gap between focal, framing, and Match rows.\", \"widget\":\"slider\", \"min\":0.2, \"max\":1, \"step\":0.1}",
               "defaultValue": "0.5"
             },
+            "spatialManipulationController": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "3e2abc18-64e9-4fe9-9c35-2ed5a17d30ab",
+                "name": "SpatialManipulationController"
+              },
+              "type": "AssignableType_3",
+              "uiInfo": "{\"hint\":\"Authored SpatialManipulationController that owns grab selection and layout reset.\"}"
+            },
             "panelPaddingCm": {
               "isScriptInput": true,
               "value": 1,
@@ -7653,6 +8464,41 @@
               "uiInfo": "{\"hint\":\"Width of each framing button; sized so CLOSE-UP remains readable.\", \"widget\":\"slider\", \"min\":7, \"max\":9, \"step\":0.1}",
               "defaultValue": "8.2"
             },
+            "lightingPanelHeightCm": {
+              "isScriptInput": true,
+              "value": 18.5,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Height of the lighting and reset backplate.\", \"widget\":\"slider\", \"min\":14, \"max\":24, \"step\":0.2}",
+              "defaultValue": "18.5"
+            },
+            "instructionCenterXCm": {
+              "isScriptInput": true,
+              "value": 5,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Local X center of the instruction panel.\", \"widget\":\"slider\", \"min\":-8, \"max\":12, \"step\":0.5}",
+              "defaultValue": "5"
+            },
+            "instructionCenterYCm": {
+              "isScriptInput": true,
+              "value": 23.200000762939453,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Local Y center of the instruction panel above the status header.\", \"widget\":\"slider\", \"min\":18, \"max\":28, \"step\":0.2}",
+              "defaultValue": "23.2"
+            },
+            "instructionPanelHeightCm": {
+              "isScriptInput": true,
+              "value": 8.399999618530273,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Height of the instruction backplate.\", \"widget\":\"slider\", \"min\":6, \"max\":12, \"step\":0.2}",
+              "defaultValue": "8.4"
+            },
+            "instructionPanelWidthCm": {
+              "isScriptInput": true,
+              "value": 29,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Width of the instruction backplate.\", \"widget\":\"slider\", \"min\":22, \"max\":34, \"step\":0.2}",
+              "defaultValue": "29"
+            },
             "lensController": {
               "isScriptInput": true,
               "value": {
@@ -7661,6 +8507,36 @@
               },
               "type": "AssignableType_1",
               "uiInfo": "{\"hint\":\"Authored LensController component that owns ShotCamera focal-length presets.\"}"
+            },
+            "lightingCenterXCm": {
+              "isScriptInput": true,
+              "value": 20,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Local X center of the compact lighting and reset panel.\", \"widget\":\"slider\", \"min\":8, \"max\":28, \"step\":0.5}",
+              "defaultValue": "20"
+            },
+            "lightingPanelWidthCm": {
+              "isScriptInput": true,
+              "value": 18,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Width of the lighting and reset backplate.\", \"widget\":\"slider\", \"min\":14, \"max\":22, \"step\":0.2}",
+              "defaultValue": "18"
+            },
+            "lightingCenterYCm": {
+              "isScriptInput": true,
+              "value": -1,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Local Y center of the compact lighting and reset panel.\", \"widget\":\"slider\", \"min\":-8, \"max\":8, \"step\":0.2}",
+              "defaultValue": "-1"
+            },
+            "lightingController": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "01fc2aa7-8e52-4a86-a8bf-56d6502be206",
+                "name": "LightingController"
+              },
+              "type": "AssignableType_2",
+              "uiInfo": "{\"hint\":\"Authored LightingController that owns key-light intensity and color.\"}"
             },
             "matchSwitchWidthCm": {
               "isScriptInput": true,
@@ -7716,15 +8592,25 @@
             "inputNames.8": "distortionSwitchWidthCm",
             "inputNames.9": "fontSizeScale",
             "inputNames.10": "framingButtonWidthCm",
-            "inputNames.11": "lensController",
-            "inputNames.12": "matchSwitchWidthCm",
-            "inputNames.13": "panelPaddingCm",
-            "inputNames.14": "panelWidthCm",
-            "inputNames.15": "primaryTextColor",
-            "inputNames.16": "secondaryTextColor",
-            "inputNames.17": "statusCenterXCm",
-            "inputNames.18": "statusCenterYCm",
-            "inputNames.19": "statusPanelHeightCm",
+            "inputNames.11": "instructionCenterXCm",
+            "inputNames.12": "instructionCenterYCm",
+            "inputNames.13": "instructionPanelHeightCm",
+            "inputNames.14": "instructionPanelWidthCm",
+            "inputNames.15": "lensController",
+            "inputNames.16": "lightingCenterXCm",
+            "inputNames.17": "lightingCenterYCm",
+            "inputNames.18": "lightingController",
+            "inputNames.19": "lightingPanelHeightCm",
+            "inputNames.20": "lightingPanelWidthCm",
+            "inputNames.21": "matchSwitchWidthCm",
+            "inputNames.22": "panelPaddingCm",
+            "inputNames.23": "panelWidthCm",
+            "inputNames.24": "primaryTextColor",
+            "inputNames.25": "secondaryTextColor",
+            "inputNames.26": "spatialManipulationController",
+            "inputNames.27": "statusCenterXCm",
+            "inputNames.28": "statusCenterYCm",
+            "inputNames.29": "statusPanelHeightCm",
             "name": "ShotSpaceLensControlsUI",
             "enabled": true,
             "sceneObject": "@sceneObject:LensControlsUI",
@@ -8260,6 +9146,223 @@
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "7f6d4e88-5d6e-4daf-bba0-92dc778564da",
+            "type": "ScriptComponent"
+          }
+        },
+        {
+          "id": "01fc2aa7-8e52-4a86-a8bf-56d6502be206",
+          "type": "ScriptComponent",
+          "name": "LightingController",
+          "enabled": true,
+          "properties": {
+            "coolColor": {
+              "isScriptInput": true,
+              "value": "{x: 0.92, y: 0.95, z: 1}",
+              "type": "vec3",
+              "uiInfo": "{\"hint\":\"Approximate 5600K cool key color.\", \"widget\":\"color\"}",
+              "defaultValue": "{0.92,0.95,1}"
+            },
+            "highIntensity": {
+              "isScriptInput": true,
+              "value": 6.400000095367432,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"HIGH intensity on the Lens Studio light scale.\", \"widget\":\"slider\", \"min\":0.2, \"max\":16, \"step\":0.1}"
+            },
+            "defaultColorName": {
+              "isScriptInput": true,
+              "value": "NEUTRAL",
+              "type": "string",
+              "uiInfo": "{\"hint\":\"Default key-light color preset.\", \"widget\":\"combobox\", \"values\":[{\"label\":\"WARM\", \"value\":\"WARM\"}, {\"label\":\"NEUTRAL\", \"value\":\"NEUTRAL\"}, {\"label\":\"COOL\", \"value\":\"COOL\"}]}",
+              "defaultValue": "NEUTRAL"
+            },
+            "defaultIntensityName": {
+              "isScriptInput": true,
+              "value": "MEDIUM",
+              "type": "string",
+              "uiInfo": "{\"hint\":\"Default key-light intensity preset.\", \"widget\":\"combobox\", \"values\":[{\"label\":\"LOW\", \"value\":\"LOW\"}, {\"label\":\"MEDIUM\", \"value\":\"MEDIUM\"}, {\"label\":\"HIGH\", \"value\":\"HIGH\"}]}",
+              "defaultValue": "MEDIUM"
+            },
+            "keyLight": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "8672b844-6723-4f12-88cc-ce28f984a469",
+                "name": "KeyLight"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Existing KeyLight SceneObject that owns the authored LightSource.\"}"
+            },
+            "lowIntensity": {
+              "isScriptInput": true,
+              "value": 1.399999976158142,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"LOW intensity on the Lens Studio light scale.\", \"widget\":\"slider\", \"min\":0.2, \"max\":8, \"step\":0.1}"
+            },
+            "neutralColor": {
+              "isScriptInput": true,
+              "value": "{x: 1, y: 0.87, z: 0.7}",
+              "type": "vec3",
+              "uiInfo": "{\"hint\":\"Approximate 4300K neutral key color.\", \"widget\":\"color\"}",
+              "defaultValue": "{1,0.87,0.7}"
+            },
+            "mediumIntensity": {
+              "isScriptInput": true,
+              "value": 3.200000047683716,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"MEDIUM intensity on the Lens Studio light scale.\", \"widget\":\"slider\", \"min\":0.2, \"max\":10, \"step\":0.1}"
+            },
+            "warmColor": {
+              "isScriptInput": true,
+              "value": "{x: 1, y: 0.72, z: 0.42}",
+              "type": "vec3",
+              "uiInfo": "{\"hint\":\"Approximate 3200K warm key color.\", \"widget\":\"color\"}",
+              "defaultValue": "{1,0.72,0.42}"
+            },
+            "scriptAsset": "@asset:Scripts/LightingController.ts",
+            "inputNames.0": "coolColor",
+            "inputNames.1": "defaultColorName",
+            "inputNames.2": "defaultIntensityName",
+            "inputNames.3": "highIntensity",
+            "inputNames.4": "keyLight",
+            "inputNames.5": "lowIntensity",
+            "inputNames.6": "mediumIntensity",
+            "inputNames.7": "neutralColor",
+            "inputNames.8": "warmColor",
+            "name": "LightingController",
+            "enabled": true,
+            "sceneObject": "@sceneObject:Systems",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "01fc2aa7-8e52-4a86-a8bf-56d6502be206",
+            "type": "ScriptComponent"
+          }
+        },
+        {
+          "id": "3e2abc18-64e9-4fe9-9c35-2ed5a17d30ab",
+          "type": "ScriptComponent",
+          "name": "SpatialManipulationController",
+          "enabled": true,
+          "properties": {
+            "hoverIndicatorColor": {
+              "isScriptInput": true,
+              "value": "{x: 0.35, y: 0.75, z: 1, w: 0.35}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Subtle hover color for MainExperience selection indicators.\", \"widget\":\"color\"}",
+              "defaultValue": "{0.35,0.75,1,0.35}"
+            },
+            "actorA": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "875f1870-4538-477d-aff5-ee7259817a72",
+                "name": "ActorA"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Existing ActorA placeholder. ActorA_FramingTarget must remain its child.\"}"
+            },
+            "keyLightProxy": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "1ec90449-6551-46ed-ad7f-f846219e4fe8",
+                "name": "KeyLightProxy"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"MainExperience proxy used to grab KeyLightRig.\"}"
+            },
+            "dioramaRoot": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "bcdcc8f2-fff4-4826-81c2-f3e3d83dd717",
+                "name": "DioramaRoot"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Diorama root used as the actor floor and playable-set space.\"}"
+            },
+            "actorB": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "100e44ef-963c-4465-8f4b-bb2763ecd29a",
+                "name": "ActorB"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Existing ActorB placeholder.\"}"
+            },
+            "cameraProxyMesh": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "4c83b36a-d453-4fec-ae43-e8d255b78112",
+                "name": "CameraProxyMesh"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Visible MainExperience proxy used to grab ShotCameraRig.\"}"
+            },
+            "grabIndicatorColor": {
+              "isScriptInput": true,
+              "value": "{x: 0.55, y: 0.95, z: 1, w: 0.7}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Brighter grab color for MainExperience selection indicators.\", \"widget\":\"color\"}",
+              "defaultValue": "{0.55,0.95,1,0.7}"
+            },
+            "idleIndicatorColor": {
+              "isScriptInput": true,
+              "value": "{x: 0.2, y: 0.35, z: 0.45, w: 0.18}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Idle color for MainExperience selection indicators.\", \"widget\":\"color\"}",
+              "defaultValue": "{0.2,0.35,0.45,0.18}"
+            },
+            "keyLightRig": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "89857d2e-4b6b-4f22-8449-a5e5bbac4a8c",
+                "name": "KeyLightRig"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Existing KeyLightRig moved and aimed by KeyLightProxy.\"}"
+            },
+            "lensController": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "7f6d4e88-5d6e-4daf-bba0-92dc778564da",
+                "name": "LensController"
+              },
+              "type": "AssignableType_1",
+              "uiInfo": "{\"hint\":\"Existing LensController that remains the source of truth for lens and framing.\"}"
+            },
+            "lightingController": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "01fc2aa7-8e52-4a86-a8bf-56d6502be206",
+                "name": "LightingController"
+              },
+              "type": "AssignableType_2",
+              "uiInfo": "{\"hint\":\"Existing LightingController that remains the source of truth for key-light look.\"}"
+            },
+            "shotCameraRig": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "c17c6db8-2e7c-44a4-a2c7-a6d4fb054412",
+                "name": "ShotCameraRig"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Existing ShotCameraRig moved by CameraProxyMesh grabs.\"}"
+            },
+            "scriptAsset": "@asset:Scripts/SpatialManipulationController.ts",
+            "inputNames.0": "actorA",
+            "inputNames.1": "actorB",
+            "inputNames.2": "cameraProxyMesh",
+            "inputNames.3": "dioramaRoot",
+            "inputNames.4": "grabIndicatorColor",
+            "inputNames.5": "hoverIndicatorColor",
+            "inputNames.6": "idleIndicatorColor",
+            "inputNames.7": "keyLightProxy",
+            "inputNames.8": "keyLightRig",
+            "inputNames.9": "lensController",
+            "inputNames.10": "lightingController",
+            "inputNames.11": "shotCameraRig",
+            "name": "SpatialManipulationController",
+            "enabled": true,
+            "sceneObject": "@sceneObject:Systems",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "3e2abc18-64e9-4fe9-9c35-2ed5a17d30ab",
             "type": "ScriptComponent"
           }
         }
@@ -17245,6 +18348,219 @@
       }
     },
     {
+      "id": "9fff15fc-1314-46a4-8783-1b3ca6e6f717",
+      "name": "KeyLightProxyMaterial",
+      "type": "Material",
+      "path": "ShotSpace/Materials/KeyLightProxyMaterial.mat",
+      "properties": {
+        "passInfos.0.baseColor.value": {
+          "x": 1,
+          "y": 0.8600000143051147,
+          "z": 0.550000011920929,
+          "w": 1
+        },
+        "passInfos.0.baseColor.label": "Base Color",
+        "passInfos.0.ENABLE_BASE_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseTex.value": null,
+        "passInfos.0.baseTex.hidden": true,
+        "passInfos.0.baseTex.enabledBy": "ENABLE_BASE_TEX",
+        "passInfos.0.baseTex.label": "Texture",
+        "passInfos.0.Texture UV": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Transformed UV 2",
+            "Transformed UV 3"
+          ],
+          "label": "Texture UV"
+        },
+        "passInfos.0.ENABLE_OPACITY_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Opacity Texture"
+        },
+        "passInfos.0.opacityTex.value": null,
+        "passInfos.0.opacityTex.hidden": true,
+        "passInfos.0.opacityTex.enabledBy": "ENABLE_OPACITY_TEX",
+        "passInfos.0.opacityTex.label": "Texture",
+        "passInfos.0.Tweak_N67": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 2"
+        },
+        "passInfos.0.Source": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Screen UV",
+            "Transformed UV 2"
+          ],
+          "label": "Source"
+        },
+        "passInfos.0.uv2Scale.value": null,
+        "passInfos.0.uv2Scale.hidden": true,
+        "passInfos.0.uv2Scale.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Scale.label": "Scale",
+        "passInfos.0.uv2Offset.value": null,
+        "passInfos.0.uv2Offset.hidden": true,
+        "passInfos.0.uv2Offset.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Offset.label": "Offset",
+        "passInfos.0.uv2EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.Tweak_N11": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 3"
+        },
+        "passInfos.0.uv3Scale.value": null,
+        "passInfos.0.uv3Scale.hidden": true,
+        "passInfos.0.uv3Scale.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Scale.label": "Scale",
+        "passInfos.0.uv3Offset.value": null,
+        "passInfos.0.uv3Offset.hidden": true,
+        "passInfos.0.uv3Offset.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Offset.label": "Offset",
+        "passInfos.0.uv3EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.enabledBy": "uv3EnableAnimation",
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_Default_N204": 1,
+        "passInfos.0.Port_Default_N369": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "55702703-2efb-4c0e-bee1-8c17f5977136",
+        "passInfos.0.type": "PassInfo",
+        "name": "KeyLightProxyMaterial",
+        "fileMeta.id": "9d00b307-3b51-46c7-af26-fc1e8e531ebf",
+        "id": "9fff15fc-1314-46a4-8783-1b3ca6e6f717",
+        "type": "Material"
+      }
+    },
+    {
       "id": "11223344-5566-4778-99aa-bbccdd001122",
       "name": "Debug Render Target Persp",
       "type": "RenderTarget",
@@ -18791,6 +20107,432 @@
         "fileMeta.id": "d703960d-eeb2-e14f-8dab-38de07db2ad8",
         "id": "3642f110-de5e-4fcd-9cf9-bdd9164d8108",
         "type": "ObjectPrefab"
+      }
+    },
+    {
+      "id": "b624d2a5-f8d5-4de2-a869-60e8b083aa33",
+      "name": "CameraFrustumMaterial",
+      "type": "Material",
+      "path": "ShotSpace/Materials/CameraFrustumMaterial.mat",
+      "properties": {
+        "passInfos.0.baseColor.value": {
+          "x": 0.44999998807907104,
+          "y": 0.8500000238418579,
+          "z": 1,
+          "w": 0.550000011920929
+        },
+        "passInfos.0.baseColor.label": "Base Color",
+        "passInfos.0.ENABLE_BASE_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseTex.value": null,
+        "passInfos.0.baseTex.hidden": true,
+        "passInfos.0.baseTex.enabledBy": "ENABLE_BASE_TEX",
+        "passInfos.0.baseTex.label": "Texture",
+        "passInfos.0.Texture UV": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Transformed UV 2",
+            "Transformed UV 3"
+          ],
+          "label": "Texture UV"
+        },
+        "passInfos.0.ENABLE_OPACITY_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Opacity Texture"
+        },
+        "passInfos.0.opacityTex.value": null,
+        "passInfos.0.opacityTex.hidden": true,
+        "passInfos.0.opacityTex.enabledBy": "ENABLE_OPACITY_TEX",
+        "passInfos.0.opacityTex.label": "Texture",
+        "passInfos.0.Tweak_N67": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 2"
+        },
+        "passInfos.0.Source": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Screen UV",
+            "Transformed UV 2"
+          ],
+          "label": "Source"
+        },
+        "passInfos.0.uv2Scale.value": null,
+        "passInfos.0.uv2Scale.hidden": true,
+        "passInfos.0.uv2Scale.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Scale.label": "Scale",
+        "passInfos.0.uv2Offset.value": null,
+        "passInfos.0.uv2Offset.hidden": true,
+        "passInfos.0.uv2Offset.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Offset.label": "Offset",
+        "passInfos.0.uv2EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.Tweak_N11": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 3"
+        },
+        "passInfos.0.uv3Scale.value": null,
+        "passInfos.0.uv3Scale.hidden": true,
+        "passInfos.0.uv3Scale.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Scale.label": "Scale",
+        "passInfos.0.uv3Offset.value": null,
+        "passInfos.0.uv3Offset.hidden": true,
+        "passInfos.0.uv3Offset.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Offset.label": "Offset",
+        "passInfos.0.uv3EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.enabledBy": "uv3EnableAnimation",
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_Default_N204": 1,
+        "passInfos.0.Port_Default_N369": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "b2c93964-e3f0-4fae-a261-ef617f438dfb",
+        "passInfos.0.type": "PassInfo",
+        "name": "CameraFrustumMaterial",
+        "fileMeta.id": "a9b8b2f0-3a18-43f6-bdcc-230b54047aae",
+        "id": "b624d2a5-f8d5-4de2-a869-60e8b083aa33",
+        "type": "Material"
+      }
+    },
+    {
+      "id": "c5aa2acf-61fc-44e0-9c22-40f0c05b6548",
+      "name": "SelectionIndicatorMaterial",
+      "type": "Material",
+      "path": "ShotSpace/Materials/SelectionIndicatorMaterial.mat",
+      "properties": {
+        "passInfos.0.baseColor.value": {
+          "x": 0.20000000298023224,
+          "y": 0.3499999940395355,
+          "z": 0.44999998807907104,
+          "w": 0.2199999988079071
+        },
+        "passInfos.0.baseColor.label": "Base Color",
+        "passInfos.0.ENABLE_BASE_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Base Texture"
+        },
+        "passInfos.0.baseTex.value": null,
+        "passInfos.0.baseTex.hidden": true,
+        "passInfos.0.baseTex.enabledBy": "ENABLE_BASE_TEX",
+        "passInfos.0.baseTex.label": "Texture",
+        "passInfos.0.Texture UV": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Transformed UV 2",
+            "Transformed UV 3"
+          ],
+          "label": "Texture UV"
+        },
+        "passInfos.0.ENABLE_OPACITY_TEX": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Opacity Texture"
+        },
+        "passInfos.0.opacityTex.value": null,
+        "passInfos.0.opacityTex.hidden": true,
+        "passInfos.0.opacityTex.enabledBy": "ENABLE_OPACITY_TEX",
+        "passInfos.0.opacityTex.label": "Texture",
+        "passInfos.0.Tweak_N67": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 2"
+        },
+        "passInfos.0.Source": {
+          "value": "Mesh UV 0",
+          "isDefine": true,
+          "type": "defineSelect",
+          "options": [
+            "Mesh UV 0",
+            "Mesh UV 1",
+            "Screen UV",
+            "Transformed UV 2"
+          ],
+          "label": "Source"
+        },
+        "passInfos.0.uv2Scale.value": null,
+        "passInfos.0.uv2Scale.hidden": true,
+        "passInfos.0.uv2Scale.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Scale.label": "Scale",
+        "passInfos.0.uv2Offset.value": null,
+        "passInfos.0.uv2Offset.hidden": true,
+        "passInfos.0.uv2Offset.enabledBy": "Tweak_N67",
+        "passInfos.0.uv2Offset.label": "Offset",
+        "passInfos.0.uv2EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.Tweak_N11": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Transformed UV 3"
+        },
+        "passInfos.0.uv3Scale.value": null,
+        "passInfos.0.uv3Scale.hidden": true,
+        "passInfos.0.uv3Scale.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Scale.label": "Scale",
+        "passInfos.0.uv3Offset.value": null,
+        "passInfos.0.uv3Offset.hidden": true,
+        "passInfos.0.uv3Offset.enabledBy": "Tweak_N11",
+        "passInfos.0.uv3Offset.label": "Offset",
+        "passInfos.0.uv3EnableAnimation": {
+          "value": false,
+          "isDefine": true,
+          "type": "define",
+          "label": "Animation"
+        },
+        "passInfos.0.alphaTestThreshold.value": null,
+        "passInfos.0.alphaTestThreshold.hidden": true,
+        "passInfos.0.alphaTestThreshold.enabledBy": "uv3EnableAnimation",
+        "passInfos.0.alphaTestThreshold.label": "Alpha Test Threshold",
+        "passInfos.0.alphaTestThreshold.min": 0,
+        "passInfos.0.alphaTestThreshold.max": 1,
+        "passInfos.0.Port_Default_N204": 1,
+        "passInfos.0.Port_Default_N369": {
+          "x": 1,
+          "y": 1,
+          "z": 1,
+          "w": 1
+        },
+        "passInfos.0.PreviewEnabled": 0,
+        "passInfos.0.depthWrite": true,
+        "passInfos.0.depthTest": true,
+        "passInfos.0.depthFunction": {
+          "value": "LessEqual",
+          "type": "enum",
+          "enumType": "Editor.Assets.DepthFunction",
+          "options": [
+            "Never",
+            "Less",
+            "Equal",
+            "LessEqual",
+            "Greater",
+            "NotEqual",
+            "GreaterEqual",
+            "Always"
+          ]
+        },
+        "passInfos.0.twoSided": false,
+        "passInfos.0.cullMode": {
+          "value": "Back",
+          "type": "enum",
+          "enumType": "Editor.Assets.CullMode",
+          "options": [
+            "Front",
+            "Back",
+            "FrontAndBack"
+          ]
+        },
+        "passInfos.0.blendMode": {
+          "value": "Disabled",
+          "type": "enum",
+          "enumType": "Editor.Assets.BlendMode",
+          "options": [
+            "Disabled",
+            "Normal",
+            "Multiply",
+            "MultiplyLegacy",
+            "Add",
+            "AddLegacy",
+            "PremultipliedAlpha",
+            "Glass",
+            "ColoredGlass",
+            "AlphaTest",
+            "AlphaToCoverage",
+            "Screen",
+            "Min",
+            "Max",
+            "PremultipliedAlphaAuto",
+            "Custom",
+            "Darken",
+            "ColorBurn",
+            "Lighten",
+            "ColorDodge",
+            "Overlay",
+            "SoftLight",
+            "HardLight",
+            "VividLight",
+            "LinearLight",
+            "PinLight",
+            "HardMix",
+            "Diff",
+            "Exclusion",
+            "Subtract",
+            "Hue",
+            "Saturation",
+            "Color",
+            "Luminosity",
+            "Average",
+            "Negation",
+            "HardReflect",
+            "HardGlow",
+            "HardPhoenix",
+            "Realistic",
+            "Division",
+            "Bright",
+            "Forgray",
+            "NotBright",
+            "Intense"
+          ]
+        },
+        "passInfos.0.polygonOffset": {
+          "x": 0,
+          "y": 0
+        },
+        "passInfos.0.frustumCulling": {
+          "value": "Auto",
+          "type": "enum",
+          "enumType": "Editor.Assets.FrustumCullMode",
+          "options": [
+            "Auto",
+            "Extend"
+          ]
+        },
+        "passInfos.0.instanceCount": 1,
+        "passInfos.0.id": "e3c0c5e5-8641-4d5d-a0dc-a0017cbcd5e4",
+        "passInfos.0.type": "PassInfo",
+        "name": "SelectionIndicatorMaterial",
+        "fileMeta.id": "896ea7b1-4531-408b-84f7-565fa11ecc26",
+        "id": "c5aa2acf-61fc-44e0-9c22-40f0c05b6548",
+        "type": "Material"
       }
     }
   ]

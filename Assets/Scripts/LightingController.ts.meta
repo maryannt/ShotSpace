@@ -1,0 +1,77 @@
+- !<AssetImportMetadata/232d2b0a-ed86-4c86-a6cc-4f709c7ccfcc>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 65d9d84a-dd07-44b0-80b9-d5831db6371d
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 65d9d84a-dd07-44b0-80b9-d5831db6371d
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> c62f3ee9-9377-43d6-a804-9e273be91a46
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/c62f3ee9-9377-43d6-a804-9e273be91a46>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 09c8fcec-a5db-49c1-a660-53d48624f2e8
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    coolColor: false
+    defaultColorName: false
+    defaultIntensityName: false
+    highIntensity: false
+    keyLight: false
+    lowIntensity: false
+    mediumIntensity: false
+    neutralColor: false
+    warmColor: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - keyLight: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      defaultIntensityName: MEDIUM
+      defaultColorName: NEUTRAL
+      lowIntensity: !<float> 0.000000
+      mediumIntensity: !<float> 0.000000
+      highIntensity: !<float> 0.000000
+      warmColor: !<Vec3> {x: 1.000000, y: 0.720000, z: 0.420000}
+      neutralColor: !<Vec3> {x: 1.000000, y: 0.870000, z: 0.700000}
+      coolColor: !<Vec3> {x: 0.920000, y: 0.950000, z: 1.000000}
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">Lighting Controller</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"References"}'
+    - '// @input SceneObject keyLight {"hint":"Existing KeyLight SceneObject that owns the authored LightSource."}'
+    - '// @ui {"widget":"group_end"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Defaults"}'
+    - '// @input string defaultIntensityName = "MEDIUM" {"hint":"Default key-light intensity preset.", "widget":"combobox", "values":[{"label":"LOW", "value":"LOW"}, {"label":"MEDIUM", "value":"MEDIUM"}, {"label":"HIGH", "value":"HIGH"}]}'
+    - '// @input string defaultColorName = "NEUTRAL" {"hint":"Default key-light color preset.", "widget":"combobox", "values":[{"label":"WARM", "value":"WARM"}, {"label":"NEUTRAL", "value":"NEUTRAL"}, {"label":"COOL", "value":"COOL"}]}'
+    - '// @input float lowIntensity {"hint":"LOW intensity on the Lens Studio light scale.", "widget":"slider", "min":0.2, "max":8, "step":0.1}'
+    - '// @input float mediumIntensity {"hint":"MEDIUM intensity on the Lens Studio light scale.", "widget":"slider", "min":0.2, "max":10, "step":0.1}'
+    - '// @input float highIntensity {"hint":"HIGH intensity on the Lens Studio light scale.", "widget":"slider", "min":0.2, "max":16, "step":0.1}'
+    - '// @input vec3 warmColor = "{1,0.72,0.42}" {"hint":"Approximate 3200K warm key color.", "widget":"color"}'
+    - '// @input vec3 neutralColor = "{1,0.87,0.7}" {"hint":"Approximate 4300K neutral key color.", "widget":"color"}'
+    - '// @input vec3 coolColor = "{0.92,0.95,1}" {"hint":"Approximate 5600K cool key color.", "widget":"color"}'
+    - '// @ui {"widget":"group_end"}'

@@ -39,12 +39,22 @@
     distortionSwitchWidthCm: false
     fontSizeScale: false
     framingButtonWidthCm: false
+    instructionCenterXCm: false
+    instructionCenterYCm: false
+    instructionPanelHeightCm: false
+    instructionPanelWidthCm: false
     lensController: false
+    lightingCenterXCm: false
+    lightingCenterYCm: false
+    lightingController: false
+    lightingPanelHeightCm: false
+    lightingPanelWidthCm: false
     matchSwitchWidthCm: false
     panelPaddingCm: false
     panelWidthCm: false
     primaryTextColor: false
     secondaryTextColor: false
+    spatialManipulationController: false
     statusCenterXCm: false
     statusCenterYCm: false
     statusPanelHeightCm: false
@@ -58,6 +68,8 @@
     []
   DefaultScriptInputs:
     - lensController: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      lightingController: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+      spatialManipulationController: !<MappingBased.AssignableType_3> 00000000-0000-0000-0000-000000000000
       panelWidthCm: !<float> 29.000000
       statusPanelHeightCm: !<float> 6.000000
       controlPanelHeightCm: 5.200000
@@ -73,6 +85,14 @@
       matchSwitchWidthCm: !<float> 7.000000
       distortionSwitchWidthCm: !<float> 7.000000
       panelPaddingCm: !<float> 1.000000
+      lightingCenterXCm: !<float> 20.000000
+      lightingCenterYCm: !<float> -1.000000
+      lightingPanelWidthCm: !<float> 18.000000
+      lightingPanelHeightCm: 18.500000
+      instructionCenterXCm: !<float> 5.000000
+      instructionCenterYCm: 23.200001
+      instructionPanelWidthCm: !<float> 29.000000
+      instructionPanelHeightCm: 8.400000
       fontSizeScale: !<float> 1.000000
       primaryTextColor: !<Vec4> {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
       secondaryTextColor: !<Vec4> {x: 1.000000, y: 1.000000, z: 1.000000, w: 0.700000}
@@ -85,6 +105,8 @@
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"References"}'
     - '// @input AssignableType_1 lensController {"hint":"Authored LensController component that owns ShotCamera focal-length presets."}'
+    - '// @input AssignableType_2 lightingController {"hint":"Authored LightingController that owns key-light intensity and color."}'
+    - '// @input AssignableType_3 spatialManipulationController {"hint":"Authored SpatialManipulationController that owns grab selection and layout reset."}'
     - '// @ui {"widget":"group_end"}'
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Panel Placement"}'
@@ -106,6 +128,14 @@
     - '// @input float matchSwitchWidthCm = 7 {"hint":"Width of the native UIKit Match Framing switch.", "widget":"slider", "min":5, "max":9, "step":0.1}'
     - '// @input float distortionSwitchWidthCm = 7 {"hint":"Width of the native UIKit Lens Distortion switch.", "widget":"slider", "min":5, "max":9, "step":0.1}'
     - '// @input float panelPaddingCm = 1 {"hint":"Inset between panel edges and their content, in centimeters.", "widget":"slider", "min":0.5, "max":2, "step":0.1}'
+    - '// @input float lightingCenterXCm = 20 {"hint":"Local X center of the compact lighting and reset panel.", "widget":"slider", "min":8, "max":28, "step":0.5}'
+    - '// @input float lightingCenterYCm = -1 {"hint":"Local Y center of the compact lighting and reset panel.", "widget":"slider", "min":-8, "max":8, "step":0.2}'
+    - '// @input float lightingPanelWidthCm = 18 {"hint":"Width of the lighting and reset backplate.", "widget":"slider", "min":14, "max":22, "step":0.2}'
+    - '// @input float lightingPanelHeightCm = 18.5 {"hint":"Height of the lighting and reset backplate.", "widget":"slider", "min":14, "max":24, "step":0.2}'
+    - '// @input float instructionCenterXCm = 5 {"hint":"Local X center of the instruction panel.", "widget":"slider", "min":-8, "max":12, "step":0.5}'
+    - '// @input float instructionCenterYCm = 23.2 {"hint":"Local Y center of the instruction panel above the status header.", "widget":"slider", "min":18, "max":28, "step":0.2}'
+    - '// @input float instructionPanelWidthCm = 29 {"hint":"Width of the instruction backplate.", "widget":"slider", "min":22, "max":34, "step":0.2}'
+    - '// @input float instructionPanelHeightCm = 8.4 {"hint":"Height of the instruction backplate.", "widget":"slider", "min":6, "max":12, "step":0.2}'
     - '// @ui {"widget":"group_end"}'
     - '// @ui {"widget":"separator"}'
     - '// @ui {"widget":"group_start", "label":"Typography and Color"}'

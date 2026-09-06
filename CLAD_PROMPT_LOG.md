@@ -969,6 +969,480 @@ Problems and corrections: The first Code Node preset material was only a tempora
 
 Changes requested: No correction to Prompt 4 scope was requested.
 
+## Prompt 5 — Spatial Manipulation of Actors, Camera, and Key Light
+
+Date: 2026-09-06
+
+Prompt:
+
+> Using the existing working ShotSpace SPECS project, implement Prompt 5:
+> spatial manipulation of actors, the shot camera, and one key light.
+>
+> Preserve all existing working systems and behavior, including:
+>
+> - DioramaRoot and the set
+> - ActorA and ActorA_FramingTarget
+> - ActorB
+> - ShotCameraRig and ShotCamera
+> - CameraProxyMesh
+> - KeyLightRig and KeyLight
+> - ShotPreviewRT
+> - PreviewPanel and PreviewScreen
+> - LensController.ts
+> - ShotSpaceLensControlsUI.ts
+> - 24mm, 35mm, 50mm, and 85mm lens controls
+> - Wide, Medium, and Close-Up framing presets
+> - Match Framing
+> - Radial lens-distortion profiles and toggle
+> - Rule-of-thirds guides
+> - Existing render layers
+> - Existing verified camera-distance calculations
+>
+> Do not rebuild, rename, reset, or duplicate these systems.
+>
+> PHASE GOAL
+>
+> Allow the user to spatially:
+>
+> 1. Grab and reposition ActorA.
+> 2. Grab and reposition ActorB.
+> 3. Grab and reposition ShotCameraRig through CameraProxyMesh.
+> 4. Grab, reposition, and aim KeyLightRig.
+> 5. See all changes update live inside PreviewScreen.
+>
+> Use Spectacles Interaction Kit and /specs-interaction-recipes for all
+> spatial interaction.
+>
+> Do not implement custom hand tracking or custom ray-interaction logic
+> when an appropriate SIK component or recipe is available.
+>
+> INTERACTION ARCHITECTURE
+>
+> Create a TypeScript component named:
+>
+> SpatialManipulationController.ts
+>
+> Use it to coordinate:
+>
+> - Interaction start
+> - Interaction update
+> - Interaction end
+> - Position constraints
+> - Rotation constraints
+> - Selection feedback
+> - Camera-mode changes
+> - Layout reset
+>
+> Create a separate component named:
+>
+> LightingController.ts
+>
+> Use it to coordinate:
+>
+> - Key-light intensity
+> - Key-light color
+> - Light UI state
+> - Light reset behavior
+>
+> Do not create competing copies of the current lens, framing, Match
+> Framing, or distortion state.
+>
+> ACTOR INTERACTION
+>
+> Make ActorA and ActorB independently grabbable.
+>
+> Create or configure stable SIK interactables named:
+>
+> - ActorA_Interactable
+> - ActorB_Interactable
+>
+> Support:
+>
+> - Direct hand grabbing
+> - Far-ray grabbing if supported reliably by the installed SIK version
+> - Translation across the diorama floor
+> - Rotation around the vertical axis
+>
+> Actor constraints:
+>
+> 1. Actors must remain upright.
+> 2. Actors must not pitch or roll.
+> 3. Actors must not scale during manipulation.
+> 4. Actors must remain on the diorama floor.
+> 5. Actors must remain within the playable set boundaries.
+> 6. Actors must not pass behind the walls or disappear beneath the floor.
+> 7. On release, clamp each actor to a valid position.
+> 8. Preserve ActorA_FramingTarget as a child or functional reference of
+>    ActorA so it moves with ActorA.
+>
+> Do not enable gravity, bouncing, or free physics simulation.
+>
+> Add visual interaction feedback:
+>
+> - Subtle highlight when hovered
+> - Brighter outline, glow, or base indicator while grabbed
+> - Return to normal appearance when released
+>
+> The interaction feedback must be visible in the main spatial view but
+> must not contaminate ShotPreviewRT unless the feedback is intentionally
+> part of the filmmaking visualization.
+>
+> CAMERA INTERACTION
+>
+> Make CameraProxyMesh the visible and grabbable representation of
+> ShotCameraRig.
+>
+> Create or configure an SIK interactable named:
+>
+> CameraRig_Interactable
+>
+> Requirements:
+>
+> 1. Grabbing CameraProxyMesh must move ShotCameraRig.
+> 2. ShotCamera must remain correctly parented to ShotCameraRig.
+> 3. CameraProxyMesh must move with the rig.
+> 4. PreviewScreen must update live while the camera moves.
+> 5. The camera proxy must not appear inside ShotPreviewRT.
+> 6. The camera must remain within safe diorama bounds.
+> 7. Prevent the camera from moving inside ActorA, ActorB, walls, or the
+>    floor.
+> 8. Maintain a reasonable minimum distance from ActorA.
+> 9. Allow useful horizontal positioning, vertical positioning, yaw, and
+>    pitch.
+> 10. Prevent roll or clamp it back to zero when released.
+> 11. Do not allow camera scaling.
+>
+> Add a lightweight forward-direction or frustum visualizer as a child of
+> ShotCameraRig if it can be implemented reliably.
+>
+> The visualizer must:
+>
+> - Belong to MainExperience
+> - Be visible to the main SPECS camera
+> - Not be visible to ShotCamera
+> - Move and rotate with ShotCameraRig
+> - Remain lightweight
+>
+> CAMERA AND MATCH-FRAMING CONFLICT RULE
+>
+> Manual camera manipulation must not fight the automatic framing system.
+>
+> When the user begins grabbing CameraProxyMesh:
+>
+> 1. Suspend automatic Match Framing calculations.
+> 2. Do not snap the camera back during the grab.
+>
+> When the user releases CameraProxyMesh:
+>
+> 1. Set Match Framing to OFF.
+> 2. Update Toggle_MatchFraming to show OFF.
+> 3. Change the current framing label to CUSTOM.
+> 4. Preserve the currently selected focal length.
+> 5. Preserve the currently selected distortion profile.
+> 6. Record the new camera position, rotation, and distance as the custom
+>    camera state.
+>
+> Do not automatically aim the camera back at ActorA after a manual camera
+> move.
+>
+> The user can return to automatic framing by selecting Wide, Medium, or
+> Close-Up or by turning Match Framing back on.
+>
+> When the user selects a framing preset after manual manipulation:
+>
+> - Resume the existing automatic framing calculation.
+> - Aim at ActorA_FramingTarget.
+> - Move ShotCameraRig to the calculated distance.
+> - Restore the corresponding framing label.
+>
+> ACTOR MOVEMENT AND FRAMING
+>
+> Do not continuously move ShotCameraRig while ActorA is being dragged.
+>
+> ActorA should move freely while the user observes the changing
+> composition in PreviewScreen.
+>
+> After ActorA moves, provide a native SPECS UI Kit button named:
+>
+> Button_ReframeActorA
+>
+> Label it:
+>
+> REFRAME ACTOR A
+>
+> When triggered:
+>
+> 1. Use the current lens.
+> 2. Use the most recently selected non-custom framing preset.
+> 3. Recalculate the correct camera distance.
+> 4. Aim ShotCamera at ActorA_FramingTarget.
+> 5. Move ShotCameraRig into the corresponding framing.
+> 6. Preserve the distortion state.
+>
+> If no previous framing preset is available, use Medium.
+>
+> KEY-LIGHT SETUP
+>
+> Use the existing KeyLightRig if it is valid.
+>
+> Configure one lightweight built-in light suitable for the SPECS target.
+> Prefer a Spot Light if supported and visually reliable. If the current
+> SPECS configuration does not support the required Spot Light behavior,
+> use the most appropriate supported built-in light and report the
+> substitution.
+>
+> Structure:
+>
+> KeyLightRig
+> - KeyLight
+> - KeyLightProxy
+> - LightConeVisualizer
+>
+> KeyLight must:
+>
+> - Affect the PrevisSet objects
+> - Visibly affect ActorA, ActorB, floor, walls, and set objects
+> - Update live in ShotPreviewRT
+> - Remain performant
+> - Avoid expensive shadows if they cause performance or compatibility
+>   problems
+>
+> KeyLightProxy and LightConeVisualizer must:
+>
+> - Belong to MainExperience
+> - Be visible to the main SPECS camera
+> - Not appear inside ShotPreviewRT
+> - Clearly communicate the light's position and direction
+> - Move and rotate with KeyLightRig
+>
+> LIGHT INTERACTION
+>
+> Create or configure an SIK interactable named:
+>
+> KeyLightRig_Interactable
+>
+> Requirements:
+>
+> 1. Grabbing KeyLightProxy moves KeyLightRig.
+> 2. Allow horizontal and vertical translation.
+> 3. Allow yaw and pitch so the user can aim the light.
+> 4. Prevent roll or reset it on release.
+> 5. Do not allow scaling.
+> 6. Keep the light inside reasonable working bounds around the diorama.
+> 7. Prevent the light from dropping beneath the floor.
+> 8. Update the lighting in PreviewScreen during manipulation.
+>
+> Add the same hover, selection, and grab feedback used for the actors and
+> camera.
+>
+> LIGHTING CONTROLS
+>
+> Using /specs-build-ui, extend the existing world-space control panel
+> with a compact LIGHT section.
+>
+> Create native SPECS UI Kit buttons named:
+>
+> - LightButton_Low
+> - LightButton_Medium
+> - LightButton_High
+> - LightButton_Warm
+> - LightButton_Neutral
+> - LightButton_Cool
+>
+> Intensity behavior:
+>
+> - LOW: visibly soft/dim but still readable
+> - MEDIUM: balanced default
+> - HIGH: clearly brighter without clipping the entire preview
+>
+> Use values appropriate to Lens Studio's light-intensity scale. Calibrate
+> them visually rather than assuming the scale matches another engine.
+>
+> Color behavior:
+>
+> - WARM: approximately 3200K appearance
+> - NEUTRAL: approximately 4300K appearance
+> - COOL: approximately 5600K appearance
+>
+> Use RGB color approximations supported by Lens Studio. Do not implement
+> a computationally expensive physical color-temperature conversion.
+>
+> Default lighting:
+>
+> - Intensity: MEDIUM
+> - Color: NEUTRAL
+>
+> Only one intensity button and one color button should appear selected at
+> a time.
+>
+> Add a light readout displaying:
+>
+> KEY LIGHT: MEDIUM / NEUTRAL
+>
+> Update it whenever an intensity or color button is selected.
+>
+> RESET LAYOUT
+>
+> Add a native SPECS UI Kit button named:
+>
+> Button_ResetLayout
+>
+> Label:
+>
+> RESET LAYOUT
+>
+> At initialization, store the verified default transforms for:
+>
+> - ActorA
+> - ActorB
+> - ShotCameraRig
+> - KeyLightRig
+>
+> When Reset Layout is selected:
+>
+> 1. Restore the default actor transforms.
+> 2. Restore the default camera transform.
+> 3. Restore the default light transform.
+> 4. Restore 50mm.
+> 5. Restore Medium framing.
+> 6. Restore Match Framing ON.
+> 7. Restore lens distortion ON.
+> 8. Restore key-light intensity to MEDIUM.
+> 9. Restore key-light color to NEUTRAL.
+> 10. Update all UI labels and selected states.
+> 11. Do not rebuild or reload the scene.
+>
+> USER INSTRUCTIONS
+>
+> Add a small instruction panel that reads:
+>
+> GRAB ACTORS TO BLOCK THE SCENE
+> GRAB CAMERA TO CREATE A CUSTOM SHOT
+> GRAB LIGHT TO SHAPE THE IMAGE
+>
+> Keep it concise and readable. It must belong to Interface and must not
+> appear in ShotPreviewRT.
+>
+> SELECTION STATE
+>
+> Only one manipulated object should be visually selected at a time.
+>
+> Track the current selection as:
+>
+> - NONE
+> - ACTOR A
+> - ACTOR B
+> - CAMERA
+> - KEY LIGHT
+>
+> Add a subtle readout:
+>
+> SELECTED: ACTOR A
+>
+> Update it when a user starts interacting with an object. Return to
+> SELECTED: NONE after release, unless retaining the last selection
+> creates a clearer user experience. Use one consistent behavior.
+>
+> IMPORTANT EXCLUSIONS
+>
+> During Prompt 5, do not add:
+>
+> - Additional lights
+> - Full lighting plots
+> - Shadows if they destabilize performance
+> - Physical exposure controls
+> - Aperture
+> - Focus or depth of field
+> - Lens breathing
+> - Anamorphic controls
+> - Additional actors
+> - Prop libraries
+> - Saved storyboard cards
+> - Image capture
+> - Shot export
+> - Multiplayer
+> - Voice commands
+> - Generated 3D assets
+> - New cameras
+> - New render targets
+>
+> VERIFICATION
+>
+> After implementation:
+>
+> 1. Save the project.
+> 2. Run /verify-preview.
+> 3. Use /specs-preview-interaction to simulate supported grabs and button
+>    triggers.
+> 4. Confirm ActorA can be grabbed, moved, rotated, and released.
+> 5. Confirm ActorA remains upright, on the floor, and within bounds.
+> 6. Confirm ActorA_FramingTarget follows ActorA.
+> 7. Confirm ActorB behaves the same way.
+> 8. Confirm neither actor scales.
+> 9. Confirm moving either actor updates PreviewScreen live.
+> 10. Confirm CameraProxyMesh moves ShotCameraRig.
+> 11. Confirm moving the camera updates PreviewScreen live.
+> 12. Confirm the camera proxy and frustum do not appear in ShotPreviewRT.
+> 13. Confirm manually moving the camera sets Match Framing OFF.
+> 14. Confirm manual camera movement changes framing to CUSTOM.
+> 15. Confirm the current lens and distortion state remain unchanged.
+> 16. Confirm selecting a framing preset restores automatic framing.
+> 17. Confirm Reframe Actor A works after ActorA is moved.
+> 18. Confirm KeyLightRig can be translated and aimed.
+> 19. Confirm moving KeyLightRig changes lighting in PreviewScreen.
+> 20. Confirm the light proxy and cone do not appear in ShotPreviewRT.
+> 21. Confirm LOW, MEDIUM, and HIGH produce visibly different results.
+> 22. Confirm WARM, NEUTRAL, and COOL produce visibly different results.
+> 23. Confirm the lighting readout and selected button states update.
+> 24. Confirm Reset Layout restores every required default.
+> 25. Confirm the 24mm, 35mm, 50mm, and 85mm controls still work.
+> 26. Confirm Match Framing still produces the verified distance sequence:
+>     11.9 cm, 17.3 cm, 24.7 cm, and 42.0 cm for Medium.
+> 27. Confirm lens distortion still works and affects only PreviewScreen.
+> 28. Confirm the rule-of-thirds guides remain undistorted.
+> 29. Confirm no object manipulation creates a render feedback loop.
+> 30. Confirm there are no persistent red Logger errors.
+>
+> If any interaction is unreliable:
+>
+> - Prioritize stable direct grabbing.
+> - Remove far-ray grabbing if it is the source of instability.
+> - Preserve the working lens, framing, distortion, and preview systems.
+> - Do not replace SIK with custom hand-tracking logic.
+> - Report the limitation clearly.
+>
+> At completion, report:
+>
+> - Scripts created or modified
+> - SIK components and interaction recipes used
+> - Interactable object names
+> - Position and rotation constraints
+> - Camera conflict behavior
+> - Light type used
+> - Final intensity and color values
+> - UI objects created
+> - Verification results
+> - Any remaining warnings or device limitations
+>
+> Update CLAD_PROMPT_LOG.md with the complete Prompt 5 text,
+> implementation result, correction prompts, and verification history.
+
+Result: Added `Assets/Scripts/SpatialManipulationController.ts` and `Assets/Scripts/LightingController.ts` on the existing Systems object. Extended `LensController.ts` with custom-framing state, Match Framing suspend/resume for manual camera grabs, `reframeActorA()`, and `restoreDefaultShotState()`. Extended `ShotSpaceLensControlsUI.ts` with an Interface instruction panel, a compact LIGHT panel, Reframe/Reset buttons, selection readout, and lighting/selection sync. No existing lens, framing, Match, distortion, camera, or render-target system was rebuilt.
+
+SIK recipe: `Interactable` + `InteractableManipulation` (DragInteraction pattern). Targeting is Direct | Indirect with High priority. Scale is disabled. Actors lock Y translation and use `RotationAxis.Y`. Camera and key light allow XYZ translation plus yaw/pitch; roll is zeroed on release. Named interactables: `ActorA_Interactable`, `ActorB_Interactable`, `CameraRig_Interactable`, `KeyLightRig_Interactable`. MainExperience visuals: `KeyLightProxy`, `CameraFrustumVisualizer`, and per-object selection indicators. ActorA_FramingTarget remains a child of ActorA.
+
+Actor constraints: floor Y = 3 cm local, X/Z clamped to the playable set, no pitch/roll, scale restored. Camera bounds: world X -28..8, Y -8.5..10, Z -100..-62, minimum 8 cm from ActorA. Light bounds: X -32..10, Y -8.5..18, Z -112..-62. No physics bodies, gravity, or bounce.
+
+Camera conflict: grab start suspends automatic framing; release sets Match OFF, framing CUSTOM, and preserves lens + distortion. Reframe Actor A reapplies the last non-custom preset (Medium during verification) without changing lens or distortion. Reset Layout restores stored transforms first, then 50mm / Medium / Match ON / Distortion ON / MEDIUM / NEUTRAL.
+
+Key light: existing Spot Light, shadows off. Intensities LOW 1.4, MEDIUM 3.2, HIGH 6.4. Colors WARM `(1.00, 0.72, 0.42)`, NEUTRAL `(1.00, 0.87, 0.70)`, COOL `(0.92, 0.95, 1.00)`.
+
+Verification: Compile and lint pass. Startup logs have no errors. Default state is 50mm / Medium / Match ON / Distortion ON / KEY LIGHT MEDIUM / NEUTRAL / SELECTED NONE / 24.7 cm. Medium Match Framing distances: 24mm 11.9 cm, 35mm 17.3 cm, 50mm 24.7 cm, 85mm 42.0 cm. Optical profiles still update (BARREL / MILD BARREL / NEUTRAL / SUBTLE PINCUSHION). ActorA grab moved local X from -4.5 to -1.02, kept Y=3, scale 2.2/6/2.2, upright rotation; FramingTarget followed; ShotCameraRig did not move. Camera proxy grab moved the rig, set FRAMING CUSTOM and MATCH OFF, and kept 85mm + SUBTLE PINCUSHION. REFRAME ACTOR A restored MEDIUM at 42.0 cm on 85mm. RESET LAYOUT restored 50mm / Medium / Match ON / NEUTRAL profile / 24.7 cm and KEY LIGHT MEDIUM / NEUTRAL, and returned ActorA to `(-4.5, 3, 0.5)`. HIGH intensity updated the light readout. No new camera or ShotPreviewRT was added. Rule-of-thirds guides remain Interface-layer and undistorted.
+
+Problems and corrections: Runtime `Physics.ColliderComponent` creation did not produce a hittable collider, so authored `ColliderComponent`s were added to the four interactables. Parent non-uniform scale initially prevented SIK hits; interactables now invert parent scale so world scale is 1 and use world-sized boxes. Preview puppet grabs were often obstructed by UI, `InteractionPlaneColliderRoot`, or the camera collider; verification used a side viewpoint for ActorA and uniqueId drag once the camera proxy was in reach. ActorB and KeyLightRig use the same SIK handle path, but simulated grabs were blocked or timed out in Preview. Reset originally reframed from the leftover custom camera axis; it now restores the stored default camera transform before reapplying Medium framing.
+
+Changes requested: No correction to Prompt 5 scope was requested.
+
 ## Logging Instructions
 
 After each major prompt:

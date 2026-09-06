@@ -22,6 +22,16 @@ import {
   LensPreset,
   ShotFramingState,
 } from "./LensController"
+import {
+  KeyLightState,
+  LightColorName,
+  LightIntensityName,
+  LightingController,
+} from "./LightingController"
+import {
+  ManipulationSelection,
+  SpatialManipulationController,
+} from "./SpatialManipulationController"
 
 type TextRole =
   | "Title1"
@@ -71,6 +81,12 @@ type FramingButtonEntry = {
   label: Text
 }
 
+type LightButtonEntry = {
+  value: string
+  button: Button
+  label: Text
+}
+
 const CONTENT_Z_LIFT_CM = 0.6
 const BUTTON_LABEL_Z_LIFT_CM = 0.08
 const DEFAULT_FOCAL_LENGTH_MM = 50
@@ -85,6 +101,14 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
   @input
   @hint("Authored LensController component that owns ShotCamera focal-length presets.")
   lensController!: LensController
+
+  @input
+  @hint("Authored LightingController that owns key-light intensity and color.")
+  lightingController!: LightingController
+
+  @input
+  @hint("Authored SpatialManipulationController that owns grab selection and layout reset.")
+  spatialManipulationController!: SpatialManipulationController
   @ui.group_end
 
   @ui.separator
@@ -166,6 +190,46 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
   @hint("Inset between panel edges and their content, in centimeters.")
   @widget(new SliderWidget(0.5, 2, 0.1))
   panelPaddingCm: number = 1
+
+  @input
+  @hint("Local X center of the compact lighting and reset panel.")
+  @widget(new SliderWidget(8, 28, 0.5))
+  lightingCenterXCm: number = 20
+
+  @input
+  @hint("Local Y center of the compact lighting and reset panel.")
+  @widget(new SliderWidget(-8, 8, 0.2))
+  lightingCenterYCm: number = -1
+
+  @input
+  @hint("Width of the lighting and reset backplate.")
+  @widget(new SliderWidget(14, 22, 0.2))
+  lightingPanelWidthCm: number = 18
+
+  @input
+  @hint("Height of the lighting and reset backplate.")
+  @widget(new SliderWidget(14, 24, 0.2))
+  lightingPanelHeightCm: number = 18.5
+
+  @input
+  @hint("Local X center of the instruction panel.")
+  @widget(new SliderWidget(-8, 12, 0.5))
+  instructionCenterXCm: number = 5
+
+  @input
+  @hint("Local Y center of the instruction panel above the status header.")
+  @widget(new SliderWidget(18, 28, 0.2))
+  instructionCenterYCm: number = 23.2
+
+  @input
+  @hint("Width of the instruction backplate.")
+  @widget(new SliderWidget(22, 34, 0.2))
+  instructionPanelWidthCm: number = 29
+
+  @input
+  @hint("Height of the instruction backplate.")
+  @widget(new SliderWidget(6, 12, 0.2))
+  instructionPanelHeightCm: number = 8.4
   @ui.group_end
 
   @ui.separator
@@ -199,18 +263,28 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
   private informationReadoutText: Text | null = null
   private matchSwitch: Switch | null = null
   private distortionSwitch: Switch | null = null
+  private lightReadoutText: Text | null = null
+  private selectionReadoutText: Text | null = null
   private readonly lensButtons: LensButtonEntry[] = []
   private readonly framingButtons: FramingButtonEntry[] = []
+  private readonly intensityButtons: LightButtonEntry[] = []
+  private readonly colorButtons: LightButtonEntry[] = []
   private unsubscribeStateChanged: (() => void) | null = null
+  private unsubscribeLightChanged: (() => void) | null = null
+  private unsubscribeSelectionChanged: (() => void) | null = null
 
   onAwake(): void {
     this.sceneObject.createComponent("Component.Canvas")
     this.buildStatusPanel()
     this.buildControlPanel()
+    this.buildInstructionPanel()
+    this.buildLightingPanel()
     this.setSelectedFocalLength(DEFAULT_FOCAL_LENGTH_MM)
     this.setSelectedFramingLabel(DEFAULT_FRAMING_LABEL)
     this.setMatchFramingDisplay(true)
     this.setLensDistortionDisplay(true)
+    this.setLightDisplay("MEDIUM", "NEUTRAL")
+    this.setSelectionDisplay("NONE")
 
     const connectDelay = this.createEvent("DelayedCallbackEvent")
     connectDelay.bind(() => this.connectLensController())
@@ -227,7 +301,7 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
 
   public syncFromState(state: ShotFramingState): void {
     this.setSelectedFocalLength(state.currentLens.focalLengthMm)
-    this.setSelectedFramingLabel(state.currentFraming.displayLabel)
+    this.setSelectedFramingLabel(state.framingDisplayLabel)
     this.setMatchFramingDisplay(state.matchFramingEnabled)
     this.setLensDistortionDisplay(state.lensDistortionEnabled)
 
@@ -237,11 +311,19 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
         : "OFF"
       this.informationReadoutText.text =
         `LENS: ${state.currentLens.focalLengthMm}mm\n` +
-        `FRAMING: ${state.currentFraming.displayLabel}\n` +
+        `FRAMING: ${state.framingDisplayLabel}\n` +
         `MATCH: ${state.matchFramingEnabled ? "ON" : "OFF"}\n` +
         `OPTICAL PROFILE: ${opticalProfile}\n` +
         `DISTANCE: ${state.distanceCm.toFixed(1)} cm`
     }
+  }
+
+  public syncFromLightState(state: KeyLightState): void {
+    this.setLightDisplay(state.intensityName, state.colorName)
+  }
+
+  public syncFromSelection(selection: ManipulationSelection): void {
+    this.setSelectionDisplay(selection)
   }
 
   /**
@@ -292,6 +374,29 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
     }
     if (this.distortionSwitch) {
       this.distortionSwitch.isOn = enabled
+    }
+  }
+
+  private setLightDisplay(intensityName: LightIntensityName, colorName: LightColorName): void {
+    if (this.lightReadoutText) {
+      this.lightReadoutText.text = `KEY LIGHT: ${intensityName} / ${colorName}`
+    }
+    this.setExclusiveLightButtons(this.intensityButtons, intensityName)
+    this.setExclusiveLightButtons(this.colorButtons, colorName)
+  }
+
+  private setSelectionDisplay(selection: ManipulationSelection): void {
+    if (this.selectionReadoutText) {
+      this.selectionReadoutText.text = `SELECTED: ${selection}`
+    }
+  }
+
+  private setExclusiveLightButtons(entries: LightButtonEntry[], selectedValue: string): void {
+    for (let i = 0; i < entries.length; i++) {
+      const entry = entries[i]
+      const selected = entry.value === selectedValue
+      entry.button.isOn = selected
+      entry.label.textFill.color = selected ? this.accentColor : this.primaryTextColor
     }
   }
 
@@ -483,6 +588,307 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
       matchRow.item,
       distortionRow.item,
     ])
+  }
+
+  private buildInstructionPanel(): void {
+    const panel = this.createObject(
+      this.sceneObject,
+      "ShotInstructionPanel",
+      new vec3(this.instructionCenterXCm, this.instructionCenterYCm, 0)
+    )
+    const backPlate = panel.createComponent(BackPlate.getTypeName()) as BackPlate
+    backPlate.size = new vec2(this.instructionPanelWidthCm, this.instructionPanelHeightCm)
+
+    const content = this.createObject(
+      panel,
+      "ShotInstructionContent",
+      new vec3(0, 0, CONTENT_Z_LIFT_CM)
+    )
+    const layout = content.createComponent(FlexLayout.getTypeName()) as FlexLayout
+    layout.autoDiscoverItemsOnStart = false
+    layout.width = this.instructionPanelWidthCm
+    layout.height = this.instructionPanelHeightCm
+    layout.direction = FlexDirection.Column
+    layout.justifyContent = FlexJustify.Center
+    layout.alignItems = FlexAlign.Stretch
+    layout.rowGap = 0.2
+    layout.paddingTop = this.panelPaddingCm
+    layout.paddingBottom = this.panelPaddingCm
+    layout.paddingLeft = this.panelPaddingCm
+    layout.paddingRight = this.panelPaddingCm
+
+    const line1 = this.createFlexText(
+      content,
+      "InstructionLine1",
+      "GRAB ACTORS TO BLOCK THE SCENE",
+      "Caption",
+      this.primaryTextColor,
+      this.instructionPanelWidthCm - this.panelPaddingCm * 2,
+      1.4,
+      HorizontalAlignment.Center
+    )
+    const line2 = this.createFlexText(
+      content,
+      "InstructionLine2",
+      "GRAB CAMERA TO CREATE A CUSTOM SHOT",
+      "Caption",
+      this.primaryTextColor,
+      this.instructionPanelWidthCm - this.panelPaddingCm * 2,
+      1.4,
+      HorizontalAlignment.Center
+    )
+    const line3 = this.createFlexText(
+      content,
+      "InstructionLine3",
+      "GRAB LIGHT TO SHAPE THE IMAGE",
+      "Caption",
+      this.primaryTextColor,
+      this.instructionPanelWidthCm - this.panelPaddingCm * 2,
+      1.4,
+      HorizontalAlignment.Center
+    )
+    const selected = this.createFlexText(
+      content,
+      "SelectionReadout",
+      "SELECTED: NONE",
+      "Callout",
+      this.accentColor,
+      this.instructionPanelWidthCm - this.panelPaddingCm * 2,
+      1.6,
+      HorizontalAlignment.Center
+    )
+    this.selectionReadoutText = selected.text
+    layout.addItems([line1.item, line2.item, line3.item, selected.item])
+  }
+
+  private buildLightingPanel(): void {
+    const panel = this.createObject(
+      this.sceneObject,
+      "ShotLightingPanel",
+      new vec3(this.lightingCenterXCm, this.lightingCenterYCm, 0)
+    )
+    const backPlate = panel.createComponent(BackPlate.getTypeName()) as BackPlate
+    backPlate.size = new vec2(this.lightingPanelWidthCm, this.lightingPanelHeightCm)
+
+    const content = this.createObject(
+      panel,
+      "ShotLightingContent",
+      new vec3(0, 0, CONTENT_Z_LIFT_CM)
+    )
+    const layout = content.createComponent(FlexLayout.getTypeName()) as FlexLayout
+    layout.autoDiscoverItemsOnStart = false
+    layout.width = this.lightingPanelWidthCm
+    layout.height = this.lightingPanelHeightCm
+    layout.direction = FlexDirection.Column
+    layout.justifyContent = FlexJustify.Center
+    layout.alignItems = FlexAlign.Stretch
+    layout.rowGap = this.controlRowGapCm
+    layout.paddingTop = this.panelPaddingCm
+    layout.paddingBottom = this.panelPaddingCm
+    layout.paddingLeft = this.panelPaddingCm
+    layout.paddingRight = this.panelPaddingCm
+
+    const header = this.createFlexText(
+      content,
+      "LightSectionHeader",
+      "LIGHT",
+      "Callout",
+      this.primaryTextColor,
+      this.lightingPanelWidthCm - this.panelPaddingCm * 2,
+      1.4,
+      HorizontalAlignment.Center
+    )
+    const intensityRow = this.createNamedControlRow(
+      content,
+      "LightIntensityRow",
+      this.lightingPanelWidthCm,
+      this.buttonHeightCm
+    )
+    intensityRow.layout.addItems([
+      this.createLightButton(intensityRow.object, "LOW", "LightButton_Low", "intensity"),
+      this.createLightButton(intensityRow.object, "MEDIUM", "LightButton_Medium", "intensity"),
+      this.createLightButton(intensityRow.object, "HIGH", "LightButton_High", "intensity"),
+    ])
+    const colorRow = this.createNamedControlRow(
+      content,
+      "LightColorRow",
+      this.lightingPanelWidthCm,
+      this.buttonHeightCm
+    )
+    colorRow.layout.addItems([
+      this.createLightButton(colorRow.object, "WARM", "LightButton_Warm", "color"),
+      this.createLightButton(colorRow.object, "NEUTRAL", "LightButton_Neutral", "color"),
+      this.createLightButton(colorRow.object, "COOL", "LightButton_Cool", "color"),
+    ])
+    const readout = this.createFlexText(
+      content,
+      "KeyLightReadout",
+      "KEY LIGHT: MEDIUM / NEUTRAL",
+      "Caption",
+      this.primaryTextColor,
+      this.lightingPanelWidthCm - this.panelPaddingCm * 2,
+      1.5,
+      HorizontalAlignment.Center
+    )
+    this.lightReadoutText = readout.text
+
+    const actionRow = this.createNamedControlRow(
+      content,
+      "LayoutActionRow",
+      this.lightingPanelWidthCm,
+      this.buttonHeightCm
+    )
+    actionRow.layout.addItems([
+      this.createActionButton(
+        actionRow.object,
+        "Button_ReframeActorA",
+        "REFRAME ACTOR A",
+        () => this.requestReframeActorA()
+      ),
+    ])
+    const resetRow = this.createNamedControlRow(
+      content,
+      "ResetActionRow",
+      this.lightingPanelWidthCm,
+      this.buttonHeightCm
+    )
+    resetRow.layout.addItems([
+      this.createActionButton(
+        resetRow.object,
+        "Button_ResetLayout",
+        "RESET LAYOUT",
+        () => this.requestResetLayout()
+      ),
+    ])
+
+    layout.addItems([
+      header.item,
+      intensityRow.item,
+      colorRow.item,
+      readout.item,
+      actionRow.item,
+      resetRow.item,
+    ])
+  }
+
+  private createNamedControlRow(
+    parent: SceneObject,
+    objectName: string,
+    panelWidthCm: number,
+    heightCm: number
+  ): {object: SceneObject; layout: FlexLayout; item: FlexItem} {
+    const rowObject = this.createObject(parent, objectName)
+    const rowLayout = rowObject.createComponent(FlexLayout.getTypeName()) as FlexLayout
+    rowLayout.autoDiscoverItemsOnStart = false
+    rowLayout.width = panelWidthCm - this.panelPaddingCm * 2
+    rowLayout.height = heightCm
+    rowLayout.direction = FlexDirection.Row
+    rowLayout.justifyContent = FlexJustify.Center
+    rowLayout.alignItems = FlexAlign.Center
+    rowLayout.columnGap = this.buttonGapCm
+
+    const rowItem = rowObject.createComponent(FlexItem.getTypeName()) as FlexItem
+    rowItem.overrideWidth = panelWidthCm - this.panelPaddingCm * 2
+    rowItem.overrideHeight = heightCm
+    rowItem.flexGrow = 0
+    rowItem.flexShrink = 0
+    rowItem.alignSelf = FlexAlignSelf.Center
+    return {object: rowObject, layout: rowLayout, item: rowItem}
+  }
+
+  private createLightButton(
+    parent: SceneObject,
+    value: string,
+    objectName: string,
+    group: "intensity" | "color"
+  ): FlexItem {
+    const widthCm = 4.8
+    const buttonObject = this.createObject(parent, objectName)
+    const button = buttonObject.createComponent(Button.getTypeName()) as Button
+    button.size = new vec3(widthCm, this.buttonHeightCm, 1)
+    button.setIsToggleable(true)
+    const selected = value === "MEDIUM" || value === "NEUTRAL"
+    button.isOn = selected
+
+    const labelObject = this.createObject(
+      buttonObject,
+      `${objectName}_Label`,
+      new vec3(0, 0, BUTTON_LABEL_Z_LIFT_CM)
+    )
+    const label = labelObject.createComponent("Component.Text") as Text
+    label.text = value
+    label.depthTest = true
+    applyTextRole(label, "Button", this.fontSizeScale)
+    label.horizontalAlignment = HorizontalAlignment.Center
+    label.verticalAlignment = VerticalAlignment.Center
+    label.horizontalOverflow = HorizontalOverflow.Overflow
+    label.verticalOverflow = VerticalOverflow.Overflow
+    label.layoutRect = Rect.create(
+      -(widthCm - 0.4) / 2,
+      (widthCm - 0.4) / 2,
+      -this.buttonHeightCm / 2,
+      this.buttonHeightCm / 2
+    )
+    label.textFill.color = selected ? this.accentColor : this.primaryTextColor
+
+    const item = buttonObject.createComponent(FlexItem.getTypeName()) as FlexItem
+    item.overrideWidth = widthCm
+    item.overrideHeight = this.buttonHeightCm
+    item.flexGrow = 0
+    item.flexShrink = 0
+    item.alignSelf = FlexAlignSelf.Center
+
+    const entry = {value, button, label}
+    if (group === "intensity") {
+      this.intensityButtons.push(entry)
+      button.onTriggerUp.add(() => this.requestLightIntensity(value as LightIntensityName))
+    } else {
+      this.colorButtons.push(entry)
+      button.onTriggerUp.add(() => this.requestLightColor(value as LightColorName))
+    }
+    return item
+  }
+
+  private createActionButton(
+    parent: SceneObject,
+    objectName: string,
+    labelText: string,
+    onPress: () => void
+  ): FlexItem {
+    const widthCm = this.lightingPanelWidthCm - this.panelPaddingCm * 2
+    const buttonObject = this.createObject(parent, objectName)
+    const button = buttonObject.createComponent(Button.getTypeName()) as Button
+    button.size = new vec3(widthCm, this.buttonHeightCm, 1)
+
+    const labelObject = this.createObject(
+      buttonObject,
+      `${objectName}_Label`,
+      new vec3(0, 0, BUTTON_LABEL_Z_LIFT_CM)
+    )
+    const label = labelObject.createComponent("Component.Text") as Text
+    label.text = labelText
+    label.depthTest = true
+    applyTextRole(label, "Button", this.fontSizeScale)
+    label.horizontalAlignment = HorizontalAlignment.Center
+    label.verticalAlignment = VerticalAlignment.Center
+    label.horizontalOverflow = HorizontalOverflow.Overflow
+    label.verticalOverflow = VerticalOverflow.Overflow
+    label.layoutRect = Rect.create(
+      -(widthCm - 0.5) / 2,
+      (widthCm - 0.5) / 2,
+      -this.buttonHeightCm / 2,
+      this.buttonHeightCm / 2
+    )
+    label.textFill.color = this.primaryTextColor
+
+    const item = buttonObject.createComponent(FlexItem.getTypeName()) as FlexItem
+    item.overrideWidth = widthCm
+    item.overrideHeight = this.buttonHeightCm
+    item.flexGrow = 0
+    item.flexShrink = 0
+    item.alignSelf = FlexAlignSelf.Center
+    button.onTriggerUp.add(onPress)
+    return item
   }
 
   private createControlRow(
@@ -740,6 +1146,38 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
     this.lensController.setLensDistortionEnabled(enabled)
   }
 
+  private requestLightIntensity(name: LightIntensityName): void {
+    if (!this.lightingController || isNull(this.lightingController)) {
+      console.error("[ShotSpaceLensControlsUI] Cannot change intensity: lightingController is unavailable.")
+      return
+    }
+    this.lightingController.setIntensity(name)
+  }
+
+  private requestLightColor(name: LightColorName): void {
+    if (!this.lightingController || isNull(this.lightingController)) {
+      console.error("[ShotSpaceLensControlsUI] Cannot change color: lightingController is unavailable.")
+      return
+    }
+    this.lightingController.setColor(name)
+  }
+
+  private requestReframeActorA(): void {
+    if (!this.spatialManipulationController || isNull(this.spatialManipulationController)) {
+      console.error("[ShotSpaceLensControlsUI] Cannot reframe: spatialManipulationController is unavailable.")
+      return
+    }
+    this.spatialManipulationController.reframeActorA()
+  }
+
+  private requestResetLayout(): void {
+    if (!this.spatialManipulationController || isNull(this.spatialManipulationController)) {
+      console.error("[ShotSpaceLensControlsUI] Cannot reset layout: spatialManipulationController is unavailable.")
+      return
+    }
+    this.spatialManipulationController.resetLayout()
+  }
+
   private connectLensController(): void {
     if (!this.lensController || isNull(this.lensController)) {
       console.error(
@@ -756,12 +1194,45 @@ export class ShotSpaceLensControlsUI extends BaseScriptComponent {
     if (currentState && !isNull(currentState)) {
       this.syncFromState(currentState)
     }
+
+    if (this.lightingController && !isNull(this.lightingController)) {
+      this.unsubscribeLightChanged = this.lightingController.addStateChangedListener(
+        (state: KeyLightState) => this.syncFromLightState(state)
+      )
+      const lightState = this.lightingController.getCurrentState()
+      if (lightState && !isNull(lightState)) {
+        this.syncFromLightState(lightState)
+      }
+    } else {
+      console.error(
+        "[ShotSpaceLensControlsUI] lightingController input is not wired; LIGHT controls will stay at MEDIUM / NEUTRAL."
+      )
+    }
+
+    if (this.spatialManipulationController && !isNull(this.spatialManipulationController)) {
+      this.unsubscribeSelectionChanged = this.spatialManipulationController.addSelectionChangedListener(
+        (selection: ManipulationSelection) => this.syncFromSelection(selection)
+      )
+      this.syncFromSelection(this.spatialManipulationController.getCurrentSelection())
+    } else {
+      console.error(
+        "[ShotSpaceLensControlsUI] spatialManipulationController input is not wired; grab selection and reset will be unavailable."
+      )
+    }
   }
 
   private disconnectLensController(): void {
     if (this.unsubscribeStateChanged) {
       this.unsubscribeStateChanged()
       this.unsubscribeStateChanged = null
+    }
+    if (this.unsubscribeLightChanged) {
+      this.unsubscribeLightChanged()
+      this.unsubscribeLightChanged = null
+    }
+    if (this.unsubscribeSelectionChanged) {
+      this.unsubscribeSelectionChanged()
+      this.unsubscribeSelectionChanged = null
     }
   }
 
