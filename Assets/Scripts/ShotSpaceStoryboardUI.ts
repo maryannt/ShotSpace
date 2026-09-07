@@ -14,6 +14,8 @@ import {
   FlexDirection,
   FlexJustify,
 } from "SpectaclesUIKit.lspkg/Scripts/Components/Layout2D/Flex/FlexTypes"
+import {Interactable} from "SpectaclesInteractionKit.lspkg/Components/Interaction/Interactable/Interactable"
+import {TargetingMode} from "SpectaclesInteractionKit.lspkg/Core/Interactor/Interactor"
 import Event, {PublicApi} from "SpectaclesInteractionKit.lspkg/Utils/Event"
 
 import {ShotState} from "./ShotState"
@@ -87,53 +89,53 @@ export class ShotSpaceStoryboardUI extends BaseScriptComponent {
   @ui.group_start("Settings")
   @input
   @hint("Width of the storyboard rail backplate, in centimeters.")
-  @widget(new SliderWidget(28, 42, 0.2))
-  railWidthCm: number = 36
+  @widget(new SliderWidget(12, 20, 0.1))
+  railWidthCm: number = 15.2
 
   @input
   @hint("Height of the storyboard rail backplate, in centimeters.")
-  @widget(new SliderWidget(16, 26, 0.2))
-  railHeightCm: number = 21.5
+  @widget(new SliderWidget(6, 12, 0.1))
+  railHeightCm: number = 7.2
 
   @input
   @hint("Width of each storyboard card, in centimeters.")
-  @widget(new SliderWidget(8, 13, 0.1))
-  cardWidthCm: number = 10.6
+  @widget(new SliderWidget(3.6, 6, 0.1))
+  cardWidthCm: number = 4.5
 
   @input
   @hint("Height of each storyboard card, in centimeters.")
-  @widget(new SliderWidget(11, 16, 0.1))
-  cardHeightCm: number = 14.2
+  @widget(new SliderWidget(4, 7, 0.1))
+  cardHeightCm: number = 4.2
 
   @input
   @hint("Gap between storyboard cards, in centimeters.")
-  @widget(new SliderWidget(0.3, 1.2, 0.05))
-  cardGapCm: number = 0.7
+  @widget(new SliderWidget(0.15, 0.8, 0.05))
+  cardGapCm: number = 0.3
 
   @input
   @hint("Width of SAVE SHOT / UPDATE SELECTED, sized for the longer label.")
-  @widget(new SliderWidget(12, 18, 0.1))
-  saveButtonWidthCm: number = 15.5
+  @widget(new SliderWidget(5, 10, 0.1))
+  saveButtonWidthCm: number = 6.8
 
   @input
   @hint("Width of CLEAR BOARD.")
-  @widget(new SliderWidget(10, 16, 0.1))
-  clearButtonWidthCm: number = 12.5
+  @widget(new SliderWidget(4, 8, 0.1))
+  clearButtonWidthCm: number = 5.4
 
   @input
   @hint("Height of the save and clear buttons.")
-  @widget(new SliderWidget(2.4, 3.6, 0.1))
-  actionButtonHeightCm: number = 3
+  @widget(new SliderWidget(1.3, 2.4, 0.1))
+  actionButtonHeightCm: number = 1.4
 
   @input
   @hint("Inset between the rail edge and its content.")
-  @widget(new SliderWidget(0.4, 1.6, 0.1))
-  panelPaddingCm: number = 0.8
+  @widget(new SliderWidget(0.15, 0.8, 0.05))
+  panelPaddingCm: number = 0.3
 
   @input
   @hint("Global multiplier for the Specs type-scale roles used by this rail.")
-  @widget(new SliderWidget(0.8, 1.2, 0.01))
-  fontSizeScale: number = 1
+  @widget(new SliderWidget(0.65, 1.1, 0.01))
+  fontSizeScale: number = 0.78
 
   @input("vec4", "{1,1,1,1}")
   @hint("Primary text color for occupied card metadata and button labels.")
@@ -253,6 +255,9 @@ export class ShotSpaceStoryboardUI extends BaseScriptComponent {
   private buildRail(): void {
     const backPlate = this.sceneObject.createComponent(BackPlate.getTypeName()) as BackPlate
     backPlate.size = new vec2(this.railWidthCm, this.railHeightCm)
+    backPlate.style = "dark"
+    backPlate.interactionPlanePadding = new vec2(0, 0)
+    this.makePlateDecorative(backPlate)
 
     const content = this.createObject(this.sceneObject, "StoryboardContent", new vec3(0, 0, CONTENT_Z_LIFT_CM))
     const layout = content.createComponent(FlexLayout.getTypeName()) as FlexLayout
@@ -262,7 +267,7 @@ export class ShotSpaceStoryboardUI extends BaseScriptComponent {
     layout.direction = FlexDirection.Column
     layout.justifyContent = FlexJustify.SpaceBetween
     layout.alignItems = FlexAlign.Center
-    layout.rowGap = 0.45
+    layout.rowGap = 0.18
     layout.paddingTop = this.panelPaddingCm
     layout.paddingBottom = this.panelPaddingCm
     layout.paddingLeft = this.panelPaddingCm
@@ -280,27 +285,27 @@ export class ShotSpaceStoryboardUI extends BaseScriptComponent {
     const layout = row.createComponent(FlexLayout.getTypeName()) as FlexLayout
     layout.autoDiscoverItemsOnStart = false
     layout.width = width
-    layout.height = 2.2
+    layout.height = 0.95
     layout.direction = FlexDirection.Row
     layout.justifyContent = FlexJustify.SpaceBetween
     layout.alignItems = FlexAlign.Center
 
     const item = row.createComponent(FlexItem.getTypeName()) as FlexItem
     item.overrideWidth = width
-    item.overrideHeight = 2.2
+    item.overrideHeight = 0.95
     item.flexGrow = 0
     item.flexShrink = 0
     item.alignSelf = FlexAlignSelf.Center
 
-    const title = this.createText(row, "StoryboardTitle", "STORYBOARD", "Headline2", this.primaryTextColor, 12, 2)
+    const title = this.createText(row, "StoryboardTitle", "STORYBOARD", "Caption", this.primaryTextColor, 4.4, 0.9)
     const status = this.createText(
       row,
       "StoryboardStatusLabel",
       "READY TO SAVE",
       "Caption",
       this.secondaryTextColor,
-      width - 13,
-      2
+      width - 4.8,
+      0.9
     )
     this.statusLabel = status.text
     layout.addItems([title.item, status.item])
@@ -339,7 +344,7 @@ export class ShotSpaceStoryboardUI extends BaseScriptComponent {
     const root = this.createObject(parent, `StoryboardCard_${shotNumber}`)
     const borderObject = this.createObject(root, `StoryboardCard_${shotNumber}_SelectedBorder`)
     const borderPlate = borderObject.createComponent(BackPlate.getTypeName()) as BackPlate
-    borderPlate.size = new vec2(this.cardWidthCm + 0.3, this.cardHeightCm + 0.3)
+    borderPlate.size = new vec2(this.cardWidthCm + 0.16, this.cardHeightCm + 0.16)
     borderPlate.style = "default"
     this.makePlateDecorative(borderPlate)
 
@@ -348,8 +353,8 @@ export class ShotSpaceStoryboardUI extends BaseScriptComponent {
     button.setIsToggleable(true)
     button.isOn = false
 
-    const thumbWidth = this.cardWidthCm - 0.7
-    const thumbHeight = thumbWidth / THUMB_ASPECT
+    const thumbWidth = this.cardWidthCm - 0.5
+    const thumbHeight = Math.min(thumbWidth / THUMB_ASPECT, 1.3)
     const content = this.createObject(root, `StoryboardCard_${shotNumber}_Content`, new vec3(0, 0, CONTENT_Z_LIFT_CM))
     const layout = content.createComponent(FlexLayout.getTypeName()) as FlexLayout
     layout.autoDiscoverItemsOnStart = false
@@ -358,11 +363,11 @@ export class ShotSpaceStoryboardUI extends BaseScriptComponent {
     layout.direction = FlexDirection.Column
     layout.justifyContent = FlexJustify.Start
     layout.alignItems = FlexAlign.Center
-    layout.rowGap = 0.12
-    layout.paddingTop = 0.35
-    layout.paddingBottom = 0.25
-    layout.paddingLeft = 0.25
-    layout.paddingRight = 0.25
+    layout.rowGap = 0.03
+    layout.paddingTop = 0.08
+    layout.paddingBottom = 0.08
+    layout.paddingLeft = 0.1
+    layout.paddingRight = 0.1
 
     const thumb = this.createThumbnail(content, shotNumber, thumbWidth, thumbHeight)
     const shotLabel = this.createText(
@@ -372,7 +377,7 @@ export class ShotSpaceStoryboardUI extends BaseScriptComponent {
       "Callout",
       this.primaryTextColor,
       thumbWidth,
-      1.15
+      0.48
     )
     const emptyLabel = this.createText(
       content,
@@ -381,7 +386,7 @@ export class ShotSpaceStoryboardUI extends BaseScriptComponent {
       "Caption",
       this.secondaryTextColor,
       thumbWidth,
-      1.05
+      0.4
     )
     const lensLabel = this.createText(
       content,
@@ -390,7 +395,7 @@ export class ShotSpaceStoryboardUI extends BaseScriptComponent {
       "Caption",
       this.primaryTextColor,
       thumbWidth,
-      1.05
+      0.4
     )
     const matchLabel = this.createText(
       content,
@@ -399,7 +404,7 @@ export class ShotSpaceStoryboardUI extends BaseScriptComponent {
       "Caption",
       this.secondaryTextColor,
       thumbWidth,
-      1.0
+      0.36
     )
     const distortionLabel = this.createText(
       content,
@@ -408,7 +413,7 @@ export class ShotSpaceStoryboardUI extends BaseScriptComponent {
       "Caption",
       this.secondaryTextColor,
       thumbWidth,
-      1.0
+      0.36
     )
     const lightLabel = this.createText(
       content,
@@ -417,7 +422,7 @@ export class ShotSpaceStoryboardUI extends BaseScriptComponent {
       "Caption",
       this.secondaryTextColor,
       thumbWidth,
-      1.0
+      0.36
     )
 
     layout.addItems([
@@ -448,6 +453,7 @@ export class ShotSpaceStoryboardUI extends BaseScriptComponent {
     }
     this.cards.push(card)
     this.setBorderColor(card, this.idleBorderColor)
+    borderObject.enabled = false
 
     const item = root.createComponent(FlexItem.getTypeName()) as FlexItem
     item.overrideWidth = this.cardWidthCm
@@ -679,15 +685,36 @@ export class ShotSpaceStoryboardUI extends BaseScriptComponent {
     card.borderPlate.style = isFlash ? "simple" : "default"
   }
 
+  private disableDecorativeInteraction(plate: BackPlate): void {
+    if (plate.interactable) {
+      plate.interactable.enabled = false
+      plate.interactable.targetingMode = TargetingMode.None
+    }
+    if (plate.interactionPlane) {
+      plate.interactionPlane.enabled = false
+    }
+    const interactable = plate.sceneObject.getComponent(Interactable.getTypeName()) as Interactable
+    if (interactable && !isNull(interactable)) {
+      interactable.enabled = false
+      interactable.targetingMode = TargetingMode.None
+    }
+    const collider = plate.sceneObject.getComponent("ColliderComponent") as ColliderComponent | null
+    if (collider && !isNull(collider)) {
+      collider.enabled = false
+    }
+  }
+
   private makePlateDecorative(plate: BackPlate): void {
+    plate.interactionPlanePadding = new vec2(0, 0)
+    this.disableDecorativeInteraction(plate)
     plate.onInitialized.add(() => {
-      if (plate.interactable) {
-        plate.interactable.enabled = false
-      }
-      if (plate.interactionPlane) {
-        plate.interactionPlane.enabled = false
-      }
+      this.disableDecorativeInteraction(plate)
     })
+    const retry = this.createEvent("DelayedCallbackEvent") as DelayedCallbackEvent
+    retry.bind(() => {
+      this.disableDecorativeInteraction(plate)
+    })
+    retry.reset(0.5)
   }
 
   private createActionButton(

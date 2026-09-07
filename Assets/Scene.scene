@@ -5,7 +5,7 @@
     - !<own> 0005641c-028d-459a-0000-000000014b4d
     - !<own> f5d74682-203a-4970-81ea-9fa7b88c96bb
     - !<own> 375b0fd5-c3e9-44fa-9f08-0ddbbef0f702
-    - !<own> 4dc1a117-72d5-467b-89bd-9dd29385dffc
+    - !<own> 16f1de78-b369-425e-9746-99b9371fe3cc
   layers: !<Layers/267ee9a7-aff2-4f9d-9a49-f71214747d03>
     userLayers:
       - id: 1
@@ -802,6 +802,22 @@
   BlendNormals: false
   BlendShapes:
     {}
+- !<SceneObject/16f1de78-b369-425e-9746-99b9371fe3cc>
+  PrefabRemaps:
+    []
+  Name: AiPreviewAgent Handler
+  Enabled: true
+  Layers: 1
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> b5861570-c373-4596-b655-006c8f70e875
+    - !<own> 98c91067-352f-430e-8f0f-d568870f666a
 - !<SceneObject/181c239f-175e-4912-94fc-d37a2599b2d6>
   PrefabRemaps:
     []
@@ -852,6 +868,50 @@
     []
   Components:
     - !<own> 4aaeb2d8-5a97-4216-9da1-f348bed812b6
+- !<ScriptComponent/1b542ac8-5fea-453f-a580-31306e8d3c20>
+  PrefabRemaps:
+    []
+  Name: ShotSpaceStoryboardUI
+  Enabled: true
+  ScriptAsset: !<reference> a08fe7f7-6ee0-48c5-af65-05e15bd5a6f8
+  ScriptInputsDefault:
+    primaryTextColor: true
+    secondaryTextColor: true
+    actorAColor: true
+    actorBColor: true
+    selectedBorderColor: true
+    flashBorderColor: true
+    idleBorderColor: true
+    warmLightColor: true
+    neutralLightColor: true
+    coolLightColor: true
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      railWidthCm: 15.200000
+      railHeightCm: 7.200000
+      cardWidthCm: 4.500000
+      cardHeightCm: 4.200000
+      cardGapCm: 0.300000
+      saveButtonWidthCm: 6.800000
+      clearButtonWidthCm: 5.400000
+      actionButtonHeightCm: 1.400000
+      panelPaddingCm: 0.300000
+      fontSizeScale: 0.780000
+      primaryTextColor: !<Vec4> {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      secondaryTextColor: !<Vec4> {x: 1.000000, y: 1.000000, z: 1.000000, w: 0.550000}
+      actorAColor: !<Vec4> {x: 0.950000, y: 0.620000, z: 0.280000, w: 1.000000}
+      actorBColor: !<Vec4> {x: 0.350000, y: 0.780000, z: 0.950000, w: 1.000000}
+      selectedBorderColor: !<Vec4> {x: 0.450000, y: 0.850000, z: 1.000000, w: 1.000000}
+      flashBorderColor: !<Vec4> {x: 0.950000, y: 0.850000, z: 0.350000, w: 1.000000}
+      idleBorderColor: !<Vec4> {x: 0.220000, y: 0.240000, z: 0.280000, w: 1.000000}
+      warmLightColor: !<Vec4> {x: 1.000000, y: 0.720000, z: 0.420000, w: 1.000000}
+      neutralLightColor: !<Vec4> {x: 1.000000, y: 0.870000, z: 0.700000, w: 1.000000}
+      coolLightColor: !<Vec4> {x: 0.920000, y: 0.950000, z: 1.000000, w: 1.000000}
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/1c12632c-053a-4afa-aefa-75cbf1e19b5c>
   PrefabRemaps:
     []
@@ -935,6 +995,21 @@
     []
   Components:
     - !<own> e1031f7e-3474-489f-a529-282f7192f812
+- !<SceneObject/224706a7-ae7b-41ef-ba19-6f9b5b6188bf>
+  PrefabRemaps:
+    []
+  Name: StoryboardRail
+  Enabled: true
+  Layers: 8
+  LocalTransform: !<TransformEntity>
+    Position: {x: 0.000000, y: -7.600000, z: 0.500000}
+    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
+    HasSegmentScaleCompensation: false
+  Children:
+    []
+  Components:
+    - !<own> 1b542ac8-5fea-453f-a580-31306e8d3c20
 - !<SceneObject/23018601-1041-4785-a20e-9ad5ab722f95>
   PrefabRemaps:
     []
@@ -966,7 +1041,6 @@
     matchSwitchWidthCm: true
     distortionSwitchWidthCm: true
     panelPaddingCm: true
-    lightingCenterXCm: true
     lightingCenterYCm: true
     lightingPanelWidthCm: true
     lightingPanelHeightCm: true
@@ -1000,7 +1074,7 @@
       matchSwitchWidthCm: !<float> 7.000000
       distortionSwitchWidthCm: !<float> 7.000000
       panelPaddingCm: !<float> 1.000000
-      lightingCenterXCm: !<float> 20.000000
+      lightingCenterXCm: !<float> 39.000000
       lightingCenterYCm: !<float> -1.000000
       lightingPanelWidthCm: !<float> 18.000000
       lightingPanelHeightCm: 18.500000
@@ -1311,22 +1385,6 @@
     []
   Components:
     - !<own> cafea247-5bbe-4363-b38a-e00be0a47f4a
-- !<ScriptComponent/32ea313e-6f65-492a-910f-39b12e4ce8a3>
-  PrefabRemaps:
-    []
-  Name: AgentInspectScript
-  Enabled: true
-  ScriptAsset: !<reference> 0b25079c-f5bf-4c6d-96c4-f43b89dfa213
-  ScriptInputsDefault:
-    {}
-  ScriptTypesDefault:
-    {}
-  ScriptInputs:
-    "":
-      {}
-  ScriptTypes:
-    "":
-      {}
 - !<RenderMeshVisual/335c5f8b-2917-49e8-8af5-220696e9bc09>
   PrefabRemaps:
     []
@@ -1489,7 +1547,7 @@
   Enabled: true
   Layers: 8
   LocalTransform: !<TransformEntity>
-    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Position: {x: 0.000000, y: 2.500000, z: 0.000000}
     Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
     Scale: {x: 16.000000, y: 9.000000, z: 0.180000}
     HasSegmentScaleCompensation: false
@@ -1761,22 +1819,6 @@
     []
   Components:
     - !<own> 2d84ded0-d23a-496f-bb14-394f98a8af32
-- !<SceneObject/4dc1a117-72d5-467b-89bd-9dd29385dffc>
-  PrefabRemaps:
-    []
-  Name: AiPreviewAgent Handler
-  Enabled: true
-  Layers: 1
-  LocalTransform: !<TransformEntity>
-    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
-    Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
-    Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
-    HasSegmentScaleCompensation: false
-  Children:
-    []
-  Components:
-    - !<own> 32ea313e-6f65-492a-910f-39b12e4ce8a3
-    - !<own> bb3ace01-e626-4b96-8e36-662bd72cb4b4
 - !<SceneObject/4e91d8b4-026c-48a3-97dc-f78d5445101e>
   PrefabRemaps:
     []
@@ -2520,6 +2562,7 @@
     - !<own> 1ef28e8f-b28f-4837-8e24-ec6ee2bf2443
     - !<own> d98bb7bb-a29b-4291-a410-b8fd68947ae1
     - !<own> efafe006-ab3a-4918-bce0-3b1604a14738
+    - !<own> 224706a7-ae7b-41ef-ba19-6f9b5b6188bf
   Components:
     []
 - !<SceneObject/8363e9a6-cd83-4889-abd4-6521e394f244>
@@ -2809,6 +2852,22 @@
     - !<own> a4de4ce7-f468-4966-8a06-e29eea60c023
   Components:
     []
+- !<ScriptComponent/98c91067-352f-430e-8f0f-d568870f666a>
+  PrefabRemaps:
+    []
+  Name: AgentInteractScript
+  Enabled: true
+  ScriptAsset: !<reference> 29091811-e792-46be-bfa4-28ddec5f11be
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      {}
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/9c3a7929-faa9-4369-a85c-c75a6ab4eee7>
   PrefabRemaps:
     []
@@ -3009,6 +3068,31 @@
     - !<own> 0c355300-e635-47c1-a8c3-5ddef30b8824
   Components:
     []
+- !<ScriptComponent/a84bad63-b02b-4c90-8e56-a5f66da16d5d>
+  PrefabRemaps:
+    []
+  Name: StoryboardController
+  Enabled: true
+  ScriptAsset: !<reference> f2ed9799-729c-4c74-94f1-941edcc843e0
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      lensController: !<MappingBased.AssignableType_1> 7f6d4e88-5d6e-4daf-bba0-92dc778564da
+      lightingController: !<MappingBased.AssignableType_2> 01fc2aa7-8e52-4a86-a8bf-56d6502be206
+      spatialManipulationController: !<MappingBased.AssignableType_3> 3e2abc18-64e9-4fe9-9c35-2ed5a17d30ab
+      storyboardUI: !<MappingBased.AssignableType_4> 1b542ac8-5fea-453f-a580-31306e8d3c20
+      actorA: !<reference.SceneObject> 875f1870-4538-477d-aff5-ee7259817a72
+      actorB: !<reference.SceneObject> 100e44ef-963c-4465-8f4b-bb2763ecd29a
+      shotCamera: !<reference.SceneObject> d33d9798-d274-4653-b856-fffc26e96e21
+      shotCameraRig: !<reference.SceneObject> c17c6db8-2e7c-44a4-a2c7-a6d4fb054412
+      keyLightRig: !<reference.SceneObject> 89857d2e-4b6b-4f22-8449-a5e5bbac4a8c
+      framingTarget: !<reference.SceneObject> b64e6c58-4dbe-46de-8a98-e393a2e37f75
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/a98a7d22-28b9-4357-97cd-1486e721ac5d>
   PrefabRemaps:
     []
@@ -3159,6 +3243,22 @@
     - !<own> fcc185fc-4e88-4e9e-9c71-40bd83b1b0ed
   Components:
     []
+- !<ScriptComponent/b5861570-c373-4596-b655-006c8f70e875>
+  PrefabRemaps:
+    []
+  Name: AgentInspectScript
+  Enabled: true
+  ScriptAsset: !<reference> 0b25079c-f5bf-4c6d-96c4-f43b89dfa213
+  ScriptInputsDefault:
+    {}
+  ScriptTypesDefault:
+    {}
+  ScriptInputs:
+    "":
+      {}
+  ScriptTypes:
+    "":
+      {}
 - !<SceneObject/b64e6c58-4dbe-46de-8a98-e393a2e37f75>
   PrefabRemaps:
     []
@@ -3219,22 +3319,6 @@
     - !<own> 11ac73c9-b802-4eb6-abf5-f73054ca7e20
   Components:
     []
-- !<ScriptComponent/bb3ace01-e626-4b96-8e36-662bd72cb4b4>
-  PrefabRemaps:
-    []
-  Name: AgentInteractScript
-  Enabled: true
-  ScriptAsset: !<reference> 29091811-e792-46be-bfa4-28ddec5f11be
-  ScriptInputsDefault:
-    {}
-  ScriptTypesDefault:
-    {}
-  ScriptInputs:
-    "":
-      {}
-  ScriptTypes:
-    "":
-      {}
 - !<SceneObject/bb75b5ea-8baf-4d8d-bcf8-49bd79873881>
   PrefabRemaps:
     []
@@ -3333,6 +3417,7 @@
     - !<own> 7f6d4e88-5d6e-4daf-bba0-92dc778564da
     - !<own> 01fc2aa7-8e52-4a86-a8bf-56d6502be206
     - !<own> 3e2abc18-64e9-4fe9-9c35-2ed5a17d30ab
+    - !<own> a84bad63-b02b-4c90-8e56-a5f66da16d5d
 - !<SceneObject/bf2095b6-c6f8-48c8-b840-e0a6cec0dc99>
   PrefabRemaps:
     []
@@ -3823,7 +3908,7 @@
   Enabled: true
   Layers: 8
   LocalTransform: !<TransformEntity>
-    Position: {x: -12.000000, y: 0.000000, z: 0.500000}
+    Position: {x: -22.000000, y: 0.000000, z: 0.500000}
     Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
     Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
     HasSegmentScaleCompensation: false
@@ -4105,7 +4190,7 @@
   Enabled: true
   Layers: 8
   LocalTransform: !<TransformEntity>
-    Position: {x: 0.000000, y: 0.000000, z: 0.000000}
+    Position: {x: 0.000000, y: 2.500000, z: 0.000000}
     Rotation: {x: 0.000000, y: 0.000000, z: 0.000000}
     Scale: {x: 1.000000, y: 1.000000, z: 1.000000}
     HasSegmentScaleCompensation: false

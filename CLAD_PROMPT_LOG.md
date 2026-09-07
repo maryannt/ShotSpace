@@ -1978,7 +1978,158 @@ Problems and corrections: First rail placement at PreviewPanel `(4, -36, 0.5)` s
 
 Changes requested: No correction to Prompt 6 scope was requested.
 
-## Logging Instructions
+## Prompt 6A — Storyboard Layout Correction
+
+Date: 2026-09-06
+
+Prompt:
+
+> Prompt 6A: Storyboard Layout Correction.
+>
+> Using the existing working ShotSpace SPECS project, correct the
+> StoryboardRail layout because it currently covers the spatial camera
+> PreviewScreen.
+>
+> This is a focused visual-layout and interaction-bounds correction to
+> Prompt 6. It is not a new feature phase.
+>
+> PRESERVE ALL WORKING SYSTEMS
+>
+> Do not rebuild, rename, duplicate, or reset:
+>
+> - StoryboardController.ts
+> - ShotState.ts
+> - ShotSpaceStoryboardUI.ts
+> - LensController.ts
+> - LightingController.ts
+> - SpatialManipulationController.ts
+> - StoryboardCard_1
+> - StoryboardCard_2
+> - StoryboardCard_3
+> - Button_SaveShot
+> - Button_ClearStoryboard
+> - StoryboardStatusLabel
+> - PreviewPanel
+> - PreviewScreen
+> - ShotPreviewRT
+> - Existing cameras
+> - Existing render layers
+> - Existing lens, framing, Match Framing, distortion, lighting, grab,
+>   save, recall, update, clear, Reframe, and Reset behavior
+>
+> Do not clear the existing storyboard state merely to adjust the layout.
+>
+> CURRENT PROBLEM
+>
+> StoryboardRail currently sits under PreviewPanel on Interface layer 8
+> with approximately this local position:
+>
+> (32, -2, 0.5)
+>
+> In the default SPECS Preview, the storyboard interface visually covers
+> the camera preview.
+>
+> The storyboard UI or one of its interaction regions may also be
+> interfering with targeting because the card buttons and other UIKit
+> objects occupy the same line of sight as PreviewScreen.
+>
+> TARGET LAYOUT
+>
+> Reformat StoryboardRail as a horizontal strip positioned directly below
+> the spatial camera preview.
+>
+> Requirements:
+> 1. PreviewScreen must remain completely visible.
+> 2. No card, label, button, border, backdrop, or invisible interaction
+>    region may overlap the live preview image.
+> 3. Center StoryboardRail horizontally beneath PreviewScreen.
+> 4. Leave a clearly visible gap between the bottom of PreviewScreen and
+>    the top of StoryboardRail.
+> 5. Keep the rail and PreviewScreen visible within the same comfortable
+>    default SPECS head position.
+> 6. Keep the storyboard readable without forcing the user to look
+>    sharply downward.
+> 7. Keep the rail away from ActorA, ActorB, CameraProxyMesh, and
+>    KeyLightProxy manipulation paths.
+> 8. Do not move the rail far to the side unless a below-preview layout
+>    cannot fit in the SPECS field of view.
+
+Result: Focused layout correction only. No storyboard objects were renamed, no second rail was created, and save/recall/update/clear logic was not rewritten.
+
+### Original cause of the overlap
+
+Combination, not inherited PreviewPanel scale (panel scale is 1) and not PreviewScreen anchors:
+
+1. **Wrong position.** Authored local `(32, -2, 0.5)` placed a 36×21.5 cm rail beside the 16×9 preview at overlapping Y, so the rail sat in the same line of sight as PreviewScreen.
+2. **Oversized rail/cards.** Cards were 10.6×14.2 cm; the rail was wider and taller than the live image.
+3. **Z.** Rail world z=`-81.5` is in front of PreviewScreen z=`-82`, so any XY overlap composites over the feed.
+4. **Oversized interaction.** Rail BackPlate spawned Interactable + InteractionPlane (default ~15 cm proximity). Runtime Z extent was about 21 cm (`-102.5` to `-59.9`), reaching toward the user and toward the diorama. Thumbnail BackPlates spawned the same components.
+
+### Changes made
+
+`ShotSpaceStoryboardUI.ts` only (surgical). Controller, ShotState, lens/lighting/spatial scripts, cameras, ShotPreviewRT, and distortion material were not rebuilt.
+
+Compact rail sized from measured PreviewScreen 16×9:
+
+- Rail 15.2×7.2 cm (≤95% of preview width; taller than the 35–40% height hint so metadata stays readable)
+- Cards 4.5×4.2 cm (~30% of rail width), gap 0.3 cm
+- SAVE 6.8×1.4 cm, CLEAR 5.4×1.4 cm
+- `fontSizeScale` 0.78, tighter padding/line spacing, thumbnail height capped at 1.3 cm
+- Decorative plates: `interactionPlanePadding (0,0)`, `Interactable.targetingMode = None`, InteractionPlane + Collider disabled on init and again at 0.5 s
+- Idle selected-border objects forced `enabled = false` so their default 20 cm BackPlate bounds cannot steal hits
+
+Scene (VirtualScene + script inputs):
+
+- StoryboardRail stays under PreviewPanel, Interface layer 8
+- PreviewScreen and FramingGuides raised to local `(0, 2.5, 0)` so the below-preview strip fits without covering the image
+- LensControlsUI moved to local `(-22, 0, 0.5)` so 24mm–85mm / WIDE–CLOSE-UP sit left of the rail
+- `lightingCenterXCm` 39 so LOW/WARM/HIGH/Reframe/Reset sit right of the preview and rail
+
+Project saved via Editor `model.project.save()`.
+
+### Final transforms and dimensions
+
+| Object | Parent | Local | World | Bounds (world) |
+|---|---|---|---|---|
+| PreviewScreen | PreviewPanel | `(0, 2.5, 0)` scale `(16, 9, 0.18)` | `(14, 1.5, -82)` | X 6.0–22.0, Y −3.0–6.0, Z −82.1–−81.9 |
+| StoryboardRail | PreviewPanel | `(0, -7.6, 0.5)` scale 1 | `(14, -8.6, -81.5)` | X 6.4–21.6, Y −12.21–−5.0, Z −82–−79.8 |
+| StoryboardCard_1 | StoryboardCardsRow | | `(9.2, -8.53, -80.9)` | 4.5×4.2 cm face |
+| Button_SaveShot | StoryboardActionsRow | | `(10.9, -11.51, -80.9)` | 6.8×1.4 cm |
+| Button_ClearStoryboard | StoryboardActionsRow | | `(17.8, -11.51, -80.9)` | 5.4×1.4 cm |
+
+Gap: PreviewScreen bottom Y=`-3.0` vs rail top Y=`-5.0` → **2.0 cm**. No AABB overlap with PreviewScreen or with ActorA / CameraProxyMesh grab volumes.
+
+### Interaction-bound corrections
+
+- Rail container is decorative. InteractionPlane Z collapsed from ~21 cm to ~2.2 cm.
+- Only the three card Buttons plus SAVE/CLEAR are intended hit targets.
+- Thumbnail and selected-border Interactable/InteractionPlane components still instantiate (UIKit BackPlate) but are disabled after init; idle selected-border SceneObjects stay disabled.
+- Lens-control `InteractionPlaneColliderRoot` volumes were shifted left/right with the panels so they no longer cover PreviewScreen.
+
+### Verification
+
+- `/verify-preview`: TypeScript compile succeeded. Refresh logs: no persistent red Logger errors (SIK version print only).
+- Isolate PreviewScreen: live 16:9 feed with ActorA/ActorB and rule-of-thirds marks; no storyboard chrome on the image plane.
+- Default SPECS Preview: rail is a horizontal strip under the preview (STORYBOARD / READY TO SAVE / three EMPTY cards / SAVE SHOT / CLEAR BOARD). Lens cluster left, lighting/Reframe/Reset right.
+- PreviewScreen unobstructed by **world AABB**: yes, all four edges free, 2 cm gap. Default headset view can still look tight because the rail is 0.5 cm closer in Z.
+- 24mm world-position pinch: `CURRENT LENS: 24mm`.
+- Reset Layout world-position pinch: restored `CURRENT LENS: 50mm`, `CURRENT FRAMING: MEDIUM`, `KEY LIGHT: MEDIUM / NEUTRAL`. `resetLayout()` does not call `clearStoryboard()`.
+- Cameras: only `Camera Object` and `ShotCamera`. Render target: only existing `ShotPreviewRT`.
+- Save / recall / update / clear: **not re-driven in Preview**. uniqueId/name pinches on `Button_SaveShot` timed out or reported `Blocked by "Collider"`. World-position pinches on the button face reported CommandSuccess but did not fire `onTriggerUp`. Controller ↔ UI event wiring was not changed. This is the same Preview puppet limitation class as Prompt 6, now worse because SAVE sits on the camera-to-preview line of sight.
+
+### Remaining UIKit warnings
+
+UIKit “automatically converted to a toggle” warnings on lens/light/storyboard card buttons may still appear. Harmless; working toggle behavior was not changed to silence them.
+
+### Unresolved Preview targeting limitations
+
+- uniqueId pinches on storyboard buttons are obstructed by other UIKit `Collider` objects along the preview-camera ray.
+- World-position pinches on SAVE/CLEAR/cards are unreliable at the below-preview pose.
+- Direct grabbing remains the reliable path for actors, camera proxy, and key light.
+- SIK manipulation was not redesigned.
+
+Changes requested: Prompt 6A layout correction only.
+
 
 After each major prompt:
 

@@ -7767,7 +7767,7 @@
       "transform": {
         "position": [
           0,
-          0,
+          2.5,
           0
         ],
         "rotation": [
@@ -8342,7 +8342,7 @@
       "parentId": "835d9499-cb2a-495b-b880-a271e07f4d2a",
       "transform": {
         "position": [
-          -12,
+          -22,
           0,
           0.5
         ],
@@ -8510,7 +8510,7 @@
             },
             "lightingCenterXCm": {
               "isScriptInput": true,
-              "value": 20,
+              "value": 39,
               "type": "float",
               "uiInfo": "{\"hint\":\"Local X center of the compact lighting and reset panel.\", \"widget\":\"slider\", \"min\":8, \"max\":28, \"step\":0.5}",
               "defaultValue": "20"
@@ -8630,7 +8630,7 @@
       "transform": {
         "position": [
           0,
-          0,
+          2.5,
           0
         ],
         "rotation": [
@@ -9042,8 +9042,8 @@
       "parentId": "835d9499-cb2a-495b-b880-a271e07f4d2a",
       "transform": {
         "position": [
-          32,
-          -2,
+          0,
+          -7.599999904632568,
           0.5
         ],
         "rotation": [
@@ -9067,10 +9067,10 @@
           "properties": {
             "cardHeightCm": {
               "isScriptInput": true,
-              "value": 14.199999809265137,
+              "value": 5.199999809265137,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Height of each storyboard card, in centimeters.\", \"widget\":\"slider\", \"min\":11, \"max\":16, \"step\":0.1}",
-              "defaultValue": "14.2"
+              "uiInfo": "{\"hint\":\"Height of each storyboard card, in centimeters.\", \"widget\":\"slider\", \"min\":4, \"max\":7, \"step\":0.1}",
+              "defaultValue": "4.2"
             },
             "actorAColor": {
               "isScriptInput": true,
@@ -9081,10 +9081,10 @@
             },
             "actionButtonHeightCm": {
               "isScriptInput": true,
-              "value": 3,
+              "value": 1.5499999523162842,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Height of the save and clear buttons.\", \"widget\":\"slider\", \"min\":2.4, \"max\":3.6, \"step\":0.1}",
-              "defaultValue": "3"
+              "uiInfo": "{\"hint\":\"Height of the save and clear buttons.\", \"widget\":\"slider\", \"min\":1.3, \"max\":2.4, \"step\":0.1}",
+              "defaultValue": "1.4"
             },
             "coolLightColor": {
               "isScriptInput": true,
@@ -9102,24 +9102,24 @@
             },
             "cardWidthCm": {
               "isScriptInput": true,
-              "value": 10.600000381469727,
+              "value": 4.5,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Width of each storyboard card, in centimeters.\", \"widget\":\"slider\", \"min\":8, \"max\":13, \"step\":0.1}",
-              "defaultValue": "10.6"
+              "uiInfo": "{\"hint\":\"Width of each storyboard card, in centimeters.\", \"widget\":\"slider\", \"min\":3.6, \"max\":6, \"step\":0.1}",
+              "defaultValue": "4.5"
             },
             "cardGapCm": {
               "isScriptInput": true,
-              "value": 0.699999988079071,
+              "value": 0.30000001192092896,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Gap between storyboard cards, in centimeters.\", \"widget\":\"slider\", \"min\":0.3, \"max\":1.2, \"step\":0.05}",
-              "defaultValue": "0.7"
+              "uiInfo": "{\"hint\":\"Gap between storyboard cards, in centimeters.\", \"widget\":\"slider\", \"min\":0.15, \"max\":0.8, \"step\":0.05}",
+              "defaultValue": "0.3"
             },
             "clearButtonWidthCm": {
               "isScriptInput": true,
-              "value": 12.5,
+              "value": 5.400000095367432,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Width of CLEAR BOARD.\", \"widget\":\"slider\", \"min\":10, \"max\":16, \"step\":0.1}",
-              "defaultValue": "12.5"
+              "uiInfo": "{\"hint\":\"Width of CLEAR BOARD.\", \"widget\":\"slider\", \"min\":4, \"max\":8, \"step\":0.1}",
+              "defaultValue": "5.4"
             },
             "flashBorderColor": {
               "isScriptInput": true,
@@ -9130,10 +9130,10 @@
             },
             "fontSizeScale": {
               "isScriptInput": true,
-              "value": 1,
+              "value": 0.7799999713897705,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Global multiplier for the Specs type-scale roles used by this rail.\", \"widget\":\"slider\", \"min\":0.8, \"max\":1.2, \"step\":0.01}",
-              "defaultValue": "1"
+              "uiInfo": "{\"hint\":\"Global multiplier for the Specs type-scale roles used by this rail.\", \"widget\":\"slider\", \"min\":0.65, \"max\":1.1, \"step\":0.01}",
+              "defaultValue": "0.78"
             },
             "idleBorderColor": {
               "isScriptInput": true,
@@ -9151,10 +9151,10 @@
             },
             "panelPaddingCm": {
               "isScriptInput": true,
-              "value": 0.800000011920929,
+              "value": 0.30000001192092896,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Inset between the rail edge and its content.\", \"widget\":\"slider\", \"min\":0.4, \"max\":1.6, \"step\":0.1}",
-              "defaultValue": "0.8"
+              "uiInfo": "{\"hint\":\"Inset between the rail edge and its content.\", \"widget\":\"slider\", \"min\":0.15, \"max\":0.8, \"step\":0.05}",
+              "defaultValue": "0.3"
             },
             "selectedBorderColor": {
               "isScriptInput": true,
@@ -9172,24 +9172,24 @@
             },
             "railHeightCm": {
               "isScriptInput": true,
-              "value": 21.5,
+              "value": 8.600000381469727,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Height of the storyboard rail backplate, in centimeters.\", \"widget\":\"slider\", \"min\":16, \"max\":26, \"step\":0.2}",
-              "defaultValue": "21.5"
+              "uiInfo": "{\"hint\":\"Height of the storyboard rail backplate, in centimeters.\", \"widget\":\"slider\", \"min\":6, \"max\":12, \"step\":0.1}",
+              "defaultValue": "7.2"
             },
             "railWidthCm": {
               "isScriptInput": true,
-              "value": 36,
+              "value": 15.199999809265137,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Width of the storyboard rail backplate, in centimeters.\", \"widget\":\"slider\", \"min\":28, \"max\":42, \"step\":0.2}",
-              "defaultValue": "36"
+              "uiInfo": "{\"hint\":\"Width of the storyboard rail backplate, in centimeters.\", \"widget\":\"slider\", \"min\":12, \"max\":20, \"step\":0.1}",
+              "defaultValue": "15.2"
             },
             "saveButtonWidthCm": {
               "isScriptInput": true,
-              "value": 15.5,
+              "value": 6.800000190734863,
               "type": "float",
-              "uiInfo": "{\"hint\":\"Width of SAVE SHOT / UPDATE SELECTED, sized for the longer label.\", \"widget\":\"slider\", \"min\":12, \"max\":18, \"step\":0.1}",
-              "defaultValue": "15.5"
+              "uiInfo": "{\"hint\":\"Width of SAVE SHOT / UPDATE SELECTED, sized for the longer label.\", \"widget\":\"slider\", \"min\":5, \"max\":10, \"step\":0.1}",
+              "defaultValue": "6.8"
             },
             "secondaryTextColor": {
               "isScriptInput": true,
@@ -9687,7 +9687,7 @@
       ]
     },
     {
-      "id": "4dc1a117-72d5-467b-89bd-9dd29385dffc",
+      "id": "16f1de78-b369-425e-9746-99b9371fe3cc",
       "name": "AiPreviewAgent Handler",
       "enabled": true,
       "parentId": null,
@@ -9711,7 +9711,7 @@
       "layers": 1,
       "components": [
         {
-          "id": "32ea313e-6f65-492a-910f-39b12e4ce8a3",
+          "id": "b5861570-c373-4596-b655-006c8f70e875",
           "type": "ScriptComponent",
           "name": "AgentInspectScript",
           "enabled": true,
@@ -9722,12 +9722,12 @@
             "sceneObject": "@sceneObject:AiPreviewAgent Handler",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
-            "id": "32ea313e-6f65-492a-910f-39b12e4ce8a3",
+            "id": "b5861570-c373-4596-b655-006c8f70e875",
             "type": "ScriptComponent"
           }
         },
         {
-          "id": "bb3ace01-e626-4b96-8e36-662bd72cb4b4",
+          "id": "98c91067-352f-430e-8f0f-d568870f666a",
           "type": "ScriptComponent",
           "name": "AgentInteractScript",
           "enabled": true,
@@ -9738,7 +9738,7 @@
             "sceneObject": "@sceneObject:AiPreviewAgent Handler",
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
-            "id": "bb3ace01-e626-4b96-8e36-662bd72cb4b4",
+            "id": "98c91067-352f-430e-8f0f-d568870f666a",
             "type": "ScriptComponent"
           }
         }
