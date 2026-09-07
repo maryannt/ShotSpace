@@ -514,7 +514,7 @@ export class SpatialManipulationController extends BaseScriptComponent {
     transform.setLocalScale(handle.restScale)
 
     const euler = transform.getLocalRotation().toEulerAngles()
-    const pitch = zeroPitchAndRoll ? 0 : 0
+    const pitch = zeroPitchAndRoll ? 0 : euler.x
     const roll = 0
     transform.setLocalRotation(quat.fromEulerAngles(pitch, euler.y, roll))
   }
