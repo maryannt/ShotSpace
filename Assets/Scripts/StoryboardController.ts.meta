@@ -1,0 +1,77 @@
+- !<AssetImportMetadata/e59c5c36-0888-4461-9161-7c064903f70e>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> f2ed9799-729c-4c74-94f1-941edcc843e0
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> f2ed9799-729c-4c74-94f1-941edcc843e0
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 16012ab2-e2c1-4c09-8732-6bc2501ba209
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/16012ab2-e2c1-4c09-8732-6bc2501ba209>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 43cae1d4-f2eb-4e7c-904c-2f00787253ea
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    actorA: false
+    actorB: false
+    framingTarget: false
+    keyLightRig: false
+    lensController: false
+    lightingController: false
+    shotCamera: false
+    shotCameraRig: false
+    spatialManipulationController: false
+    storyboardUI: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - lensController: !<MappingBased.AssignableType_1> 00000000-0000-0000-0000-000000000000
+      lightingController: !<MappingBased.AssignableType_2> 00000000-0000-0000-0000-000000000000
+      spatialManipulationController: !<MappingBased.AssignableType_3> 00000000-0000-0000-0000-000000000000
+      storyboardUI: !<MappingBased.AssignableType_4> 00000000-0000-0000-0000-000000000000
+      actorA: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      actorB: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      shotCamera: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      shotCameraRig: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      keyLightRig: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      framingTarget: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">Storyboard Controller</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"References"}'
+    - '// @input AssignableType_1 lensController {"hint":"Existing LensController that remains the source of truth for lens and framing."}'
+    - '// @input AssignableType_2 lightingController {"hint":"Existing LightingController that remains the source of truth for key-light look."}'
+    - '// @input AssignableType_3 spatialManipulationController {"hint":"Existing SpatialManipulationController that applies actor and rig poses."}'
+    - '// @input AssignableType_4 storyboardUI {"hint":"World-space storyboard rail UI created by ShotSpaceStoryboardUI."}'
+    - '// @input SceneObject actorA {"hint":"Existing ActorA placeholder. ActorA_FramingTarget remains its child."}'
+    - '// @input SceneObject actorB {"hint":"Existing ActorB placeholder."}'
+    - '// @input SceneObject shotCamera {"hint":"Existing ShotCamera used only to project schematic thumbnail positions."}'
+    - '// @input SceneObject shotCameraRig {"hint":"Existing ShotCameraRig whose world pose is stored and restored."}'
+    - '// @input SceneObject keyLightRig {"hint":"Existing KeyLightRig whose world pose is stored and restored."}'
+    - "// @input SceneObject framingTarget {\"hint\":\"Existing ActorA_FramingTarget, kept as ActorA's child during restore.\"}"
+    - '// @ui {"widget":"group_end"}'

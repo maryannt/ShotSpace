@@ -1,0 +1,107 @@
+- !<AssetImportMetadata/09d08f10-cdfa-4d31-9287-308475ac432a>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> a08fe7f7-6ee0-48c5-af65-05e15bd5a6f8
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> a08fe7f7-6ee0-48c5-af65-05e15bd5a6f8
+  PackageType: NotAPackage
+  LegacyPackagePolicy: ~
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> b3041d6a-d235-44d5-9b55-b7d3f9417618
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/b3041d6a-d235-44d5-9b55-b7d3f9417618>
+  SvgIcon: ""
+  SetupScript:
+    code: ""
+  Description: ""
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  VersionPrerelease: ""
+  UpdateOrder: 0
+  ComponentUid: 90f84f4d-7d69-4563-be24-f1ea1a90611c
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  PackagePolicy: CanBeUnpacked
+  ScriptInputsHidden:
+    actionButtonHeightCm: false
+    actorAColor: false
+    actorBColor: false
+    cardGapCm: false
+    cardHeightCm: false
+    cardWidthCm: false
+    clearButtonWidthCm: false
+    coolLightColor: false
+    flashBorderColor: false
+    fontSizeScale: false
+    idleBorderColor: false
+    neutralLightColor: false
+    panelPaddingCm: false
+    primaryTextColor: false
+    railHeightCm: false
+    railWidthCm: false
+    saveButtonWidthCm: false
+    secondaryTextColor: false
+    selectedBorderColor: false
+    warmLightColor: false
+  ScriptTypesHidden:
+    {}
+  ReadMe: !<reference> 00000000-0000-0000-0000-000000000000
+  DeclarationFile: !<reference> 00000000-0000-0000-0000-000000000000
+  Tags:
+    []
+  Attachments:
+    []
+  DefaultScriptInputs:
+    - railWidthCm: !<float> 36.000000
+      railHeightCm: 21.500000
+      cardWidthCm: 10.600000
+      cardHeightCm: 14.200000
+      cardGapCm: 0.700000
+      saveButtonWidthCm: 15.500000
+      clearButtonWidthCm: 12.500000
+      actionButtonHeightCm: !<float> 3.000000
+      panelPaddingCm: 0.800000
+      fontSizeScale: !<float> 1.000000
+      primaryTextColor: !<Vec4> {x: 1.000000, y: 1.000000, z: 1.000000, w: 1.000000}
+      secondaryTextColor: !<Vec4> {x: 1.000000, y: 1.000000, z: 1.000000, w: 0.550000}
+      actorAColor: !<Vec4> {x: 0.950000, y: 0.620000, z: 0.280000, w: 1.000000}
+      actorBColor: !<Vec4> {x: 0.350000, y: 0.780000, z: 0.950000, w: 1.000000}
+      selectedBorderColor: !<Vec4> {x: 0.450000, y: 0.850000, z: 1.000000, w: 1.000000}
+      flashBorderColor: !<Vec4> {x: 0.950000, y: 0.850000, z: 0.350000, w: 1.000000}
+      idleBorderColor: !<Vec4> {x: 0.220000, y: 0.240000, z: 0.280000, w: 1.000000}
+      warmLightColor: !<Vec4> {x: 1.000000, y: 0.720000, z: 0.420000, w: 1.000000}
+      neutralLightColor: !<Vec4> {x: 1.000000, y: 0.870000, z: 0.700000, w: 1.000000}
+      coolLightColor: !<Vec4> {x: 0.920000, y: 0.950000, z: 1.000000, w: 1.000000}
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - '// @ui {"widget":"label", "label":"<span style=\"color: #60A5FA;\">ShotSpace Storyboard Rail</span>"}'
+    - '// @ui {"widget":"separator"}'
+    - '// @ui {"widget":"group_start", "label":"Settings"}'
+    - '// @input float railWidthCm = 36 {"hint":"Width of the storyboard rail backplate, in centimeters.", "widget":"slider", "min":28, "max":42, "step":0.2}'
+    - '// @input float railHeightCm = 21.5 {"hint":"Height of the storyboard rail backplate, in centimeters.", "widget":"slider", "min":16, "max":26, "step":0.2}'
+    - '// @input float cardWidthCm = 10.6 {"hint":"Width of each storyboard card, in centimeters.", "widget":"slider", "min":8, "max":13, "step":0.1}'
+    - '// @input float cardHeightCm = 14.2 {"hint":"Height of each storyboard card, in centimeters.", "widget":"slider", "min":11, "max":16, "step":0.1}'
+    - '// @input float cardGapCm = 0.7 {"hint":"Gap between storyboard cards, in centimeters.", "widget":"slider", "min":0.3, "max":1.2, "step":0.05}'
+    - '// @input float saveButtonWidthCm = 15.5 {"hint":"Width of SAVE SHOT / UPDATE SELECTED, sized for the longer label.", "widget":"slider", "min":12, "max":18, "step":0.1}'
+    - '// @input float clearButtonWidthCm = 12.5 {"hint":"Width of CLEAR BOARD.", "widget":"slider", "min":10, "max":16, "step":0.1}'
+    - '// @input float actionButtonHeightCm = 3 {"hint":"Height of the save and clear buttons.", "widget":"slider", "min":2.4, "max":3.6, "step":0.1}'
+    - '// @input float panelPaddingCm = 0.8 {"hint":"Inset between the rail edge and its content.", "widget":"slider", "min":0.4, "max":1.6, "step":0.1}'
+    - '// @input float fontSizeScale = 1 {"hint":"Global multiplier for the Specs type-scale roles used by this rail.", "widget":"slider", "min":0.8, "max":1.2, "step":0.01}'
+    - '// @input vec4 primaryTextColor = "{1,1,1,1}" {"hint":"Primary text color for occupied card metadata and button labels.", "widget":"color"}'
+    - '// @input vec4 secondaryTextColor = "{1,1,1,0.55}" {"hint":"Secondary text color for empty cards and status.", "widget":"color"}'
+    - '// @input vec4 actorAColor = "{0.95,0.62,0.28,1}" {"hint":"Actor A schematic icon color.", "widget":"color"}'
+    - '// @input vec4 actorBColor = "{0.35,0.78,0.95,1}" {"hint":"Actor B schematic icon color.", "widget":"color"}'
+    - '// @input vec4 selectedBorderColor = "{0.45,0.85,1,1}" {"hint":"Selected-card border color.", "widget":"color"}'
+    - '// @input vec4 flashBorderColor = "{0.95,0.85,0.35,1}" {"hint":"Brief save/update flash border color.", "widget":"color"}'
+    - '// @input vec4 idleBorderColor = "{0.22,0.24,0.28,1}" {"hint":"Idle card border color.", "widget":"color"}'
+    - '// @input vec4 warmLightColor = "{1,0.72,0.42,1}" {"hint":"Warm key-light indicator color.", "widget":"color"}'
+    - '// @input vec4 neutralLightColor = "{1,0.87,0.7,1}" {"hint":"Neutral key-light indicator color.", "widget":"color"}'
+    - '// @input vec4 coolLightColor = "{0.92,0.95,1,1}" {"hint":"Cool key-light indicator color.", "widget":"color"}'
+    - '// @ui {"widget":"group_end"}'

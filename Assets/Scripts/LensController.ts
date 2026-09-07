@@ -127,6 +127,7 @@ export class LensController extends BaseScriptComponent {
   private currentCameraDistanceCm: number = 0
   private isCustomFraming: boolean = false
   private automaticFramingSuspended: boolean = false
+  private isRestoringShot: boolean = false
   private readonly presetChangedListeners: PresetChangedListener[] = []
   private readonly stateChangedListeners: ShotFramingStateChangedListener[] = []
 
@@ -173,7 +174,12 @@ export class LensController extends BaseScriptComponent {
     this.selectedPreset = preset
     this.applyDistortionProfile(preset)
 
-    if (this.matchFramingEnabled && !this.automaticFramingSuspended && !this.isCustomFraming) {
+    if (
+      this.matchFramingEnabled &&
+      !this.automaticFramingSuspended &&
+      !this.isCustomFraming &&
+      !this.isRestoringShot
+    ) {
       this.applyCurrentFramingTransform()
     }
     this.refreshActualDistance()
@@ -206,7 +212,9 @@ export class LensController extends BaseScriptComponent {
     this.lastAutomaticFramingPreset = preset
     this.isCustomFraming = false
     this.automaticFramingSuspended = false
-    this.applyCurrentFramingTransform()
+    if (!this.isRestoringShot) {
+      this.applyCurrentFramingTransform()
+    }
     this.refreshActualDistance()
     this.emitStateChanged()
   }
@@ -224,6 +232,11 @@ export class LensController extends BaseScriptComponent {
   }
 
   public setMatchFramingEnabled(enabled: boolean): void {
+    if (this.isRestoringShot) {
+      this.matchFramingEnabled = enabled
+      return
+    }
+
     if (this.matchFramingEnabled === enabled) {
       if (enabled) {
         this.isCustomFraming = false
@@ -272,6 +285,86 @@ export class LensController extends BaseScriptComponent {
   public reframeActorA(): void {
     const framing = this.lastAutomaticFramingPreset || FRAMING_PRESET_MEDIUM
     this.applyFramingPreset(framing)
+  }
+
+  /**
+   * Suspend Match Framing recalculation while a saved shot is applied.
+   */
+  public beginShotRestore(): void {
+    this.isRestoringShot = true
+    this.automaticFramingSuspended = true
+  }
+
+  /**
+   * Resume normal lens and framing reactions after a restore transaction.
+   * Does not recalculate camera distance or move ShotCameraRig.
+   */
+  public endShotRestore(): void {
+    this.isRestoringShot = false
+    this.automaticFramingSuspended = false
+  }
+
+  public isShotRestoreInProgress(): boolean {
+    return this.isRestoringShot
+  }
+
+  /**
+   * Restore lens, FOV, framing labels, Match, and distortion without moving
+   * ShotCameraRig. Used only by StoryboardController restore transactions.
+   */
+  public restoreSavedOpticalState(saved: {
+    focalLengthMm: number
+    cameraFovRadians: number
+    framingLabel: string
+    lastNonCustomFramingLabel: string
+    matchFramingEnabled: boolean
+    lensDistortionEnabled: boolean
+    distortionK1: number
+    distortionK2: number
+  }): void {
+    if (!this.ensureShotCameraAvailable("restore saved optical state")) {
+      return
+    }
+
+    const preset = this.getCanonicalPreset(saved.focalLengthMm)
+    if (isNull(preset)) {
+      console.error(
+        `[LensController] Cannot restore shot: unsupported focal length ${saved.focalLengthMm}mm.`
+      )
+      return
+    }
+
+    const lastAutomatic =
+      this.getCanonicalFramingPreset(saved.lastNonCustomFramingLabel) || FRAMING_PRESET_MEDIUM
+    const isCustom = saved.framingLabel.trim().toUpperCase() === "CUSTOM"
+
+    this.selectedPreset = preset
+    this.shotCameraComponent!.fov = saved.cameraFovRadians
+    this.selectedFramingPreset = lastAutomatic
+    this.lastAutomaticFramingPreset = lastAutomatic
+    this.isCustomFraming = isCustom
+    this.matchFramingEnabled = saved.matchFramingEnabled
+    this.lensDistortionEnabled = saved.lensDistortionEnabled
+    this.applyDistortionProfile(preset)
+    if (!isNull(this.previewDistortionMaterial)) {
+      this.previewDistortionMaterial.mainPass.k1 = saved.distortionK1
+      this.previewDistortionMaterial.mainPass.k2 = saved.distortionK2
+    }
+    this.applyDistortionBlend()
+    this.refreshActualDistance()
+    this.emitPresetChanged(preset)
+    this.emitStateChanged()
+  }
+
+  /**
+   * Project a world point through the existing ShotCamera. Returns normalized
+   * screen coordinates, or null if the camera is unavailable.
+   */
+  public projectWorldPointToScreen(worldPosition: vec3): vec2 | null {
+    if (!this.ensureShotCameraAvailable("project world point")) {
+      return null
+    }
+    return this.shotCameraComponent!.worldSpaceToScreenSpace(worldPosition)
   }
 
   /**

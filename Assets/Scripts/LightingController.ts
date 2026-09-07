@@ -138,6 +138,28 @@ export class LightingController extends BaseScriptComponent {
     this.emitStateChanged()
   }
 
+  /**
+   * Restore a saved key-light look. Preset names update controller state; the
+   * copied intensity and color values are applied so the light matches the
+   * saved shot exactly.
+   */
+  public restoreSavedLook(
+    intensityName: LightIntensityName,
+    colorName: LightColorName,
+    intensityValue: number,
+    colorValue: vec3
+  ): void {
+    if (!this.ensureLightAvailable("restore saved look")) {
+      return
+    }
+
+    this.applyIntensity(this.normalizeIntensityName(intensityName))
+    this.applyColor(this.normalizeColorName(colorName))
+    this.lightSource!.intensity = intensityValue
+    this.lightSource!.color = new vec3(colorValue.x, colorValue.y, colorValue.z)
+    this.emitStateChanged()
+  }
+
   public getCurrentState(): KeyLightState | null {
     if (isNull(this.lightSource)) {
       return null

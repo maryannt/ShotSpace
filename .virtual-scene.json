@@ -6259,7 +6259,7 @@
             "fitVisual": false,
             "forceCompound": false,
             "intangible": false,
-            "debugDrawEnabled": true,
+            "debugDrawEnabled": false,
             "matter": null,
             "overlapFilter": null,
             "smooth": false,
@@ -9036,6 +9036,208 @@
       ]
     },
     {
+      "id": "224706a7-ae7b-41ef-ba19-6f9b5b6188bf",
+      "name": "StoryboardRail",
+      "enabled": true,
+      "parentId": "835d9499-cb2a-495b-b880-a271e07f4d2a",
+      "transform": {
+        "position": [
+          32,
+          -2,
+          0.5
+        ],
+        "rotation": [
+          0,
+          0,
+          0
+        ],
+        "scale": [
+          1,
+          1,
+          1
+        ]
+      },
+      "layers": 8,
+      "components": [
+        {
+          "id": "1b542ac8-5fea-453f-a580-31306e8d3c20",
+          "type": "ScriptComponent",
+          "name": "ShotSpaceStoryboardUI",
+          "enabled": true,
+          "properties": {
+            "cardHeightCm": {
+              "isScriptInput": true,
+              "value": 14.199999809265137,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Height of each storyboard card, in centimeters.\", \"widget\":\"slider\", \"min\":11, \"max\":16, \"step\":0.1}",
+              "defaultValue": "14.2"
+            },
+            "actorAColor": {
+              "isScriptInput": true,
+              "value": "{x: 0.95, y: 0.62, z: 0.28, w: 1}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Actor A schematic icon color.\", \"widget\":\"color\"}",
+              "defaultValue": "{0.95,0.62,0.28,1}"
+            },
+            "actionButtonHeightCm": {
+              "isScriptInput": true,
+              "value": 3,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Height of the save and clear buttons.\", \"widget\":\"slider\", \"min\":2.4, \"max\":3.6, \"step\":0.1}",
+              "defaultValue": "3"
+            },
+            "coolLightColor": {
+              "isScriptInput": true,
+              "value": "{x: 0.92, y: 0.95, z: 1, w: 1}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Cool key-light indicator color.\", \"widget\":\"color\"}",
+              "defaultValue": "{0.92,0.95,1,1}"
+            },
+            "actorBColor": {
+              "isScriptInput": true,
+              "value": "{x: 0.35, y: 0.78, z: 0.95, w: 1}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Actor B schematic icon color.\", \"widget\":\"color\"}",
+              "defaultValue": "{0.35,0.78,0.95,1}"
+            },
+            "cardWidthCm": {
+              "isScriptInput": true,
+              "value": 10.600000381469727,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Width of each storyboard card, in centimeters.\", \"widget\":\"slider\", \"min\":8, \"max\":13, \"step\":0.1}",
+              "defaultValue": "10.6"
+            },
+            "cardGapCm": {
+              "isScriptInput": true,
+              "value": 0.699999988079071,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Gap between storyboard cards, in centimeters.\", \"widget\":\"slider\", \"min\":0.3, \"max\":1.2, \"step\":0.05}",
+              "defaultValue": "0.7"
+            },
+            "clearButtonWidthCm": {
+              "isScriptInput": true,
+              "value": 12.5,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Width of CLEAR BOARD.\", \"widget\":\"slider\", \"min\":10, \"max\":16, \"step\":0.1}",
+              "defaultValue": "12.5"
+            },
+            "flashBorderColor": {
+              "isScriptInput": true,
+              "value": "{x: 0.95, y: 0.85, z: 0.35, w: 1}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Brief save/update flash border color.\", \"widget\":\"color\"}",
+              "defaultValue": "{0.95,0.85,0.35,1}"
+            },
+            "fontSizeScale": {
+              "isScriptInput": true,
+              "value": 1,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Global multiplier for the Specs type-scale roles used by this rail.\", \"widget\":\"slider\", \"min\":0.8, \"max\":1.2, \"step\":0.01}",
+              "defaultValue": "1"
+            },
+            "idleBorderColor": {
+              "isScriptInput": true,
+              "value": "{x: 0.22, y: 0.24, z: 0.28, w: 1}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Idle card border color.\", \"widget\":\"color\"}",
+              "defaultValue": "{0.22,0.24,0.28,1}"
+            },
+            "neutralLightColor": {
+              "isScriptInput": true,
+              "value": "{x: 1, y: 0.87, z: 0.7, w: 1}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Neutral key-light indicator color.\", \"widget\":\"color\"}",
+              "defaultValue": "{1,0.87,0.7,1}"
+            },
+            "panelPaddingCm": {
+              "isScriptInput": true,
+              "value": 0.800000011920929,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Inset between the rail edge and its content.\", \"widget\":\"slider\", \"min\":0.4, \"max\":1.6, \"step\":0.1}",
+              "defaultValue": "0.8"
+            },
+            "selectedBorderColor": {
+              "isScriptInput": true,
+              "value": "{x: 0.45, y: 0.85, z: 1, w: 1}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Selected-card border color.\", \"widget\":\"color\"}",
+              "defaultValue": "{0.45,0.85,1,1}"
+            },
+            "primaryTextColor": {
+              "isScriptInput": true,
+              "value": "{x: 1, y: 1, z: 1, w: 1}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Primary text color for occupied card metadata and button labels.\", \"widget\":\"color\"}",
+              "defaultValue": "{1,1,1,1}"
+            },
+            "railHeightCm": {
+              "isScriptInput": true,
+              "value": 21.5,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Height of the storyboard rail backplate, in centimeters.\", \"widget\":\"slider\", \"min\":16, \"max\":26, \"step\":0.2}",
+              "defaultValue": "21.5"
+            },
+            "railWidthCm": {
+              "isScriptInput": true,
+              "value": 36,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Width of the storyboard rail backplate, in centimeters.\", \"widget\":\"slider\", \"min\":28, \"max\":42, \"step\":0.2}",
+              "defaultValue": "36"
+            },
+            "saveButtonWidthCm": {
+              "isScriptInput": true,
+              "value": 15.5,
+              "type": "float",
+              "uiInfo": "{\"hint\":\"Width of SAVE SHOT / UPDATE SELECTED, sized for the longer label.\", \"widget\":\"slider\", \"min\":12, \"max\":18, \"step\":0.1}",
+              "defaultValue": "15.5"
+            },
+            "secondaryTextColor": {
+              "isScriptInput": true,
+              "value": "{x: 1, y: 1, z: 1, w: 0.55}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Secondary text color for empty cards and status.\", \"widget\":\"color\"}",
+              "defaultValue": "{1,1,1,0.55}"
+            },
+            "warmLightColor": {
+              "isScriptInput": true,
+              "value": "{x: 1, y: 0.72, z: 0.42, w: 1}",
+              "type": "vec4",
+              "uiInfo": "{\"hint\":\"Warm key-light indicator color.\", \"widget\":\"color\"}",
+              "defaultValue": "{1,0.72,0.42,1}"
+            },
+            "scriptAsset": "@asset:Scripts/ShotSpaceStoryboardUI.ts",
+            "inputNames.0": "actionButtonHeightCm",
+            "inputNames.1": "actorAColor",
+            "inputNames.2": "actorBColor",
+            "inputNames.3": "cardGapCm",
+            "inputNames.4": "cardHeightCm",
+            "inputNames.5": "cardWidthCm",
+            "inputNames.6": "clearButtonWidthCm",
+            "inputNames.7": "coolLightColor",
+            "inputNames.8": "flashBorderColor",
+            "inputNames.9": "fontSizeScale",
+            "inputNames.10": "idleBorderColor",
+            "inputNames.11": "neutralLightColor",
+            "inputNames.12": "panelPaddingCm",
+            "inputNames.13": "primaryTextColor",
+            "inputNames.14": "railHeightCm",
+            "inputNames.15": "railWidthCm",
+            "inputNames.16": "saveButtonWidthCm",
+            "inputNames.17": "secondaryTextColor",
+            "inputNames.18": "selectedBorderColor",
+            "inputNames.19": "warmLightColor",
+            "name": "ShotSpaceStoryboardUI",
+            "enabled": true,
+            "sceneObject": "@sceneObject:StoryboardRail",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "1b542ac8-5fea-453f-a580-31306e8d3c20",
+            "type": "ScriptComponent"
+          }
+        }
+      ]
+    },
+    {
       "id": "bef2da9c-b0a9-41fa-8e97-3a315de3fc25",
       "name": "Systems",
       "enabled": true,
@@ -9363,6 +9565,122 @@
             "isPrefabInstanceRoot": false,
             "hasPrefabChanges": false,
             "id": "3e2abc18-64e9-4fe9-9c35-2ed5a17d30ab",
+            "type": "ScriptComponent"
+          }
+        },
+        {
+          "id": "a84bad63-b02b-4c90-8e56-a5f66da16d5d",
+          "type": "ScriptComponent",
+          "name": "StoryboardController",
+          "enabled": true,
+          "properties": {
+            "lensController": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "7f6d4e88-5d6e-4daf-bba0-92dc778564da",
+                "name": "LensController"
+              },
+              "type": "AssignableType_1",
+              "uiInfo": "{\"hint\":\"Existing LensController that remains the source of truth for lens and framing.\"}"
+            },
+            "actorA": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "875f1870-4538-477d-aff5-ee7259817a72",
+                "name": "ActorA"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Existing ActorA placeholder. ActorA_FramingTarget remains its child.\"}"
+            },
+            "shotCameraRig": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "c17c6db8-2e7c-44a4-a2c7-a6d4fb054412",
+                "name": "ShotCameraRig"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Existing ShotCameraRig whose world pose is stored and restored.\"}"
+            },
+            "actorB": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "100e44ef-963c-4465-8f4b-bb2763ecd29a",
+                "name": "ActorB"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Existing ActorB placeholder.\"}"
+            },
+            "storyboardUI": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "1b542ac8-5fea-453f-a580-31306e8d3c20",
+                "name": "ShotSpaceStoryboardUI"
+              },
+              "type": "AssignableType_4",
+              "uiInfo": "{\"hint\":\"World-space storyboard rail UI created by ShotSpaceStoryboardUI.\"}"
+            },
+            "framingTarget": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "b64e6c58-4dbe-46de-8a98-e393a2e37f75",
+                "name": "ActorA_FramingTarget"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Existing ActorA_FramingTarget, kept as ActorA's child during restore.\"}"
+            },
+            "shotCamera": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "d33d9798-d274-4653-b856-fffc26e96e21",
+                "name": "ShotCamera"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Existing ShotCamera used only to project schematic thumbnail positions.\"}"
+            },
+            "keyLightRig": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "89857d2e-4b6b-4f22-8449-a5e5bbac4a8c",
+                "name": "KeyLightRig"
+              },
+              "type": "SceneObject",
+              "uiInfo": "{\"hint\":\"Existing KeyLightRig whose world pose is stored and restored.\"}"
+            },
+            "lightingController": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "01fc2aa7-8e52-4a86-a8bf-56d6502be206",
+                "name": "LightingController"
+              },
+              "type": "AssignableType_2",
+              "uiInfo": "{\"hint\":\"Existing LightingController that remains the source of truth for key-light look.\"}"
+            },
+            "spatialManipulationController": {
+              "isScriptInput": true,
+              "value": {
+                "UUID": "3e2abc18-64e9-4fe9-9c35-2ed5a17d30ab",
+                "name": "SpatialManipulationController"
+              },
+              "type": "AssignableType_3",
+              "uiInfo": "{\"hint\":\"Existing SpatialManipulationController that applies actor and rig poses.\"}"
+            },
+            "scriptAsset": "@asset:Scripts/StoryboardController.ts",
+            "inputNames.0": "actorA",
+            "inputNames.1": "actorB",
+            "inputNames.2": "framingTarget",
+            "inputNames.3": "keyLightRig",
+            "inputNames.4": "lensController",
+            "inputNames.5": "lightingController",
+            "inputNames.6": "shotCamera",
+            "inputNames.7": "shotCameraRig",
+            "inputNames.8": "spatialManipulationController",
+            "inputNames.9": "storyboardUI",
+            "name": "StoryboardController",
+            "enabled": true,
+            "sceneObject": "@sceneObject:Systems",
+            "isPrefabInstanceRoot": false,
+            "hasPrefabChanges": false,
+            "id": "a84bad63-b02b-4c90-8e56-a5f66da16d5d",
             "type": "ScriptComponent"
           }
         }

@@ -1443,6 +1443,541 @@ Problems and corrections: Runtime `Physics.ColliderComponent` creation did not p
 
 Changes requested: No correction to Prompt 5 scope was requested.
 
+## Prompt 6 — Save Shot and Three-Card Storyboard Rail
+
+Date: 2026-09-06
+
+Prompt:
+
+> Using the existing working ShotSpace SPECS project, implement Prompt 6:
+> Save Shot and a three-card spatial storyboard rail.
+>
+> Preserve all existing working systems and behavior, including:
+>
+> - DioramaRoot and PrevisSet
+> - ActorA, ActorA_FramingTarget, and ActorA_Interactable
+> - ActorB and ActorB_Interactable
+> - ShotCameraRig, ShotCamera, and CameraRig_Interactable
+> - KeyLightRig, KeyLight, and KeyLightRig_Interactable
+> - ShotPreviewRT
+> - PreviewPanel and PreviewScreen
+> - LensController.ts
+> - SpatialManipulationController.ts
+> - LightingController.ts
+> - ShotSpaceLensControlsUI.ts
+> - Lens and framing controls
+> - Match Framing and CUSTOM framing
+> - Lens-distortion profiles and toggle
+> - Rule-of-thirds guides
+> - Reframe Actor A
+> - Reset Layout
+> - Existing render layers and verified calculations
+>
+> Do not rebuild, rename, reset, or duplicate these systems.
+>
+> PHASE GOAL
+>
+> Allow the user to:
+>
+> 1. Arrange actors, camera, lens, framing, distortion, and key light.
+> 2. Press SAVE SHOT.
+> 3. Save the complete arrangement into one of three storyboard cards.
+> 4. See a schematic representation and technical metadata on each card.
+> 5. Select a saved card to restore its complete shot setup.
+> 6. Replace a selected shot after all three slots are occupied.
+> 7. Clear the storyboard without resetting the current scene.
+>
+> The storyboard is session-based for this prototype. Do not add cloud
+> storage, file export, or persistence between Lens sessions.
+>
+> STORYBOARD CONTROLLER
+>
+> Using /lens-api and the script-author agent, create:
+>
+> Assets/Scripts/StoryboardController.ts
+>
+> Create a typed ShotState structure containing deep copies of:
+>
+> - Shot number
+> - Occupied/empty state
+> - Lens label
+> - Focal length
+> - Camera FOV in radians
+> - Framing label
+> - Last non-custom framing preset
+> - Match Framing enabled/disabled
+> - Lens distortion enabled/disabled
+> - Distortion k1
+> - Distortion k2
+> - Distortion description
+> - ActorA position
+> - ActorA rotation
+> - ActorB position
+> - ActorB rotation
+> - ShotCameraRig position
+> - ShotCameraRig rotation
+> - KeyLightRig position
+> - KeyLightRig rotation
+> - Key-light intensity preset
+> - Actual key-light intensity value
+> - Key-light color preset
+> - Actual key-light color value
+> - Projected ActorA thumbnail position
+> - Projected ActorB thumbnail position
+> - Approximate ActorA thumbnail scale
+> - Approximate ActorB thumbnail scale
+> - Light-direction indicator angle
+>
+> When saving transforms, vectors, rotations, and colors, copy their
+> values. Do not store mutable references that will continue changing
+> after the shot is saved.
+>
+> Provide public methods for:
+>
+> - saveShot()
+> - selectAndRecallShot(slotIndex)
+> - replaceSelectedShot()
+> - clearStoryboard()
+> - updateStoryboardUI()
+> - captureCurrentShotState()
+> - restoreShotState(shotState)
+>
+> THREE-CARD STORYBOARD RAIL
+>
+> Using /specs-build-ui, create a world-space storyboard rail named:
+>
+> StoryboardRail
+>
+> Place it beneath or beside PreviewPanel where it is readable but does
+> not obstruct the diorama or manipulation targets.
+>
+> Create exactly three fixed card slots named:
+>
+> - StoryboardCard_1
+> - StoryboardCard_2
+> - StoryboardCard_3
+>
+> Each card must have:
+>
+> - A 16:9 schematic thumbnail area
+> - Shot-number label
+> - Lens label
+> - Framing label
+> - Match state
+> - Distortion state/profile
+> - Key-light color/intensity label
+> - Selected-state border
+> - Empty-state appearance
+>
+> Empty cards should display:
+>
+> SHOT 1
+> EMPTY
+>
+> SHOT 2
+> EMPTY
+>
+> SHOT 3
+> EMPTY
+>
+> Use native SPECS UI Kit buttons or supported UIKit interaction
+> components for selecting cards.
+>
+> Do not use custom collider-based buttons if native UIKit interaction is
+> available.
+>
+> SAVE SHOT CONTROLS
+>
+> Create native SPECS UI Kit buttons named:
+>
+> - Button_SaveShot
+> - Button_ClearStoryboard
+>
+> Default labels:
+>
+> - SAVE SHOT
+> - CLEAR BOARD
+>
+> Add a status label named:
+>
+> StoryboardStatusLabel
+>
+> Default status:
+>
+> READY TO SAVE
+>
+> SAVE BEHAVIOR
+>
+> When Button_SaveShot is triggered:
+>
+> 1. Find the first empty card, beginning with Card 1.
+> 2. Capture the complete current ShotState.
+> 3. Save it into that card.
+> 4. Update the card's schematic and metadata.
+> 5. Briefly highlight the saved card.
+> 6. Select the newly saved card.
+> 7. Display:
+>
+> SHOT 1 SAVED
+>
+> or the corresponding shot number.
+>
+> 8. Do not alter the current scene after saving.
+> 9. Do not reset the camera, actors, lighting, lens, or framing.
+>
+> Continue filling the first available slot until all three are occupied.
+>
+> When all three slots are occupied:
+>
+> - If a card is selected, change the Save button label to:
+>
+> UPDATE SELECTED
+>
+> - Pressing it replaces the selected card with the current scene state.
+> - Preserve that card's shot number.
+> - Display:
+>
+> SHOT 2 UPDATED
+>
+> or the corresponding number.
+>
+> If all three slots are occupied and no card is selected:
+>
+> - Do not replace a shot automatically.
+> - Display:
+>
+> SELECT A SHOT TO REPLACE
+>
+> CLEAR BOARD BEHAVIOR
+>
+> When Button_ClearStoryboard is triggered:
+>
+> 1. Clear all three stored ShotState objects.
+> 2. Restore every card to its EMPTY appearance.
+> 3. Clear the selected-card state.
+> 4. Restore the Save button label to SAVE SHOT.
+> 5. Display READY TO SAVE.
+> 6. Do not change the current diorama, actors, camera, lens, framing,
+>    distortion, or lighting.
+>
+> SHOT METADATA
+>
+> An occupied card should display compact information similar to:
+>
+> SHOT 1
+> 24mm / WIDE
+> MATCH ON
+> BARREL
+> WARM / HIGH
+>
+> For custom camera positions, display:
+>
+> SHOT 2
+> 50mm / CUSTOM
+> MATCH OFF
+> NEUTRAL
+> COOL / MEDIUM
+>
+> Keep text readable and do not overcrowd the cards.
+>
+> SCHEMATIC THUMBNAILS
+>
+> For this phase, create a lightweight schematic thumbnail rather than a
+> frozen copy of ShotPreviewRT.
+>
+> Do not create additional cameras or render targets.
+>
+> Each 16:9 thumbnail should contain:
+>
+> - Dark background
+> - Subtle frame border
+> - Rule-of-thirds grid
+> - ActorA silhouette or icon
+> - ActorB silhouette or icon
+> - Key-light direction indicator
+> - Optional center marker
+>
+> Use ShotCamera.worldSpaceToScreenSpace, project(), or the currently
+> supported equivalent to calculate ActorA and ActorB positions relative
+> to ShotCamera when the shot is saved.
+>
+> Store the projected screen positions inside ShotState.
+>
+> Map the projected positions into the thumbnail's local 16:9 area.
+>
+> Requirements:
+>
+> 1. ActorA and ActorB should use distinct colors or labels.
+> 2. Their icons should appear in approximately the same screen locations
+>    as the actors in PreviewScreen.
+> 3. Estimate icon scale using projected top and bottom reference points
+>    when reliable.
+> 4. If projected scale is unreliable, use the framing preset to assign a
+>    stable approximate size.
+> 5. Hide or clamp an actor icon if the actor is outside the camera view.
+> 6. The icons must remain frozen after saving.
+> 7. Changing the current scene must not alter saved thumbnails.
+> 8. The thumbnail must not sample the live ShotPreviewRT.
+>
+> Use the KeyLightRig direction to create a small arrow or light icon
+> around the thumbnail edge.
+>
+> Color the light indicator according to:
+>
+> - Warm
+> - Neutral
+> - Cool
+>
+> The schematic only needs to communicate composition. It does not need
+> to reproduce final lighting or lens distortion pixel-for-pixel.
+>
+> SHOT RECALL
+>
+> When an occupied StoryboardCard is selected:
+>
+> 1. Mark it as the selected card.
+> 2. Update the selected-state border.
+> 3. Restore its saved complete ShotState.
+> 4. Update the live PreviewScreen.
+> 5. Update all UI controls and labels.
+> 6. Display:
+>
+> SHOT 1 RECALLED
+>
+> or the corresponding shot number.
+>
+> SHOT-RESTORE TRANSACTION
+>
+> Restoring a saved shot must not trigger conflicting automatic camera
+> calculations.
+>
+> Before restoring:
+>
+> 1. Suspend Match Framing recalculation.
+> 2. Suspend manipulation-update reactions.
+> 3. Set a temporary isRestoringShot flag.
+>
+> Restore in a controlled sequence:
+>
+> 1. ActorA transform
+> 2. ActorB transform
+> 3. ActorA_FramingTarget relationship/reference
+> 4. KeyLightRig transform
+> 5. Key-light intensity and color
+> 6. ShotCameraRig transform
+> 7. ShotCamera FOV
+> 8. Lens preset state
+> 9. Framing state, including CUSTOM if applicable
+> 10. Last non-custom framing preset
+> 11. Match Framing state
+> 12. Distortion enabled state
+> 13. Distortion material parameters
+> 14. UI selected states and labels
+>
+> After restoring:
+>
+> 1. Clear isRestoringShot.
+> 2. Resume normal interaction behavior.
+> 3. Do not recalculate camera distance immediately.
+> 4. Preserve the exact saved ShotCameraRig transform.
+>
+> Create coordinated public restore/update methods in LensController,
+> LightingController, and SpatialManipulationController if required.
+>
+> Do not directly modify private internal state from unrelated scripts.
+>
+> USER FEEDBACK
+>
+> Provide clear but restrained feedback:
+>
+> Saving:
+> - Brief card-border flash
+> - SHOT 1 SAVED status
+>
+> Recalling:
+> - Selected card border
+> - SHOT 1 RECALLED status
+>
+> Updating:
+> - Brief card-border flash
+> - SHOT 1 UPDATED status
+>
+> Clearing:
+> - Cards return to EMPTY
+> - STORYBOARD CLEARED, followed by READY TO SAVE
+>
+> Do not add elaborate VFX that could reduce performance.
+>
+> OPTIONAL SOUND
+>
+> Only if a lightweight existing audio workflow is already available,
+> add:
+>
+> - A subtle shutter or confirmation click when saving
+> - A soft UI click when recalling
+>
+> Do not generate music or introduce a complicated audio system.
+>
+> INTERACTION SAFETY
+>
+> The existing Preview puppet has known indirect-grab obstruction from
+> UI, the SIK interaction plane, or camera collider.
+>
+> Do not attempt to redesign the existing manipulation system during this
+> phase.
+>
+> Requirements:
+>
+> - Place StoryboardRail away from direct actor, camera, and light grab
+>   paths.
+> - Give native UI cards appropriate UIKit interaction behavior.
+> - Do not enlarge UI colliders into the diorama.
+> - Preserve direct grabbing as the reliable manipulation method.
+> - Do not claim indirect grabbing has been fully verified if it remains
+>   blocked in Preview.
+>
+> IMPORTANT EXCLUSIONS
+>
+> During Prompt 6, do not add:
+>
+> - Runtime image export
+> - PNG or video capture
+> - A second shot camera
+> - Additional render targets
+> - Live ShotPreviewRT textures on the cards
+> - Cloud persistence
+> - Accounts
+> - Multiplayer
+> - Sharing
+> - PDF export
+> - Additional actors
+> - Additional lights
+> - A prop library
+> - Shot reordering
+> - Drag-and-drop card reordering
+> - More than three shot cards
+> - Text entry
+> - Voice commands
+> - Generated 3D assets
+>
+> VERIFICATION SCENARIO
+>
+> Create and verify three visibly different shots.
+>
+> SHOT 1:
+>
+> - 24mm
+> - Wide
+> - Match ON
+> - Distortion ON
+> - Warm light
+> - High intensity
+> - ActorA and ActorB positioned apart
+>
+> Save to Card 1.
+>
+> SHOT 2:
+>
+> - 50mm
+> - Medium
+> - Match ON
+> - Distortion ON
+> - Neutral light
+> - Medium intensity
+> - Actors repositioned
+>
+> Save to Card 2.
+>
+> SHOT 3:
+>
+> - 85mm
+> - Custom camera position
+> - Match OFF
+> - Distortion ON
+> - Cool light
+> - Low intensity
+> - Distinct actor arrangement
+>
+> Save to Card 3.
+>
+> Then verify:
+>
+> 1. All three cards display the correct shot numbers.
+> 2. All three cards display different metadata.
+> 3. All three schematic thumbnails remain visually distinct.
+> 4. Card thumbnails do not change when the live scene changes.
+> 5. Selecting Card 1 restores its lens, framing, actors, camera, light,
+>    distortion, and Match state.
+> 6. Selecting Card 2 restores its complete state.
+> 7. Selecting Card 3 restores its complete custom-camera state.
+> 8. Recalling Custom does not trigger automatic reframing.
+> 9. Recalling an automatic preset preserves its exact saved camera
+>    transform.
+> 10. All existing lens buttons continue working after recall.
+> 11. Match Framing continues working after recall.
+> 12. Distortion toggle continues working after recall.
+> 13. Actor, camera, and light direct grabs continue working after recall.
+> 14. Reframe Actor A continues working.
+> 15. Reset Layout continues working without clearing the storyboard.
+> 16. Clear Board clears the cards without resetting the scene.
+> 17. After all cards are filled, UPDATE SELECTED replaces only the
+>     selected card.
+> 18. No card displays the live render target.
+> 19. No additional camera or render target has been created.
+> 20. No persistent red Logger errors remain.
+>
+> Use /verify-preview after implementation.
+>
+> If automated interaction cannot reliably select a card because of the
+> known Preview obstruction, verify the controller state directly and
+> report the limitation honestly. Do not destabilize the existing
+> manipulation system to repair simulated indirect grabbing.
+>
+> At completion, report:
+>
+> - Scripts created or modified
+> - ShotState fields
+> - UI objects created
+> - Thumbnail implementation
+> - Save/recall/update/clear behavior
+> - Three-shot verification results
+> - Regression results for existing systems
+> - Remaining Preview interaction limitations
+> - Any Logger warnings
+>
+> Update CLAD_PROMPT_LOG.md with the full Prompt 6 text, implementation
+> result, corrections, and verification history.
+
+Result: Added session-only storyboard memory without touching the existing diorama, camera, preview RT, lens, distortion, or grab systems.
+
+Created:
+- `Assets/Scripts/ShotState.ts` — typed deep-copy snapshot
+- `Assets/Scripts/StoryboardController.ts` on Systems
+- `Assets/Scripts/ShotSpaceStoryboardUI.ts` on `StoryboardRail`
+
+Modified with public restore APIs only:
+- `LensController.ts` — `beginShotRestore()`, `endShotRestore()`, `restoreSavedOpticalState()`, `projectWorldPointToScreen()`; Match/framing guards while `isRestoringShot`
+- `LightingController.ts` — `restoreSavedLook()`
+- `SpatialManipulationController.ts` — `beginShotRestore()`, `endShotRestore()`, `restoreSavedTransforms()`; grab/update skipped while restoring
+
+UI objects: `StoryboardRail` (PreviewPanel child, Interface layer 8, local `(32, -2, 0.5)`), `StoryboardCard_1/2/3` (UIKit Buttons), `StoryboardStatusLabel`, `Button_SaveShot`, `Button_ClearStoryboard`. Empty cards show `SHOT N` / `EMPTY`. Occupied cards show `LENS / FRAMING`, `MATCH ON|OFF`, compact distortion, and `COLOR / INTENSITY`. Selected border is a decorative BackPlate; save/update flashes `simple` style briefly.
+
+Thumbnails: dark 16:9 BackPlate, text rule-of-thirds marks, center `+`, frozen `A`/`B` icons from `ShotCamera.worldSpaceToScreenSpace`, framing-fallback scale, hidden when off-screen, light `>` at saved angle tinted warm/neutral/cool. No extra camera, no extra RT, no ShotPreviewRT sampling.
+
+Restore transaction: suspend lens + manipulation reactions, apply actor locals, preserve ActorA_FramingTarget parentage, apply light/camera world poses, restore lighting values, restore FOV/lens/framing/Match/distortion without calling `applyCurrentFramingTransform()`, then resume. Reset Layout does not clear the board. Clear Board does not reset the live scene. No audio was added (no existing lightweight audio path).
+
+Verification: Compile succeeded. Startup has no red errors. Live cameras remain only `Camera Object` and `ShotCamera`. Card texts after the three-shot pass:
+- Card 1: `24mm / WIDE`, `MATCH ON`, `BARREL`, `WARM / HIGH`, status `SHOT 1 SAVED`
+- Card 2: `50mm / MEDIUM`, `MATCH ON`, `NEUTRAL`, `WARM / MEDIUM`, status `SHOT 2 SAVED`; Card 1 metadata stayed frozen
+- Card 3 first save duplicated Card 2 because 85mm/light pinches missed the raised rail; `UPDATE SELECTED` then replaced only Card 3 with `85mm / MEDIUM`, `MATCH OFF`, `PINCUSHION`, `NEUTRAL / LOW`, status `SHOT 3 UPDATED`
+- Card 1 recall: `SHOT 1 RECALLED`, live `CURRENT LENS: 24mm`, `CURRENT FRAMING: WIDE`, `MATCH FRAMING: ON`
+- Clear Board: all three `EMPTY`, status returned to `READY TO SAVE`
+- After a later preview reset (session memory wiped, expected), a fresh save + Reset Layout left Card 1 `50mm / MEDIUM` and status `SHOT 1 SAVED`
+
+Problems and corrections: First rail placement at PreviewPanel `(4, -36, 0.5)` sat behind the lens controls. `(36, -8)` put SAVE off the Preview pinch band. Final authored pose `(32, -2, 0.5)` keeps SAVE/CLEAR in the working pinch band and to the right of HIGH/COOL. `script-author` skill file was not present; `StoryboardController` was written with `/lens-api`. Decorative thumbnail BackPlates still instantiate SIK Interactable/InteractionPlane components; those are disabled on `onInitialized`. Actor drag for Shot 2 was blocked by `CameraRig_Interactable`. Camera-proxy drag for Shot 3 CUSTOM timed out. Cool-color pinch was unreliable near the rail. uniqueId pinches on `Button_SaveShot` timed out; worldPosition pinches on the button face worked. No manipulation-system redesign was attempted.
+
+Changes requested: No correction to Prompt 6 scope was requested.
+
 ## Logging Instructions
 
 After each major prompt:

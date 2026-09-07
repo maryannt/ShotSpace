@@ -135,6 +135,7 @@ export class SpatialManipulationController extends BaseScriptComponent {
   private readonly selectionListeners: SelectionChangedListener[] = []
   private currentSelection: ManipulationSelection = "NONE"
   private grabbedKind: ManipulableKind | null = null
+  private isRestoringShot: boolean = false
   private defaultActorA: StoredTransform | null = null
   private defaultActorB: StoredTransform | null = null
   private defaultCameraRig: StoredTransform | null = null
@@ -193,6 +194,43 @@ export class SpatialManipulationController extends BaseScriptComponent {
     this.lensController.reframeActorA()
   }
 
+  /**
+   * Suspend grab reactions while StoryboardController restores a saved shot.
+   */
+  public beginShotRestore(): void {
+    this.isRestoringShot = true
+    this.releaseCurrentGrabVisuals()
+    this.grabbedKind = null
+    this.setSelection("NONE")
+  }
+
+  /**
+   * Resume normal manipulation after a restore transaction.
+   */
+  public endShotRestore(): void {
+    this.isRestoringShot = false
+  }
+
+  /**
+   * Apply copied actor (local) and rig (world) poses without changing scale.
+   * Does not touch lens, framing, or lighting state.
+   */
+  public restoreSavedTransforms(
+    actorAPosition: vec3,
+    actorARotation: quat,
+    actorBPosition: vec3,
+    actorBRotation: quat,
+    shotCameraRigPosition: vec3,
+    shotCameraRigRotation: quat,
+    keyLightRigPosition: vec3,
+    keyLightRigRotation: quat
+  ): void {
+    this.applyPoseLocal(this.actorA, actorAPosition, actorARotation)
+    this.applyPoseLocal(this.actorB, actorBPosition, actorBRotation)
+    this.applyPoseWorld(this.shotCameraRig, shotCameraRigPosition, shotCameraRigRotation)
+    this.applyPoseWorld(this.keyLightRig, keyLightRigPosition, keyLightRigRotation)
+  }
+
   public resetLayout(): void {
     this.releaseCurrentGrabVisuals()
     this.grabbedKind = null
@@ -221,7 +259,7 @@ export class SpatialManipulationController extends BaseScriptComponent {
   }
 
   private onUpdate(): void {
-    if (this.grabbedKind === null) {
+    if (this.isRestoringShot || this.grabbedKind === null) {
       return
     }
 
@@ -410,6 +448,9 @@ export class SpatialManipulationController extends BaseScriptComponent {
   }
 
   private onManipulationStart(handle: ManipulableHandle): void {
+    if (this.isRestoringShot) {
+      return
+    }
     this.grabbedKind = handle.kind
     this.setSelection(handle.selection)
     this.applyFeedback(handle, "grab")
@@ -420,6 +461,9 @@ export class SpatialManipulationController extends BaseScriptComponent {
   }
 
   private onManipulationEnd(handle: ManipulableHandle): void {
+    if (this.isRestoringShot) {
+      return
+    }
     this.applyReleaseConstraints(handle)
     this.applyFeedback(handle, "idle")
     if (this.grabbedKind === handle.kind) {
@@ -640,6 +684,24 @@ export class SpatialManipulationController extends BaseScriptComponent {
       rotation: transform.getWorldRotation(),
       scale: transform.getLocalScale(),
     }
+  }
+
+  private applyPoseLocal(object: SceneObject, position: vec3, rotation: quat): void {
+    if (!object || isNull(object)) {
+      return
+    }
+    const transform = object.getTransform()
+    transform.setLocalPosition(new vec3(position.x, position.y, position.z))
+    transform.setLocalRotation(new quat(rotation.w, rotation.x, rotation.y, rotation.z))
+  }
+
+  private applyPoseWorld(object: SceneObject, position: vec3, rotation: quat): void {
+    if (!object || isNull(object)) {
+      return
+    }
+    const transform = object.getTransform()
+    transform.setWorldPosition(new vec3(position.x, position.y, position.z))
+    transform.setWorldRotation(new quat(rotation.w, rotation.x, rotation.y, rotation.z))
   }
 
   private applyStoredLocal(object: SceneObject, stored: StoredTransform): void {
